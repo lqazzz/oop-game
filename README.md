@@ -1,2 +1,3 @@
-# oop-game
-# oop-game
+# Arkanoid game
+# INT2204_1
+# 24020073 24020010 24020181
