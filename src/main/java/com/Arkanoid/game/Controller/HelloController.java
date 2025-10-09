@@ -1,4 +1,4 @@
-package org.example.oopgamefull;
+package com.Arkanoid.game.Controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

@@ -1,4 +1,4 @@
-package org.example.oopgamefull;
+package com.Arkanoid.game;
 
 import javafx.application.Application;
 
