@@ -1,23 +1,30 @@
 package com.Arkanoid.game.Controller;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.layout.*;
-import java.net.URL;
-import java.util.ResourceBundle;
-import com.Arkanoid.game.Utils.ButtonEffect;
-public class SceneController implements Initializable {
 
-    @FXML
-    private AnchorPane rootPane;
-    @FXML private Button settingsButton;
-    @FXML private Button pvpButton;
-    @FXML private Button scoresButton;
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        SoundController.playMusic("background.mp3", true);
-        ButtonEffect.applyCuteIdle(settingsButton);
-        ButtonEffect.applyCuteIdle(pvpButton);
-        ButtonEffect.applyCuteIdle(scoresButton);
+import com.Arkanoid.game.Utils.GlobalState;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
+public class SceneController {
+
+    public void switchToSetting(ActionEvent event) throws IOException {
+        loadScene(event, "/fxml/setting.fxml");
+    }
+
+    public void switchToMainPage(ActionEvent event) throws IOException {
+        loadScene(event, "/fxml/main-page.fxml");
+    }
+    public void switchToModeGame(ActionEvent event) throws IOException {
+        loadScene(event, "/fxml/choose-mode-game-play.fxml");
+    }
+    public void loadScene(ActionEvent event, String path) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+        GlobalState.setRoot(loader.load());
+        GlobalState.setStage((Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow());
+        GlobalState.setScene(GlobalState.getRoot());
+        GlobalState.getStage().setScene(GlobalState.getScene());
+        GlobalState.getStage().show();
     }
 }
