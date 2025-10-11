@@ -20,4 +20,12 @@ public class MainPageController extends SceneController {
     public void switchToModeGame(ActionEvent event) throws IOException {
         super.switchToModeGame(event);
     }
+    @FXML
+    public void switchToGuide(ActionEvent event) throws IOException {
+        super.switchToGuide(event);
+    }
+    @FXML
+    public void switchToShop(ActionEvent event) throws IOException {
+        super.switchToShop(event);
+    }
 }

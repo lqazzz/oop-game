@@ -12,6 +12,42 @@ public class GlobalState {
     private static boolean musicMuted = false;
     private static boolean soundMuted = false;
     private static double lastMusicTime = 0;
+    private static boolean[] isBallBought = {true, false, false, false, false, false};
+    private static int currentBall = 0;
+    private static boolean[] isPadBought = {true, false, false, false, false, false};
+    private static int currentPad = 0;
+
+    public static boolean getIsBallBought(int index) {
+        return isBallBought[index];
+    }
+
+    public static void setIsBallBought(int index) {
+        GlobalState.isBallBought[index] = true;
+    }
+
+    public static int getCurrentBall() {
+        return currentBall;
+    }
+
+    public static void setCurrentBall(int currentBall) {
+        GlobalState.currentBall = currentBall;
+    }
+
+    public static boolean getIsPadBought(int index) {
+        return isPadBought[index];
+    }
+
+    public static void setIsPadBought(int index) {
+        GlobalState.isPadBought[index] = true;
+    }
+
+    public static int getCurrentPad() {
+        return currentPad;
+    }
+
+    public static void setCurrentPad(int currentPad) {
+        GlobalState.currentPad = currentPad;
+    }
 
     public static boolean isMusicMuted() {
         return musicMuted;

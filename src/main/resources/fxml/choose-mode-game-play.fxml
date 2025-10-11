@@ -12,7 +12,7 @@
             <Image url="@../images/Background/main.png" />
          </image>
       </ImageView>
-      <Button fx:id="settingsButton" contentDisplay="GRAPHIC_ONLY" layoutX="507.0" layoutY="336.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="120.0" text="Button" textOverrun="CLIP">
+      <Button fx:id="settingsButton" contentDisplay="GRAPHIC_ONLY" layoutX="539.0" layoutY="323.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="120.0" text="Level" textOverrun="CLIP">
          <graphic>
             <ImageView fitHeight="72.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -26,7 +26,7 @@
             <Image url="@../images/Background/gameName.png" />
          </image>
       </ImageView>
-      <Button fx:id="backButton" layoutX="43.0" layoutY="14.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="101.0" text="Button">
+      <Button fx:id="backButton" contentDisplay="GRAPHIC_ONLY" layoutX="35.0" layoutY="42.0" mnemonicParsing="false" onAction="#switchToMainPage" prefHeight="63.0" prefWidth="101.0" text="Back">
          <graphic>
             <ImageView fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -35,7 +35,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="pvpButton" contentDisplay="GRAPHIC_ONLY" layoutX="508.0" layoutY="431.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="120.0" text="Button" textOverrun="CLIP">
+      <Button fx:id="pvpButton" contentDisplay="GRAPHIC_ONLY" layoutX="533.0" layoutY="421.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="120.0" text="PvP" textOverrun="CLIP">
          <graphic>
             <ImageView fitHeight="72.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -44,7 +44,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="scoresButton" contentDisplay="GRAPHIC_ONLY" layoutX="508.0" layoutY="518.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="120.0" text="Button" textOverrun="CLIP">
+      <Button fx:id="scoresButton" contentDisplay="GRAPHIC_ONLY" layoutX="533.0" layoutY="517.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="120.0" text="Scores" textOverrun="CLIP">
          <graphic>
             <ImageView fitHeight="72.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -53,17 +53,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <ImageView fitHeight="173.0" fitWidth="183.0" layoutX="207.0" layoutY="579.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/Background/Sticker%20by%20Candy%20Crush%20(3).gif" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="140.0" fitWidth="173.0" layoutX="953.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/Background/Sticker%20by%20Candy%20Crush.gif" />
-         </image>
-      </ImageView>
-      <Button fx:id="backButton1" layoutX="129.0" layoutY="14.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="101.0" text="Button">
+      <Button fx:id="backButton1" contentDisplay="GRAPHIC_ONLY" layoutX="116.0" layoutY="42.0" mnemonicParsing="false" onAction="#switchToMainPage" prefHeight="63.0" prefWidth="101.0" text="Home">
          <graphic>
             <ImageView fx:id="homeButton" fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -72,10 +62,5 @@
             </ImageView>
          </graphic>
       </Button>
-      <ImageView fitHeight="275.0" fitWidth="268.0" layoutX="344.0" layoutY="-21.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/Background/ABC.gif" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>
