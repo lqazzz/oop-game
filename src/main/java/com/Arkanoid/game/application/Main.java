@@ -17,7 +17,7 @@ public class Main extends Application {
         launch(args);
     }
     public void start(Stage primaryStage) throws Exception {
-        SoundController.playMusic("background.mp3", true);
+        //SoundController.playMusic("background.mp3", true);
         GlobalState.setRoot(FXMLLoader.load(getClass().getResource("/fxml/main-page.fxml")));
         GlobalState.setScene(GlobalState.getRoot());
         primaryStage.setTitle("My JavaFX App");
