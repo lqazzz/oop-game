@@ -12,7 +12,7 @@
             <Image url="@../images/Background/main.png" />
          </image>
       </ImageView>
-      <Button fx:id="settingsButton" contentDisplay="GRAPHIC_ONLY" layoutX="507.0" layoutY="336.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="120.0" text="Button" textOverrun="CLIP">
+      <Button fx:id="settingsButton" contentDisplay="GRAPHIC_ONLY" layoutX="507.0" layoutY="336.0" mnemonicParsing="false" onAction="#switchToLevel" prefHeight="87.0" prefWidth="120.0" text="Button" textOverrun="CLIP">
          <graphic>
             <ImageView fitHeight="72.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -26,7 +26,7 @@
             <Image url="@../images/Background/gameName.png" />
          </image>
       </ImageView>
-      <Button fx:id="backButton" layoutX="43.0" layoutY="14.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="101.0" text="Button">
+      <Button fx:id="backButton" onAction="#switchToPreviousPage" layoutX="35.0" layoutY="42.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="101.0" text="Button">
          <graphic>
             <ImageView fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -53,17 +53,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <ImageView fitHeight="173.0" fitWidth="183.0" layoutX="207.0" layoutY="579.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/Background/Sticker%20by%20Candy%20Crush%20(3).gif" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="140.0" fitWidth="173.0" layoutX="953.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/Background/Sticker%20by%20Candy%20Crush.gif" />
-         </image>
-      </ImageView>
-      <Button fx:id="backButton1" layoutX="129.0" layoutY="14.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="101.0" text="Button">
+      <Button fx:id="backButton1" onAction="#switchToHome" layoutX="116.0" layoutY="42.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="101.0" text="Button">
          <graphic>
             <ImageView fx:id="homeButton" fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -72,10 +62,5 @@
             </ImageView>
          </graphic>
       </Button>
-      <ImageView fitHeight="275.0" fitWidth="268.0" layoutX="344.0" layoutY="-21.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/Background/ABC.gif" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

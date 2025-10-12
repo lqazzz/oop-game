@@ -6,10 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import com.Arkanoid.game.Model.Scene;
 import java.io.IOException;
 
-public class SettingController extends SceneController {
+public class SettingController extends Scene {
     @FXML
     private ImageView musicBtn;
     @FXML

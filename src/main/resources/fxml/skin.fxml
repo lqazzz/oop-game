@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="900.0" minWidth="1200.0" prefHeight="900.0" prefWidth="1200.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Arkanoid.game.Controller.ShopController">
+    <children>
+        <ImageView fitHeight="900.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/Background/main.png" />
+            </image>
+        </ImageView>
+        <Text layoutX="510.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shop">
+            <font>
+                <Font size="75.0" />
+            </font>
+        </Text>
+        <Text layoutX="169.0" layoutY="405.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balls">
+            <font>
+                <Font size="40.0" />
+            </font>
+        </Text>
+        <Text layoutX="168.0" layoutY="617.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pads">
+            <font>
+                <Font size="40.0" />
+            </font>
+        </Text>
+        <Button fx:id="defaultBall" contentDisplay="GRAPHIC_ONLY" layoutX="317.0" layoutY="348.0" mnemonicParsing="false" onAction="#getCurrentBall" text="BallDefault">
+            <graphic>
+                <ImageView fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Ball/default.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="basketball" contentDisplay="GRAPHIC_ONLY" disable="true" layoutX="445.0" layoutY="348.0" mnemonicParsing="false" onAction="#getCurrentBall" text="Basketball">
+            <graphic>
+                <ImageView fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Ball/basketball.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="football" contentDisplay="GRAPHIC_ONLY" disable="true" layoutX="568.0" layoutY="349.0" mnemonicParsing="false" onAction="#getCurrentBall" text="Football">
+            <graphic>
+                <ImageView fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Ball/football.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="planet" contentDisplay="GRAPHIC_ONLY" disable="true" layoutX="697.0" layoutY="350.0" mnemonicParsing="false" onAction="#getCurrentBall" text="Planet">
+            <graphic>
+                <ImageView fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Ball/planet.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="vietnam" contentDisplay="GRAPHIC_ONLY" disable="true" layoutX="822.0" layoutY="350.0" mnemonicParsing="false" onAction="#getCurrentBall" text="Vietnam">
+            <graphic>
+                <ImageView fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Ball/vietnam.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="tire" contentDisplay="GRAPHIC_ONLY" disable="true" layoutX="949.0" layoutY="351.0" mnemonicParsing="false" onAction="#getCurrentBall" text="Tire">
+            <graphic>
+                <ImageView fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Ball/tire.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button contentDisplay="GRAPHIC_ONLY" layoutX="35.0" layoutY="42.0" mnemonicParsing="false" onAction="#switchToMainPage" text="Back">
+            <graphic>
+                <ImageView fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Icon/back.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button contentDisplay="GRAPHIC_ONLY" layoutX="116.0" layoutY="42.0" mnemonicParsing="false" onAction="#switchToMainPage" text="Home">
+            <graphic>
+                <ImageView fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Icon/home.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <ImageView fx:id="defaultBallSelect" fitHeight="62.0" fitWidth="63.0" layoutX="327.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/Other/Yes.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="basketballSelect" fitHeight="62.0" fitWidth="63.0" layoutX="455.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="footballSelect" fitHeight="62.0" fitWidth="63.0" layoutX="578.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="planetSelect" fitHeight="62.0" fitWidth="63.0" layoutX="706.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="vietnamSelect" fitHeight="62.0" fitWidth="63.0" layoutX="832.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="tireSelect" fitHeight="62.0" fitWidth="63.0" layoutX="959.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true" />
+        <Button fx:id="buyBasketball" contentDisplay="GRAPHIC_ONLY" layoutX="445.0" layoutY="350.0" mnemonicParsing="false" onAction="#buyBall" text="buyBasketball">
+            <graphic>
+                <ImageView fitHeight="68.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Other/No.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="buyFootball" contentDisplay="GRAPHIC_ONLY" layoutX="566.0" layoutY="350.0" mnemonicParsing="false" onAction="#buyBall" text="buyFootball">
+            <graphic>
+                <ImageView fitHeight="68.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Other/No.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="buyPlanet" contentDisplay="GRAPHIC_ONLY" layoutX="694.0" layoutY="350.0" mnemonicParsing="false" onAction="#buyBall" text="buyPlanet">
+            <graphic>
+                <ImageView fitHeight="68.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Other/No.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="buyVietnam" contentDisplay="GRAPHIC_ONLY" layoutX="820.0" layoutY="350.0" mnemonicParsing="false" onAction="#buyBall" text="buyVietnam">
+            <graphic>
+                <ImageView fitHeight="68.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Other/No.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="buyTire" contentDisplay="GRAPHIC_ONLY" layoutX="947.0" layoutY="350.0" mnemonicParsing="false" onAction="#buyBall" text="buyTire">
+            <graphic>
+                <ImageView fitHeight="68.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Other/No.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="defaultPad" contentDisplay="GRAPHIC_ONLY" layoutX="310.0" layoutY="590.0" mnemonicParsing="false" onAction="#getCurrentPad" prefWidth="95.0" text="padDefault">
+            <graphic>
+                <ImageView fitHeight="21.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Paddle/red.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="greenPad" contentDisplay="GRAPHIC_ONLY" disable="true" layoutX="438.0" layoutY="590.0" mnemonicParsing="false" onAction="#getCurrentPad" prefWidth="95.0" text="padGreen">
+            <graphic>
+                <ImageView fitHeight="21.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Paddle/green.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="pinkPad" contentDisplay="GRAPHIC_ONLY" disable="true" layoutX="562.0" layoutY="590.0" mnemonicParsing="false" onAction="#getCurrentPad" prefWidth="95.0" text="padPink">
+            <graphic>
+                <ImageView fitHeight="21.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Paddle/pink.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="tealPad" contentDisplay="GRAPHIC_ONLY" disable="true" layoutX="689.0" layoutY="590.0" mnemonicParsing="false" onAction="#getCurrentPad" prefWidth="95.0" text="padTeal">
+            <graphic>
+                <ImageView fitHeight="21.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Paddle/teal.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="lavenderPad" contentDisplay="GRAPHIC_ONLY" disable="true" layoutX="815.0" layoutY="589.0" mnemonicParsing="false" onAction="#getCurrentPad" prefWidth="95.0" text="padLavender">
+            <graphic>
+                <ImageView fitHeight="21.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Paddle/lavender.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="grayPad" contentDisplay="GRAPHIC_ONLY" disable="true" layoutX="942.0" layoutY="590.0" mnemonicParsing="false" onAction="#getCurrentPad" prefWidth="95.0" text="padGray">
+            <graphic>
+                <ImageView fitHeight="21.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Paddle/gray.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <ImageView fx:id="defaultPadSelect" fitHeight="62.0" fitWidth="63.0" layoutX="326.0" layoutY="502.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/Other/Yes.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="greenPadSelect" fitHeight="62.0" fitWidth="63.0" layoutX="454.0" layoutY="502.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="pinkPadSelect" fitHeight="62.0" fitWidth="63.0" layoutX="578.0" layoutY="502.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="tealPadSelect" fitHeight="62.0" fitWidth="63.0" layoutX="705.0" layoutY="502.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="lavenderPadSelect" fitHeight="62.0" fitWidth="63.0" layoutX="831.0" layoutY="502.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="grayPadSelect" fitHeight="62.0" fitWidth="63.0" layoutX="959.0" layoutY="502.0" pickOnBounds="true" preserveRatio="true" />
+        <Button fx:id="buyGreenPad" contentDisplay="GRAPHIC_ONLY" layoutX="442.0" layoutY="565.0" mnemonicParsing="false" onAction="#buyPad" text="buyGreenPad">
+            <graphic>
+                <ImageView fitHeight="68.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Other/No.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="buyPinkPad" contentDisplay="GRAPHIC_ONLY" layoutX="566.0" layoutY="565.0" mnemonicParsing="false" onAction="#buyPad" text="buyPinkPad">
+            <graphic>
+                <ImageView fitHeight="68.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Other/No.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="buyTealPad" contentDisplay="GRAPHIC_ONLY" layoutX="693.0" layoutY="565.0" mnemonicParsing="false" onAction="#buyPad" text="buyTealPad">
+            <graphic>
+                <ImageView fitHeight="68.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Other/No.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="buyLavenderPad" contentDisplay="GRAPHIC_ONLY" layoutX="819.0" layoutY="565.0" mnemonicParsing="false" onAction="#buyPad" text="buyLavenderPad">
+            <graphic>
+                <ImageView fitHeight="68.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Other/No.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="buyGrayPad" contentDisplay="GRAPHIC_ONLY" layoutX="947.0" layoutY="565.0" mnemonicParsing="false" onAction="#buyPad" text="buyGrayPad">
+            <graphic>
+                <ImageView fitHeight="68.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Other/No.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </children>
+</AnchorPane>
