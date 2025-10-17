@@ -3,6 +3,7 @@ package com.Arkanoid.game.Model;
 import com.Arkanoid.game.Utils.GlobalState;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -38,4 +39,10 @@ public class Scene {
         GlobalState.setScene(GlobalState.getRoot());
         GlobalState.getStage().setScene(GlobalState.getScene());
     }
+//    public void loadNewScene(ActionEvent event){
+//        GameState stata = new GameState();
+//        GlobalState.setRoot(GlobalState.gameRoot);
+//        GlobalState.setScene(GlobalState.getRoot());
+//        GlobalState.getStage().setScene(GlobalState.getScene());
+//    }
 }

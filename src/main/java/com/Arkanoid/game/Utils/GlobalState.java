@@ -1,5 +1,6 @@
 package com.Arkanoid.game.Utils;
 
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -8,7 +9,7 @@ public class GlobalState {
     private static Stage stage;
     private static Parent root;
     private static Scene scene;
-
+    public static Group gameRoot = new Group();
     private static boolean musicMuted = false;
     private static boolean soundMuted = false;
     private static double lastMusicTime = 0;
