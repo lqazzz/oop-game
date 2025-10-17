@@ -1,5 +1,6 @@
 package com.Arkanoid.game.Controller;
 
+import com.Arkanoid.game.Model.Scene;
 import com.Arkanoid.game.Utils.GlobalState;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +11,7 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.util.Map;
 
-public class ShopController extends SceneController{
+public class ShopController extends Scene {
     //For balls
     @FXML ImageView defaultBallSelect;
     @FXML ImageView basketballSelect;
@@ -29,12 +30,12 @@ public class ShopController extends SceneController{
     @FXML Button vietnam;
     @FXML Button tire;
     private final Map<String, Integer> ballMap = Map.of("defaultBall",0,
-                                                        "basketball", 1,
-                                                        "football", 2,
-                                                        "planet", 3,
-                                                        "vietnam", 4,
-                                                        "tire", 5
-                                                        );
+            "basketball", 1,
+            "football", 2,
+            "planet", 3,
+            "vietnam", 4,
+            "tire", 5
+    );
     //For pads
     @FXML ImageView defaultPadSelect;
     @FXML ImageView greenPadSelect;
@@ -52,13 +53,13 @@ public class ShopController extends SceneController{
     @FXML Button tealPad;
     @FXML Button lavenderPad;
     @FXML Button grayPad;
-private final Map<String, Integer> padMap = Map.of("defaultpad",0,
-                                                    "greenpad", 1,
-                                                    "pinkpad", 2,
-                                                    "tealpad", 3,
-                                                    "lavenderpad", 4,
-                                                    "graypad", 5
-                                                    );
+    private final Map<String, Integer> padMap = Map.of("defaultpad",0,
+            "greenpad", 1,
+            "pinkpad", 2,
+            "tealpad", 3,
+            "lavenderpad", 4,
+            "graypad", 5
+    );
     private final Image selectImage = new Image(getClass().getResource("/images/Other/Yes.png").toExternalForm());
     @FXML
     public void initialize() {

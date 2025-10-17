@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1200.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="900.0" prefWidth="1200.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Arkanoid.game.Controller.SelectLevelController">
    <children>
       <ImageView fitHeight="900.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -17,11 +17,128 @@
             <Image url="@../images/Background/levelPage.png" />
          </image>
       </ImageView>
-      <Button layoutX="185.0" layoutY="217.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="76.0" text="Button">
+      <Button fx:id="Level1" onAction="#selectedLevel" layoutX="167.0" layoutY="199.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="89.0" text="Button">
          <graphic>
-            <ImageView fitHeight="98.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/Number/Number/1.png" />
+                  <Image url="@../images/Number/Type3/1.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="backButton1"  onAction="#switchToHome" layoutX="116.0" layoutY="42.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="101.0" text="Button">
+         <graphic>
+            <ImageView fx:id="homeButton" fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Icon/home.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="backButton"  onAction="#switchToPrevious" layoutX="35.0" layoutY="42.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="101.0" text="Button">
+         <graphic>
+            <ImageView fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Icon/back.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="Level2"  onAction="#selectedLevel" layoutX="413.0" layoutY="199.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="89.0" text="Button">
+         <graphic>
+            <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Number/Type3/2.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="Level3"  onAction="#selectedLevel" layoutX="665.0" layoutY="199.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="89.0" text="Button">
+         <graphic>
+            <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Number/Type3/3.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="Level4"  onAction="#selectedLevel" layoutX="905.0" layoutY="199.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="89.0" text="Button">
+         <graphic>
+            <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Number/Type3/4.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="Level5"  onAction="#selectedLevel" layoutX="913.0" layoutY="413.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="89.0" text="Button">
+         <graphic>
+            <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Number/Type3/5.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="Level6"  onAction="#selectedLevel" layoutX="665.0" layoutY="419.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="89.0" text="Button">
+         <graphic>
+            <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Number/Type3/6.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="Level7"  onAction="#selectedLevel" layoutX="413.0" layoutY="413.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="89.0" text="Button">
+         <graphic>
+            <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Number/Type3/7.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="Level8"  onAction="#selectedLevel" layoutX="167.0" layoutY="419.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="89.0" text="Button">
+         <graphic>
+            <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Number/Type3/8.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="Level12"  onAction="#selectedLevel" layoutX="905.0" layoutY="630.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="89.0" text="Button">
+         <graphic>
+            <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Number/Type3/12.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="Level11"  onAction="#selectedLevel" layoutX="657.0" layoutY="636.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="89.0" text="Button">
+         <graphic>
+            <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Number/Type3/11.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="Level10"  onAction="#selectedLevel" layoutX="413.0" layoutY="636.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="89.0" text="Button">
+         <graphic>
+            <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Number/Type3/10.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="Level9"  onAction="#selectedLevel" layoutX="167.0" layoutY="630.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="89.0" text="Button">
+         <graphic>
+            <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Number/Type3/9.png" />
                </image>
             </ImageView>
          </graphic>

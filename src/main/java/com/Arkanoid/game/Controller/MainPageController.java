@@ -5,8 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
-
-public class MainPageController extends SceneController {
+import com.Arkanoid.game.Model.Scene;
+public class MainPageController extends Scene {
     @FXML
     public void quitGame(ActionEvent event) {
         Platform.exit();
@@ -21,11 +21,10 @@ public class MainPageController extends SceneController {
         super.switchToModeGame(event);
     }
     @FXML
-    public void switchToGuide(ActionEvent event) throws IOException {
-        super.switchToGuide(event);
-    }
-    @FXML
     public void switchToShop(ActionEvent event) throws IOException {
         super.switchToShop(event);
+    }
+    public void switchToGuide(ActionEvent event) throws IOException {
+        super.switchToGuide(event);
     }
 }
