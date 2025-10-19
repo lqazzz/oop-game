@@ -1,9 +1,12 @@
 package com.Arkanoid.game.Model;
 import com.Arkanoid.game.Utils.GameConfig;
+import com.Arkanoid.game.Utils.GlobalState;
+import com.Arkanoid.game.Utils.RippleEffect;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -12,6 +15,7 @@ public class Ball extends MovableObject {
     protected double angle = 45;
     protected double dx;
     protected double dy;
+    protected boolean isMoved;
     protected String typeBall;
     protected Image img = new Image(getClass().getResourceAsStream("/images/Ball/planet.png"));
     protected ImageView view = new ImageView(img);
@@ -25,18 +29,29 @@ public class Ball extends MovableObject {
         ballGroup.setLayoutY(GameConfig.DEFAULT_BALL_LAYOUT_Y);
         dx = GameConfig.DEFAULT_SPEED;//left to right
         dy = GameConfig.DEFAULT_SPEED;//left to right
+//        isMoved = false;
         System.out.println(GameConfig.DEFAULT_BALL_WIDTH + " " + GameConfig.DEFAULT_BALL_HEIGHT);
     }
-    @Override
-    public void update() {
-//        System.out.println(ballGroup.getBoundsInParent());
+
+    public void update(GameState state) {
         if(isHitWindowVertical()) {
             setAngleVertical(true);
         }
         if(isHitWindowHorizontal()){
             setAngleHorizontal(true);
         }
-        move();
+
+        if(GlobalState.isBallMoved()) {
+            move();
+        } else {
+            GlobalState.getScene().setOnMouseClicked(e -> {
+                GlobalState.setBallMoved(true);
+            });
+            moveWithPad(state);
+        }
+        if(ballGroup.getLayoutY() > 850) {
+            resetBall(state);
+        }
     }
 
     @Override
@@ -45,7 +60,6 @@ public class Ball extends MovableObject {
         gc.setStroke(Color.RED);
         gc.setLineWidth(1);
         gc.strokeOval(getX(), getY(), getWidth(), getHeight());  // same as circle
-
     }
 
     public void move() {
@@ -72,12 +86,14 @@ public class Ball extends MovableObject {
         if(ballGroup.getLayoutX() > 0 && ballGroup.getLayoutX() < GameConfig.DEFAULT_SCREEN_WIDTH - getWidth()) {
             return false;
         }
+        RippleEffect.wave((Pane) GlobalState.getRoot(), ballGroup.getLayoutX() , ballGroup.getLayoutY());
         return true;
     }
     public boolean isHitWindowVertical() {
         if(ballGroup.getLayoutY() > 0 && (ballGroup.getLayoutY() < GameConfig.DEFAULT_SCREEN_HEIGHT - getHeight())) {
             return false;
         }
+        RippleEffect.wave((Pane) GlobalState.getRoot(), ballGroup.getLayoutX() , ballGroup.getLayoutY());
         return true;
     }
 
@@ -91,5 +107,17 @@ public class Ball extends MovableObject {
 
     public double getVelocityY() {
         return dy;
+    }
+
+    public void resetBall(GameState state) {
+        ballGroup.setLayoutX(state.getPaddle().getPaddleGroup().getLayoutX() + GameConfig.DEFAULT_PADDLE_WIDTH / 2.0 - GameConfig.DEFAULT_BALL_WIDTH / 2.0);
+        ballGroup.setLayoutY(GameConfig.DEFAULT_BALL_LAYOUT_Y);
+        GlobalState.setBallMoved(false);
+        angle = 45;
+    }
+
+    public void moveWithPad(GameState state) {
+        ballGroup.setLayoutX(state.getPaddle().getPaddleGroup().getLayoutX()
+                + GameConfig.DEFAULT_PADDLE_WIDTH / 2.0 - GameConfig.DEFAULT_BALL_WIDTH / 2.0);
     }
 }

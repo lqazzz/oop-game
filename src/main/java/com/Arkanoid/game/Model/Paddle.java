@@ -1,4 +1,5 @@
 package com.Arkanoid.game.Model;
+import com.Arkanoid.game.Utils.GlobalState;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
@@ -88,11 +89,11 @@ public class Paddle extends MovableObject{
     }
 
     public void moveWithMouse(double x) {
-        paddleGroup.setLayoutX(x - GameConfig.DEFAULT_PADDLE_WIDTH / 2.0);
+        if(GlobalState.isGamePaused() == false) paddleGroup.setLayoutX(x - GameConfig.DEFAULT_PADDLE_WIDTH / 2.0);
     }
 
     public void moveWithKeys(int angle) {
-        setLayoutX(paddleGroup.getLayoutX() + GameConfig.DEFAULT_SPEED * Math.cos(Math.toRadians(angle)));
+        if(GlobalState.isGamePaused() == false) setLayoutX(paddleGroup.getLayoutX() + GameConfig.DEFAULT_SPEED * Math.cos(Math.toRadians(angle)));
     }
 
     public boolean updatePaddle(GameState state) {
