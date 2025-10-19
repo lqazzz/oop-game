@@ -10,12 +10,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Bricks extends GameObject {
+    protected int hitPoint;
     protected String typeBrick;
     protected Image img;
     protected ImageView view;
     protected Group brickGroup = new Group();
-    public Bricks(int x, int y, int width, int height, String typeBrick ) {
+    public Bricks(int x, int y, int hitPoint,  int width, int height, String typeBrick ) {
         super(x , y , width , height);
+        this.hitPoint = hitPoint;
         if(typeBrick == "9") typeBrick = "unbreakable";
         this.typeBrick = typeBrick;
         img = new Image(getClass().getResourceAsStream("/images/Brick/" + typeBrick + ".png"));
@@ -61,42 +63,43 @@ public class Bricks extends GameObject {
         boolean isOppositeDirX = ball.getVelocityX() < 0;
         boolean isOppositeDirY = ball.getVelocityY() < 0;
         if(ballBounds.intersects((getBounds()))){
+            hitPoint--;
             if((ballBounds.intersects(getBoundsLeft()) && ballBounds.intersects(getBoundsBottom()))) {
                 ball.setAngleVertical(isOppositeDirY);
                 ball.setAngleHorizontal(!isOppositeDirX);
-                return true;
+                return (hitPoint <= 0);
             }
             if(ballBounds.intersects(getBoundsRight()) && ballBounds.intersects(getBoundsBottom())) {
 //                System.out.println(ball.getVelocityX());
                 ball.setAngleVertical(isOppositeDirY);
                 ball.setAngleHorizontal(isOppositeDirX);
-                return true;
+                return (hitPoint <= 0);
             }
             if(ballBounds.intersects(getBoundsRight()) && ballBounds.intersects(getBoundsTop())) {
                 ball.setAngleVertical(!isOppositeDirY);
                 ball.setAngleHorizontal(isOppositeDirX);
-                return true;
+                return (hitPoint <= 0);
             }
             if(ballBounds.intersects(getBoundsLeft()) && ballBounds.intersects(getBoundsTop())){
                 ball.setAngleVertical(!isOppositeDirY);
                 ball.setAngleHorizontal(!isOppositeDirX);
-                return true;
+                return (hitPoint <= 0);
             }
             if(ballBounds.intersects(getBoundsLeft())) {
                 ball.setAngleHorizontal(true);
-                return true;
+                return (hitPoint <= 0);
             }
             if(ballBounds.intersects(getBoundsRight())) {
                 ball.setAngleHorizontal(true);
-                return true;
+                return (hitPoint <= 0);
             }
             if(ballBounds.intersects(getBoundsTop())) {
                 ball.setAngleVertical(true);
-                return true;
+                return (hitPoint <= 0);
             }
             if(ballBounds.intersects(getBoundsBottom())) {
                 ball.setAngleVertical(true);
-                return true;
+                return (hitPoint <= 0);
             }
         }
         return false;
@@ -120,4 +123,13 @@ public class Bricks extends GameObject {
     public Group getBrickGroup() {
         return brickGroup;
     }
+
+    public int getHitPoint() {
+        return hitPoint;
+    }
+
+    public void setHitPoint(int hitPoint) {
+        this.hitPoint = hitPoint;
+    }
+
 }

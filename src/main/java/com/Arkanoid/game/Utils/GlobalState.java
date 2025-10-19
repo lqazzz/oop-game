@@ -1,5 +1,6 @@
 package com.Arkanoid.game.Utils;
 
+import com.Arkanoid.game.View.PauseMenu;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,6 +11,7 @@ public class GlobalState {
     private static Parent root;
     private static Scene scene;
     public static Group gameRoot = new Group();
+    public static Group pauseMenu = new Group();
     private static boolean musicMuted = false;
     private static boolean soundMuted = false;
     private static double lastMusicTime = 0;
@@ -17,6 +19,13 @@ public class GlobalState {
     private static int currentBall = 0;
     private static boolean[] isPadBought = {true, false, false, false, false, false};
     private static int currentPad = 0;
+    private static boolean ballMoved = false;
+    private static boolean gamePaused = false;
+    private static boolean pauseAdded = false;
+
+    public static void initPauseMenu() {
+        GlobalState.pauseMenu = PauseMenu.getRoot();
+    }
 
     public static boolean getIsBallBought(int index) {
         return isBallBought[index];
@@ -96,5 +105,33 @@ public class GlobalState {
 
     public static void setScene(Parent root) {
         GlobalState.scene = new Scene(root, 1200, 900);
+    }
+
+    public static boolean isBallMoved() {
+        return ballMoved;
+    }
+
+    public static void setBallMoved(boolean ballMoved) {
+        GlobalState.ballMoved = ballMoved;
+    }
+
+    public static boolean isGamePaused() {
+        return gamePaused;
+    }
+
+    public static void setGamePaused(boolean gamePaused) {
+        GlobalState.gamePaused = gamePaused;
+    }
+
+    public static boolean isPauseAdded() {
+        return pauseAdded;
+    }
+
+    public static void setPauseAdded(boolean pauseAdded) {
+        GlobalState.pauseAdded = pauseAdded;
+    }
+
+    public static Group getPauseMenu() {
+        return pauseMenu;
     }
 }

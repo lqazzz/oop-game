@@ -12,8 +12,8 @@ public class GameConfig {
     public static final int DEFAULT_PADDLE_LAYOUT_Y = (900 - DEFAULT_PADDLE_HEIGHT - 40) - 60;
     public static final int DEFAULT_BALL_LAYOUT_X = (1200 - DEFAULT_BALL_WIDTH) / 2;
     public static final int DEFAULT_BALL_LAYOUT_Y =  DEFAULT_PADDLE_LAYOUT_Y - DEFAULT_BALL_HEIGHT - 10;
-    public static final int BRICK_WIDTH = 40;
-    public static final int BRICK_HEIGHT = 40;
+    public static final int BRICK_WIDTH = 55;
+    public static final int BRICK_HEIGHT = 55;
     public static final int DEFAULT_SPEED = 7;
     public static enum Powerup {
         bulletPower, fireBall, heartBonus, paddleIncrease, shieldProtect, slowDown, speedUp, threeBall

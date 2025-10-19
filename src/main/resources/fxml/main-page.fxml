@@ -28,7 +28,7 @@
                     </image></ImageView>
             </graphic></Button>
         <Button layoutX="116.0" layoutY="39.0" mnemonicParsing="false" text="How to play" />
-        <Button fx:id="transparentButton" contentDisplay="GRAPHIC_ONLY" layoutX="507.0" layoutY="336.0" mnemonicParsing="false" onAction="#switchToModeGame" stylesheets="@styles.css" text="Play">
+        <Button contentDisplay="GRAPHIC_ONLY" layoutX="507.0" layoutY="336.0" mnemonicParsing="false" onAction="#switchToModeGame" stylesheets="@styles.css" text="Play">
          <graphic>
                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -36,7 +36,7 @@
                     </image>
                 </ImageView>
          </graphic></Button>
-        <Button fx:id="transparentButton" contentDisplay="GRAPHIC_ONLY" layoutX="506.0" layoutY="431.0" mnemonicParsing="false" onAction="#switchToSetting" prefHeight="35.0" prefWidth="108.0" stylesheets="@styles.css" text="Setting" textAlignment="JUSTIFY">
+        <Button contentDisplay="GRAPHIC_ONLY" layoutX="506.0" layoutY="431.0" mnemonicParsing="false" onAction="#switchToSetting" prefHeight="35.0" prefWidth="108.0" stylesheets="@styles.css" text="Setting" textAlignment="JUSTIFY">
          <graphic>
                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -44,7 +44,7 @@
                     </image>
                 </ImageView>
          </graphic></Button>
-        <Button fx:id="transparentButton" contentDisplay="GRAPHIC_ONLY" layoutX="557.0" layoutY="529.0" mnemonicParsing="false" onAction="#quitGame" stylesheets="@styles.css" text="Quit">
+        <Button contentDisplay="GRAPHIC_ONLY" layoutX="557.0" layoutY="529.0" mnemonicParsing="false" onAction="#quitGame" stylesheets="@styles.css" text="Quit">
             <graphic>
                 <ImageView fitHeight="51.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                     <image>
