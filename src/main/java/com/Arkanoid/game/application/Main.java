@@ -6,9 +6,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
+import java.net.URL;
 
 import static javafx.application.Application.launch;
 
@@ -18,9 +20,12 @@ public class Main extends Application {
     }
     public void start(Stage primaryStage) throws Exception {
         SoundController.playMusic("background.mp3", true);
+        Font.loadFont(getClass().getResource("/font/PaytoneOne-Regular.ttf").toExternalForm(), 12);
+
         GlobalState.setRoot(FXMLLoader.load(getClass().getResource("/fxml/main-page.fxml")));
         GlobalState.setScene(GlobalState.getRoot());
-        primaryStage.setTitle("My JavaFX App");
+        GlobalState.getScene().getStylesheets().add(getClass().getResource("/fxml/styles.css").toExternalForm());
+        primaryStage.setTitle("Arkanoid");
         primaryStage.setScene(GlobalState.getScene());
         primaryStage.setFullScreen(false);
         primaryStage.setMaximized(false);

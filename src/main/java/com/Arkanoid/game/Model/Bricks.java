@@ -58,7 +58,8 @@ public class Bricks extends GameObject {
         Bounds ballBounds = ball.getBallGroup().getBoundsInParent();
        // System.out.println(getBoundsTop());
         /**
-         * Fix angle when collide
+         * Fix angle when collide, make y revert only when hit bottom/top, x revert only when hit left/right
+         *
          */
         boolean isOppositeDirX = ball.getVelocityX() < 0;
         boolean isOppositeDirY = ball.getVelocityY() < 0;
@@ -70,7 +71,6 @@ public class Bricks extends GameObject {
                 return (hitPoint <= 0);
             }
             if(ballBounds.intersects(getBoundsRight()) && ballBounds.intersects(getBoundsBottom())) {
-//                System.out.println(ball.getVelocityX());
                 ball.setAngleVertical(isOppositeDirY);
                 ball.setAngleHorizontal(isOppositeDirX);
                 return (hitPoint <= 0);
