@@ -116,8 +116,8 @@ public class Bricks extends GameObject {
 
     }
 
-    public boolean updateBrick(GameState state) {
-        return collision(state.getBall());
+    public boolean updateBrick(Ball ball) {
+        return collision(ball);
     }
 
     public Group getBrickGroup() {

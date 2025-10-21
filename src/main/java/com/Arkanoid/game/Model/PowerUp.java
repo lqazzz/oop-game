@@ -1,6 +1,7 @@
 package com.Arkanoid.game.Model;
 
 import com.Arkanoid.game.Utils.GameConfig;
+import com.Arkanoid.game.Utils.GlobalState;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,6 +13,7 @@ public class PowerUp extends MovableObject {
     protected int hitPoint;
     protected String typeBrick;
     protected Image img;
+    protected int typePowerup;
     protected ImageView view;
     protected Group powerUpGroup = new Group();
     public PowerUp(double x, double y) {
@@ -20,15 +22,14 @@ public class PowerUp extends MovableObject {
         dy = GameConfig.DEFAULT_SPEED;//left to right
         setLayoutX(x);
         setLayoutY(y);
-
     }
 
     public void render() {
 
     }
 
-    public void getRandomPowerUp() {
-        int randomPowerup = (int)(Math.random() * powerType.length);
+    public void getRandomPowerUp(GameState state) {
+        int randomPowerup =  (int)(Math.random() * 9);
         int randomChoose = (int)(Math.random() * 10);
         if(randomChoose == 0) {
             if(powerUpGroup.getChildren().isEmpty()) {
@@ -39,6 +40,9 @@ public class PowerUp extends MovableObject {
                 view.setLayoutX(getLayoutX());
                 view.setLayoutY(getLayoutY());
                 powerUpGroup.getChildren().add(view);
+                if(randomPowerup == 8) {
+                    this.typePowerup = randomPowerup;
+                }
             }
         }
     }

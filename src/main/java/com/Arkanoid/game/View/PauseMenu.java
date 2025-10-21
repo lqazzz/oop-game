@@ -5,6 +5,7 @@ import com.Arkanoid.game.Model.GameState;
 import com.Arkanoid.game.Utils.GameConfig;
 import com.Arkanoid.game.Utils.GlobalState;
 import javafx.animation.AnimationTimer;
+import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -68,10 +69,12 @@ public class PauseMenu {
         });
     }
 
-    public static void back(AnimationTimer animationTimer) {
+    public static void back(Timeline timeline) {
         getBackBtn().setOnAction(e -> {
             try {
-                animationTimer.stop();
+                if (timeline != null) {
+                    timeline.stop();
+                }
                 GlobalState.setGamePaused(false);
                 GlobalState.setPauseAdded(false);
                 pauseMenuController.switchToSelectLevel(e);
