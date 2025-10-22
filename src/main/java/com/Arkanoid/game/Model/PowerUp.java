@@ -29,19 +29,16 @@ public class PowerUp extends MovableObject {
     }
 
     public void getRandomPowerUp(GameState state) {
-        int randomPowerup =  (int)(Math.random() * 9);
-        int randomChoose = (int)(Math.random() * 10);
-        if(randomChoose == 0) {
-            if(powerUpGroup.getChildren().isEmpty()) {
-                img = new Image(getClass().getResourceAsStream("/images/Power/" + powerType[randomPowerup]));
-                view = new ImageView(img);
-                view.setFitHeight(GameConfig.BRICK_HEIGHT);
-                view.setFitWidth(GameConfig.BRICK_WIDTH);
-                view.setLayoutX(getLayoutX());
-                view.setLayoutY(getLayoutY());
-                powerUpGroup.getChildren().add(view);
-                this.typePowerup = randomPowerup;
-            }
+        int randomPowerUp =  (int)(Math.random() * 9);
+        if(powerUpGroup.getChildren().isEmpty()) {
+            img = new Image(getClass().getResourceAsStream("/images/Power/" + powerType[randomPowerUp]));
+            view = new ImageView(img);
+            view.setFitHeight(GameConfig.BRICK_HEIGHT);
+            view.setFitWidth(GameConfig.BRICK_WIDTH);
+            view.setLayoutX(getLayoutX());
+            view.setLayoutY(getLayoutY());
+            powerUpGroup.getChildren().add(view);
+            this.typePowerup = randomPowerUp;
         }
     }
     @Override

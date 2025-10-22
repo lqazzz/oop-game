@@ -100,12 +100,14 @@ public class GameView {
                                 Bricks brick = brickIterator.next();
                                 for(int i = 0 ; i < state.getBalls().size(); i++) {
                                     if(brick.updateBrick(state.getBalls().get(i))) {
-                                        PowerUp newPow = new PowerUp(
-                                            brick.getBrickGroup().getLayoutX(),
-                                            brick.getBrickGroup().getLayoutY()
-                                        );
-                                        newPow.getRandomPowerUp(state);
-                                        state.getPowerUpList().add(newPow);
+                                        if((int)(Math.random() * 10) == 0) {
+                                            PowerUp newPow = new PowerUp(
+                                                brick.getBrickGroup().getLayoutX(),
+                                                brick.getBrickGroup().getLayoutY()
+                                            );
+                                            newPow.getRandomPowerUp(state);
+                                            state.getPowerUpList().add(newPow);
+                                        }
                                         state.getGameRoot().getChildren().remove(brick.getBrickGroup());
                                         brickIterator.remove();
                                         collides = 1;

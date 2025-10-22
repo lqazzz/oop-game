@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Paddle extends MovableObject{
+    protected int frames;
+    protected boolean isStretched = false;
     protected double speed;
     protected List<GameConfig.Powerup> powerups = new ArrayList<>();
     protected String typePaddle;
@@ -107,6 +109,10 @@ public class Paddle extends MovableObject{
                     state.getBalls().add(rightBall);
                 }
             }
+            if (power.typePowerup == 3) {
+                frames = 600;
+                isStretched = true;
+            }
             if(power.typePowerup == 2) {
                 HitPoint hp = state.getHitPoints().getLast();
                 state.getHitPoints().add(new HitPoint(hp.getHitPointGroup().getLayoutX() + 40 , hp.getHitPointGroup().getLayoutY()));
@@ -114,6 +120,17 @@ public class Paddle extends MovableObject{
             return true;
         }
         return false;
+    }
+    public void paddleStretch() {
+        if(isStretched) {
+            if(frames > 0) {
+                view.setFitWidth(GameConfig.DEFAULT_PADDLE_WIDTH * 1.2);
+                frames -= 1;
+            } else {
+                isStretched = false;
+                view.setFitWidth(GameConfig.DEFAULT_PADDLE_WIDTH);
+            }
+        }
     }
     @Override
     public void render(GraphicsContext gc) {
