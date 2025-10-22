@@ -60,9 +60,11 @@ Button:pressed {
     -fx-tick-label-fill: #333333;
 }
 @font-face {
-    font-family: 'Pay'; /* tên bạn đặt */
-    src: url('/fonts/PaytoneOne-Regular.ttf');
+    font-family: "Paytone One Regular";
+    src: url("../font/PaytoneOne-Regular.ttf");
 }
-.text {
-    -fx-font-family: 'Pay';
+Text {
+    -fx-font-family: "Paytone One Regular";
+    -fx-font-size: 50px;
+    -fx-fill: #333;
 }

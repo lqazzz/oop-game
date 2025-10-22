@@ -82,6 +82,39 @@ public class Paddle extends MovableObject{
         }
         return false;
     }
+    private double normalizeAngle(double angle) {
+        angle %= 360;
+        if (angle < 0) angle += 360;
+        return angle;
+    }
+    public boolean collision(PowerUp power, GameState state){
+        if(power.getPowerUpGroup().getBoundsInParent().intersects(getBoundsTop())){
+            if(power.typePowerup == 8) {
+                List<Ball> balls = new ArrayList<>(state.getBalls());
+                if(balls.size() >= 30) return true;
+                for(Ball ball : balls) {
+                    if(state.getBalls().size() >= 30) break;;
+                    double x = ball.getLayoutX();
+                    double y = ball.getLayoutY();
+                    double angle = ball.getAngle();
+                    double angleLeft = angle - 10;
+                    double angleRight = angle + 10;
+                    Ball leftBall = new Ball(x, y, -1);
+                    leftBall.setAngleSpecific(normalizeAngle(angleLeft));
+                    Ball rightBall = new Ball(x, y, -1);
+                    rightBall.setAngleSpecific(normalizeAngle(angleRight));
+                    state.getBalls().add(leftBall);
+                    state.getBalls().add(rightBall);
+                }
+            }
+            if(power.typePowerup == 2) {
+                HitPoint hp = state.getHitPoints().getLast();
+                state.getHitPoints().add(new HitPoint(hp.getHitPointGroup().getLayoutX() + 40 , hp.getHitPointGroup().getLayoutY()));
+            }
+            return true;
+        }
+        return false;
+    }
     @Override
     public void render(GraphicsContext gc) {
 //        Image img = new Image(getClass().getResourceAsStream("/images/Paddle/gray.png"));
@@ -96,8 +129,11 @@ public class Paddle extends MovableObject{
         if(GlobalState.isGamePaused() == false) setLayoutX(paddleGroup.getLayoutX() + GameConfig.DEFAULT_SPEED * Math.cos(Math.toRadians(angle)));
     }
 
-    public boolean updatePaddle(GameState state) {
-        return collision(state.getBall());
+    public boolean updatePaddle(Ball ball) {
+        return collision(ball);
+    }
+    public boolean updatePaddle(PowerUp power, GameState state) {
+        return collision(power, state);
     }
     public Group getPaddleGroup() {
         return paddleGroup;

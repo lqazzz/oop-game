@@ -17,7 +17,7 @@ public class Ball extends MovableObject {
     protected double dy;
     protected boolean isMoved;
     protected String typeBall;
-    protected Image img = new Image(getClass().getResourceAsStream("/images/Ball/planet.png"));
+    protected Image img = new Image(getClass().getResourceAsStream("/images/Ball/halloween.png"));
     protected ImageView view = new ImageView(img);
     Group ballGroup = new Group();
     public Ball(double x, double y, double radius) {
@@ -30,27 +30,42 @@ public class Ball extends MovableObject {
         dx = GameConfig.DEFAULT_SPEED;//left to right
         dy = GameConfig.DEFAULT_SPEED;//left to right
 //        isMoved = false;
-        System.out.println(GameConfig.DEFAULT_BALL_WIDTH + " " + GameConfig.DEFAULT_BALL_HEIGHT);
     }
-
-    public void update(GameState state) {
-        if(isHitWindowVertical()) {
-            setAngleVertical(true);
+    public double getAngle() {
+        return angle;
+    }
+    public boolean update(GameState state) {
+        if(ballGroup.getLayoutY() > 850) {
+           // resetBall(state);
+            return true;
         }
-        if(isHitWindowHorizontal()){
-            setAngleHorizontal(true);
-        }
-
         if(GlobalState.isBallMoved()) {
             move();
+            if(isHitWindowVertical()) {
+                setAngleVertical(true);
+                if(getLayoutY() < 0) {
+                    ballGroup.setLayoutY(1);
+                } else if (getLayoutY() + ballGroup.getBoundsInParent().getHeight() > GameConfig.DEFAULT_PADDLE_HEIGHT) { // chạm tường dưới
+                    ballGroup.setLayoutY(GameConfig.DEFAULT_PADDLE_HEIGHT - ballGroup.getBoundsInParent().getHeight() - 1);
+                }
+                return false;
+            }
+            if(isHitWindowHorizontal()){
+                setAngleHorizontal(true);
+                if (getLayoutX() < 0) {
+                    ballGroup.setLayoutX(1);
+                } else if (getLayoutX() + ballGroup.getBoundsInParent().getWidth() > GameConfig.DEFAULT_SCREEN_WIDTH) { // tường phải
+                    ballGroup.setLayoutX(GameConfig.DEFAULT_SCREEN_WIDTH - ballGroup.getBoundsInParent().getWidth() - 1);
+                }
+                return false;
+            }
+            return false;
         } else {
             GlobalState.getScene().setOnMouseClicked(e -> {
                 GlobalState.setBallMoved(true);
             });
             moveWithPad(state);
-        }
-        if(ballGroup.getLayoutY() > 850) {
-            resetBall(state);
+            return false;
         }
     }
 
@@ -61,7 +76,6 @@ public class Ball extends MovableObject {
         gc.setLineWidth(1);
         gc.strokeOval(getX(), getY(), getWidth(), getHeight());  // same as circle
     }
-
     public void move() {
         dx = GameConfig.DEFAULT_SPEED * Math.cos(Math.toRadians(angle));
         dy = -GameConfig.DEFAULT_SPEED * Math.sin(Math.toRadians(angle));
@@ -81,7 +95,6 @@ public class Ball extends MovableObject {
             angle = 180 - angle;
         }
     }
-
     public boolean isHitWindowHorizontal() {
         if(ballGroup.getLayoutX() > 0 && ballGroup.getLayoutX() < GameConfig.DEFAULT_SCREEN_WIDTH - getWidth()) {
             return false;
@@ -92,8 +105,7 @@ public class Ball extends MovableObject {
     public boolean isHitWindowVertical() {
         if(ballGroup.getLayoutY() > 0 && (ballGroup.getLayoutY() < GameConfig.DEFAULT_SCREEN_HEIGHT - getHeight())) {
             return false;
-        }
-        RippleEffect.wave((Pane) GlobalState.getRoot(), ballGroup.getLayoutX() , ballGroup.getLayoutY());
+        }RippleEffect.wave((Pane) GlobalState.getRoot(), ballGroup.getLayoutX() , ballGroup.getLayoutY());
         return true;
     }
 
@@ -107,6 +119,18 @@ public class Ball extends MovableObject {
 
     public double getVelocityY() {
         return dy;
+    }
+
+    public void setVelocityX(boolean check) {
+        if(check == true) {
+            if(dx > 0) dx = -dx;
+        }
+        else {
+            if(dx < 0) dx = -dx;
+        }
+    }
+    public void setVelocityY() {
+        dy = -dy;
     }
 
     public void resetBall(GameState state) {

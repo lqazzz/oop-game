@@ -19,27 +19,35 @@ public class GameState {
     private Ball ball;
     private Paddle paddle;
     private List<Bricks> bricks = new ArrayList<>();
+    private List<PowerUp> powerUps = new ArrayList<>();
+    private List<Ball> balls = new ArrayList<>();
+    private List<HitPoint> hps = new ArrayList<>();
     private Group gameRoot;
     private PaddleController padControl = new PaddleController();
     public GameState(Group gameRoot) {
         this.gameRoot = gameRoot;
         ball = new Ball(GameConfig.DEFAULT_BALL_LAYOUT_X, GameConfig.DEFAULT_BALL_LAYOUT_Y, -1);
+        balls.add(ball);
         paddle = new Paddle(GameConfig.DEFAULT_PADDLE_LAYOUT_X, GameConfig.DEFAULT_PADDLE_LAYOUT_Y, GameConfig.DEFAULT_PADDLE_WIDTH, GameConfig.DEFAULT_PADDLE_HEIGHT);
         // sau tao se lam load map o day
-
         int BRICK_COLS = 18;
         int BRICK_ROWS = 7;
-        int startX = (1200 - BRICK_COLS * BRICK_WIDTH) / 2;
-        int startY = 140;
+        int startX = 15 + 4 * BRICK_WIDTH;
+        int startY = 80;
         for (int row = 0; row < BRICK_ROWS; row++) {
             for (int col = 0; col < BRICK_COLS; col++) {
-                int x = startX + col * (BRICK_WIDTH + 20);
-                int y = startY + row * (BRICK_HEIGHT + 1);
-                bricks.add(new Bricks(x, y, 3, BRICK_WIDTH, BRICK_HEIGHT, String.valueOf(row + 1)));
+                int x = startX + col * BRICK_WIDTH;
+                int y = startY + row * (BRICK_HEIGHT);
+                bricks.add(new Bricks(x, y, 1, BRICK_WIDTH, BRICK_HEIGHT, String.valueOf(row + 1)));
             }
         }
+        for(int i = 0; i < 3 ; i++) {
+            hps.add(new HitPoint(23 + 40 * i , 838));
+        }
     }
-
+    public List<Ball> getBalls(){
+        return balls;
+    }
     public Ball getBall() {
         return ball;
     }
@@ -49,6 +57,10 @@ public class GameState {
     public Paddle getPaddle() {
         return paddle;
     }
+    public List<PowerUp> getPowerUpList() {
+        return powerUps;
+    }
+    public List<HitPoint> getHitPoints() {return hps;}
     public Group getGameRoot() {
         return gameRoot;
     }
