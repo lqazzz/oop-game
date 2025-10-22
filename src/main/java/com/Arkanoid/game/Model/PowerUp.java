@@ -40,9 +40,7 @@ public class PowerUp extends MovableObject {
                 view.setLayoutX(getLayoutX());
                 view.setLayoutY(getLayoutY());
                 powerUpGroup.getChildren().add(view);
-                if(randomPowerup == 8) {
-                    this.typePowerup = randomPowerup;
-                }
+                this.typePowerup = randomPowerup;
             }
         }
     }

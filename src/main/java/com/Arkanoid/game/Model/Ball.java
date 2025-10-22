@@ -17,7 +17,7 @@ public class Ball extends MovableObject {
     protected double dy;
     protected boolean isMoved;
     protected String typeBall;
-    protected Image img = new Image(getClass().getResourceAsStream("/images/Ball/planet.png"));
+    protected Image img = new Image(getClass().getResourceAsStream("/images/Ball/halloween.png"));
     protected ImageView view = new ImageView(img);
     Group ballGroup = new Group();
     public Ball(double x, double y, double radius) {

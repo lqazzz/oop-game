@@ -21,6 +21,7 @@ public class GameState {
     private List<Bricks> bricks = new ArrayList<>();
     private List<PowerUp> powerUps = new ArrayList<>();
     private List<Ball> balls = new ArrayList<>();
+    private List<HitPoint> hps = new ArrayList<>();
     private Group gameRoot;
     private PaddleController padControl = new PaddleController();
     public GameState(Group gameRoot) {
@@ -40,6 +41,9 @@ public class GameState {
                 bricks.add(new Bricks(x, y, 1, BRICK_WIDTH, BRICK_HEIGHT, String.valueOf(row + 1)));
             }
         }
+        for(int i = 0; i < 3 ; i++) {
+            hps.add(new HitPoint(23 + 40 * i , 838));
+        }
     }
     public List<Ball> getBalls(){
         return balls;
@@ -56,6 +60,7 @@ public class GameState {
     public List<PowerUp> getPowerUpList() {
         return powerUps;
     }
+    public List<HitPoint> getHitPoints() {return hps;}
     public Group getGameRoot() {
         return gameRoot;
     }

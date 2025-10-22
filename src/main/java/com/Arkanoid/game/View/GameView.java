@@ -1,9 +1,6 @@
 package com.Arkanoid.game.View;
 
-import com.Arkanoid.game.Model.Ball;
-import com.Arkanoid.game.Model.Bricks;
-import com.Arkanoid.game.Model.GameState;
-import com.Arkanoid.game.Model.PowerUp;
+import com.Arkanoid.game.Model.*;
 import com.Arkanoid.game.Utils.GlobalState;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
@@ -48,7 +45,17 @@ public class GameView {
                                 GlobalState.setPauseAdded(false);
                             }
                         }
-                        if(!GlobalState.isGamePaused()) {
+                        for(HitPoint hp : state.getHitPoints()) {
+                            if(state.getGameRoot().getChildren().contains(hp.getHitPointGroup()) == false) {
+                                state.getGameRoot().getChildren().add(hp.getHitPointGroup());
+                            }
+                        }
+//                        if(state.getHitPoints().size() == 0) {
+//                            System.out.println("Die");
+//                            return;
+//                        }
+                        if(!GlobalState.isGamePaused() && state.getHitPoints().size() > 0) {
+                           boolean isDied = false;
                            Iterator<Ball> iteratorBall = state.getBalls().iterator();
                             while(iteratorBall.hasNext()) {
                                 Ball ball = iteratorBall.next();
@@ -58,6 +65,7 @@ public class GameView {
                                 if(ball.update(state) == true) {
                                     if(state.getBalls().size() == 1) {
                                         ball.resetBall(state);
+                                        isDied = true;
                                     }
                                     else {
                                         state.getGameRoot().getChildren().remove(ball.getBallGroup());
@@ -66,7 +74,6 @@ public class GameView {
                                     break;
                                 }
                             }
-                           // state.getBall().update(state);
                             state.getPadControl().moveWithMouse(state.getPaddle());
                             for(int i = 0 ; i < state.getBalls().size(); i++) {
                                 state.getPaddle().updatePaddle(state.getBalls().get(i));
@@ -106,6 +113,12 @@ public class GameView {
                                     }
                                 }
                                 if(collides == 1) break;
+                            }
+                            if(isDied) {
+                                System.out.println("remove");
+                                System.out.println(state.getHitPoints().getLast());
+                                state.getGameRoot().getChildren().remove(state.getHitPoints().getLast().getHitPointGroup());
+                                state.getHitPoints().removeLast();
                             }
                         } else {
                             PauseMenu.back(timeline);
