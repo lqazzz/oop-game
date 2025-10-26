@@ -12,6 +12,8 @@ public class GlobalState {
     private static Scene scene;
     public static Group gameRoot = new Group();
     public static Group pauseMenu = new Group();
+    public static Group lostMenu = new Group();
+    public static Group wonMenu = new Group();
     private static boolean musicMuted = false;
     private static boolean soundMuted = false;
     private static double lastMusicTime = 0;
@@ -22,10 +24,18 @@ public class GlobalState {
     private static boolean ballMoved = false;
     private static boolean gamePaused = false;
     private static boolean pauseAdded = false;
+    private static boolean gameOver = false;
+    private static boolean overAdded = false;
 
     public static void initPauseMenu() {
-        GlobalState.pauseMenu = PauseMenu.getRoot();
+        GlobalState.pauseMenu = PauseMenu.getPauseMenu();
     }
+
+    public static void initLostMenu() {
+        GlobalState.lostMenu = PauseMenu.getLostMenu();
+    }
+
+
 
     public static boolean getIsBallBought(int index) {
         return isBallBought[index];
@@ -133,5 +143,25 @@ public class GlobalState {
 
     public static Group getPauseMenu() {
         return pauseMenu;
+    }
+
+    public static Group getLostMenu() {
+        return lostMenu;
+    }
+
+    public static boolean isGameOver() {
+        return gameOver;
+    }
+
+    public static void setGameOver(boolean gameOver) {
+        GlobalState.gameOver = gameOver;
+    }
+
+    public static boolean isOverAdded() {
+        return overAdded;
+    }
+
+    public static void setOverAdded(boolean overAdded) {
+        GlobalState.overAdded = overAdded;
     }
 }

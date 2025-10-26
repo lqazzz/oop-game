@@ -22,7 +22,9 @@ import java.io.IOException;
 public class PauseMenu {
     static PauseMenuController pauseMenuController = new PauseMenuController();
     protected static Rectangle overlay = new Rectangle(GameConfig.DEFAULT_SCREEN_WIDTH, GameConfig.DEFAULT_SCREEN_HEIGHT, Color.BLACK);
-    protected static Group root = new Group();
+    protected static Group pauseMenu = new Group();
+    protected static Group lostMenu = new Group();
+    protected static Group wonMenu = new Group();
     protected static Group popUpBackground = new Group();
     protected static Image popUpImg;
     protected static Image replayImg;
@@ -35,28 +37,35 @@ public class PauseMenu {
     protected static Button replayBtn = new Button();
     protected static Button continueBtn = new Button();
     protected static Button backBtn = new Button();
-    protected static Text pauseText = new Text("Game paused");
+    protected static Text title;
 
     public PauseMenu() {
     }
-    public static Group getRoot() {
+    public static Group getPauseMenu() {
         GlobalState.getScene().getStylesheets().add(PauseMenu.class.getResource("/fxml/styles.css").toExternalForm());
-        if(root.getChildren().isEmpty()) {
-            popUpImg = new Image(PauseMenu.class.getResourceAsStream("/images/Notification/board2.png"));
-            popUpView = new ImageView(popUpImg);
-            popUpView.setLayoutX(131);
-            popUpView.setLayoutY(154);
-            popUpBackground.getChildren().add(popUpView);
+        if(pauseMenu.getChildren().isEmpty()) {
+            title = new Text("Game paused");
             overlay.setOpacity(0.5);
-            root.getChildren().add(overlay);
-            root.getChildren().add(popUpBackground);
-            root.getChildren().add(getReplayBtn());
-            root.getChildren().add(getBackBtn());
-            root.getChildren().add(getContinueBtn());
-            root.getChildren().add(getPauseText());
-
+            pauseMenu.getChildren().add(overlay);
+            pauseMenu.getChildren().add(getPopUpBackground());
+            pauseMenu.getChildren().add(getReplayBtn());
+            pauseMenu.getChildren().add(getBackBtn());
+            pauseMenu.getChildren().add(getContinueBtn());
+            pauseMenu.getChildren().add(getTitleText());
         }
-        return root;
+        return pauseMenu;
+    }
+    public static Group getLostMenu() {
+        GlobalState.getScene().getStylesheets().add(PauseMenu.class.getResource("/fxml/styles.css").toExternalForm());
+        if(lostMenu.getChildren().isEmpty()) {
+            title = new Text("You lost nigga, kys");
+            overlay.setOpacity(0.5);
+            lostMenu.getChildren().add(overlay);
+            lostMenu.getChildren().add(getPopUpBackground());
+            lostMenu.getChildren().add(getBackBtn());
+            lostMenu.getChildren().add(getTitleText());
+        }
+        return lostMenu;
     }
     public static void pause() {
         GlobalState.getScene().setOnKeyPressed(e -> {
@@ -77,6 +86,8 @@ public class PauseMenu {
                 }
                 GlobalState.setGamePaused(false);
                 GlobalState.setPauseAdded(false);
+                GlobalState.setOverAdded(false);
+                GlobalState.setGameOver(false);
                 pauseMenuController.switchToSelectLevel(e);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -125,11 +136,20 @@ public class PauseMenu {
         return continueBtn;
     }
 
-    public static Text getPauseText() {
-        pauseText.setLayoutX(435);
-        pauseText.setLayoutY(311);
-        pauseText.setScaleX(2);
-        pauseText.setScaleY(2);
-        return pauseText;
+    public static Group getPopUpBackground() {
+        popUpImg = new Image(PauseMenu.class.getResourceAsStream("/images/Notification/board2.png"));
+        popUpView = new ImageView(popUpImg);
+        popUpView.setLayoutX(131);
+        popUpView.setLayoutY(154);
+        popUpBackground.getChildren().add(popUpView);
+        return popUpBackground;
+    }
+
+    public static Text getTitleText() {
+        title.setLayoutX(435);
+        title.setLayoutY(311);
+        title.setScaleX(2);
+        title.setScaleY(2);
+        return title;
     }
 }

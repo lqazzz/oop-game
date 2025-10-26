@@ -12,14 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Paddle extends MovableObject{
-    protected int frames;
+    protected int stretchFrames;
+    protected int shootFrames;
     protected boolean isStretched = false;
+    protected boolean isShooting = false;
     protected double speed;
     protected List<GameConfig.Powerup> powerups = new ArrayList<>();
     protected String typePaddle;
     protected Group paddleGroup = new Group();
     protected Image img;
     protected ImageView view;
+    protected boolean isMoveLeft = false;
+    protected boolean isMoveRight = false;
     protected Ball ball;
     public Paddle(double x, double y, int width, int height) {
         super(x , y , width ,height );
@@ -109,9 +113,19 @@ public class Paddle extends MovableObject{
                     state.getBalls().add(rightBall);
                 }
             }
-            if (power.typePowerup == 3) {
-                frames = 600;
+            if(power.typePowerup == 3) {
+                stretchFrames = 600;
                 isStretched = true;
+            }
+            if(power.typePowerup == 1) {
+                for(Ball ball : state.getBalls()) {
+                    ball.setFireMode(true);
+                    ball.setFrames(600);
+                }
+            }
+            if(power.typePowerup == 0) {
+                isShooting = true;
+                shootFrames = 600;
             }
             if(power.typePowerup == 2) {
                 HitPoint hp = state.getHitPoints().getLast();
@@ -123,13 +137,32 @@ public class Paddle extends MovableObject{
     }
     public void paddleStretch() {
         if(isStretched) {
-            if(frames > 0) {
+            if(stretchFrames > 0) {
                 view.setFitWidth(GameConfig.DEFAULT_PADDLE_WIDTH * 1.2);
-                frames -= 1;
+                stretchFrames -= 1;
             } else {
                 isStretched = false;
                 view.setFitWidth(GameConfig.DEFAULT_PADDLE_WIDTH);
             }
+        }
+    }
+    public void shootBullets(GameState state) {
+        if(isShooting) {
+            if(shootFrames > 0) {
+                if(shootFrames % 50 == 0) {
+                    double x = paddleGroup.getLayoutX();
+                    double y = paddleGroup.getLayoutY();
+                    Bullet leftBullet = new Bullet(x, y + 10, 5, 10);
+                    Bullet rightBullet = new Bullet(x + GameConfig.DEFAULT_PADDLE_WIDTH - 5,
+                            y + 10, 5, 10);
+                    state.getBullets().add(leftBullet);
+                    state.getBullets().add(rightBullet);
+                }
+                shootFrames -= 1;
+            }
+        } else {
+            isShooting = false;
+            shootFrames = 600;
         }
     }
     @Override
@@ -142,11 +175,24 @@ public class Paddle extends MovableObject{
         if(GlobalState.isGamePaused() == false) paddleGroup.setLayoutX(x - GameConfig.DEFAULT_PADDLE_WIDTH / 2.0);
     }
 
-    public void moveWithKeys(int angle) {
-        if(GlobalState.isGamePaused() == false) setLayoutX(paddleGroup.getLayoutX() + GameConfig.DEFAULT_SPEED * Math.cos(Math.toRadians(angle)));
+    public void moveLeft() {
+        if(GlobalState.isGamePaused() == false && isMoveLeft
+            && paddleGroup.getLayoutX() > 0)  {
+            paddleGroup.setLayoutX(paddleGroup.getLayoutX() - GameConfig.DEFAULT_SPEED);
+        }
+    }
+    public void moveRight() {
+        if(GlobalState.isGamePaused() == false && isMoveRight
+            && paddleGroup.getLayoutX() + view.getFitWidth() < GameConfig.DEFAULT_SCREEN_WIDTH) {
+            paddleGroup.setLayoutX(paddleGroup.getLayoutX() + GameConfig.DEFAULT_SPEED);
+        }
     }
 
-    public boolean updatePaddle(Ball ball) {
+    public boolean updatePaddle(Ball ball, GameState state) {
+        moveLeft();
+        moveRight();
+        shootBullets(state);
+        paddleStretch();
         return collision(ball);
     }
     public boolean updatePaddle(PowerUp power, GameState state) {
@@ -154,5 +200,13 @@ public class Paddle extends MovableObject{
     }
     public Group getPaddleGroup() {
         return paddleGroup;
+    }
+
+    public void setMoveLeft(boolean moveLeft) {
+        isMoveLeft = moveLeft;
+    }
+
+    public void setMoveRight(boolean moveRight) {
+        isMoveRight = moveRight;
     }
 }

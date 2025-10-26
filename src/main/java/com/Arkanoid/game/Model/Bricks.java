@@ -63,44 +63,60 @@ public class Bricks extends GameObject {
          */
         boolean isOppositeDirX = ball.getVelocityX() < 0;
         boolean isOppositeDirY = ball.getVelocityY() < 0;
+
         if(ballBounds.intersects((getBounds()))){
+            if(!ball.isFireMode()) {
+                hitPoint--;
+                if ((ballBounds.intersects(getBoundsLeft()) && ballBounds.intersects(getBoundsBottom()))) {
+                    ball.setAngleVertical(isOppositeDirY);
+                    ball.setAngleHorizontal(!isOppositeDirX);
+                    return (hitPoint <= 0);
+                }
+                if (ballBounds.intersects(getBoundsRight()) && ballBounds.intersects(getBoundsBottom())) {
+                    ball.setAngleVertical(isOppositeDirY);
+                    ball.setAngleHorizontal(isOppositeDirX);
+                    return (hitPoint <= 0);
+                }
+                if (ballBounds.intersects(getBoundsRight()) && ballBounds.intersects(getBoundsTop())) {
+                    ball.setAngleVertical(!isOppositeDirY);
+                    ball.setAngleHorizontal(isOppositeDirX);
+                    return (hitPoint <= 0);
+                }
+                if (ballBounds.intersects(getBoundsLeft()) && ballBounds.intersects(getBoundsTop())) {
+                    ball.setAngleVertical(!isOppositeDirY);
+                    ball.setAngleHorizontal(!isOppositeDirX);
+                    return (hitPoint <= 0);
+                }
+                if (ballBounds.intersects(getBoundsLeft())) {
+                    ball.setAngleHorizontal(true);
+                    return (hitPoint <= 0);
+                }
+                if (ballBounds.intersects(getBoundsRight())) {
+                    ball.setAngleHorizontal(true);
+                    return (hitPoint <= 0);
+                }
+                if (ballBounds.intersects(getBoundsTop())) {
+                    ball.setAngleVertical(true);
+                    return (hitPoint <= 0);
+                }
+                if (ballBounds.intersects(getBoundsBottom())) {
+                    ball.setAngleVertical(true);
+                    return (hitPoint <= 0);
+                }
+            } else {
+                hitPoint = 0;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean collision(Bullet bullet) {
+        Bounds bulletBounds = bullet.getBulletGroup().getBoundsInParent();
+        if(bulletBounds.intersects(getBounds())) {
+            bullet.setDestroyed(true);
             hitPoint--;
-            if((ballBounds.intersects(getBoundsLeft()) && ballBounds.intersects(getBoundsBottom()))) {
-                ball.setAngleVertical(isOppositeDirY);
-                ball.setAngleHorizontal(!isOppositeDirX);
-                return (hitPoint <= 0);
-            }
-            if(ballBounds.intersects(getBoundsRight()) && ballBounds.intersects(getBoundsBottom())) {
-                ball.setAngleVertical(isOppositeDirY);
-                ball.setAngleHorizontal(isOppositeDirX);
-                return (hitPoint <= 0);
-            }
-            if(ballBounds.intersects(getBoundsRight()) && ballBounds.intersects(getBoundsTop())) {
-                ball.setAngleVertical(!isOppositeDirY);
-                ball.setAngleHorizontal(isOppositeDirX);
-                return (hitPoint <= 0);
-            }
-            if(ballBounds.intersects(getBoundsLeft()) && ballBounds.intersects(getBoundsTop())){
-                ball.setAngleVertical(!isOppositeDirY);
-                ball.setAngleHorizontal(!isOppositeDirX);
-                return (hitPoint <= 0);
-            }
-            if(ballBounds.intersects(getBoundsLeft())) {
-                ball.setAngleHorizontal(true);
-                return (hitPoint <= 0);
-            }
-            if(ballBounds.intersects(getBoundsRight())) {
-                ball.setAngleHorizontal(true);
-                return (hitPoint <= 0);
-            }
-            if(ballBounds.intersects(getBoundsTop())) {
-                ball.setAngleVertical(true);
-                return (hitPoint <= 0);
-            }
-            if(ballBounds.intersects(getBoundsBottom())) {
-                ball.setAngleVertical(true);
-                return (hitPoint <= 0);
-            }
+            return true;
         }
         return false;
     }
@@ -118,6 +134,10 @@ public class Bricks extends GameObject {
 
     public boolean updateBrick(Ball ball) {
         return collision(ball);
+    }
+
+    public boolean updateBrick(Bullet bullet) {
+        return collision(bullet);
     }
 
     public Group getBrickGroup() {

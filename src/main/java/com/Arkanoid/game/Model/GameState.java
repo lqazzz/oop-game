@@ -18,10 +18,12 @@ import static com.Arkanoid.game.Utils.GameConfig.BRICK_WIDTH;
 public class GameState {
     private Ball ball;
     private Paddle paddle;
+    private Paddle paddle2;
     private List<Bricks> bricks = new ArrayList<>();
     private List<PowerUp> powerUps = new ArrayList<>();
     private List<Ball> balls = new ArrayList<>();
     private List<HitPoint> hps = new ArrayList<>();
+    private List<Bullet> bullets = new ArrayList<>();
     private Group gameRoot;
     private PaddleController padControl = new PaddleController();
     public GameState(Group gameRoot) {
@@ -29,6 +31,7 @@ public class GameState {
         ball = new Ball(GameConfig.DEFAULT_BALL_LAYOUT_X, GameConfig.DEFAULT_BALL_LAYOUT_Y, -1);
         balls.add(ball);
         paddle = new Paddle(GameConfig.DEFAULT_PADDLE_LAYOUT_X, GameConfig.DEFAULT_PADDLE_LAYOUT_Y, GameConfig.DEFAULT_PADDLE_WIDTH, GameConfig.DEFAULT_PADDLE_HEIGHT);
+        paddle2 = new Paddle(GameConfig.DEFAULT_PADDLE_LAYOUT_X, GameConfig.DEFAULT_PADDLE_LAYOUT_Y, GameConfig.DEFAULT_PADDLE_WIDTH, GameConfig.DEFAULT_PADDLE_HEIGHT);
         // sau tao se lam load map o day
         int BRICK_COLS = 18;
         int BRICK_ROWS = 7;
@@ -57,10 +60,14 @@ public class GameState {
     public Paddle getPaddle() {
         return paddle;
     }
+    public Paddle getPaddle2() {
+        return paddle2;
+    }
     public List<PowerUp> getPowerUpList() {
         return powerUps;
     }
     public List<HitPoint> getHitPoints() {return hps;}
+    public List<Bullet> getBullets() {return bullets;}
     public Group getGameRoot() {
         return gameRoot;
     }

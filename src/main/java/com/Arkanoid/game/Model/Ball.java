@@ -13,9 +13,10 @@ import javafx.scene.shape.Rectangle;
 
 public class Ball extends MovableObject {
     protected double angle = 45;
+    protected double frames = 600;
     protected double dx;
     protected double dy;
-    protected boolean isMoved;
+    protected boolean isFireMode;
     protected String typeBall;
     protected Image img = new Image(getClass().getResourceAsStream("/images/Ball/halloween.png"));
     protected ImageView view = new ImageView(img);
@@ -40,6 +41,7 @@ public class Ball extends MovableObject {
             return true;
         }
         if(GlobalState.isBallMoved()) {
+            fireBall();
             move();
             if(isHitWindowVertical()) {
                 setAngleVertical(true);
@@ -143,5 +145,26 @@ public class Ball extends MovableObject {
     public void moveWithPad(GameState state) {
         ballGroup.setLayoutX(state.getPaddle().getPaddleGroup().getLayoutX()
                 + GameConfig.DEFAULT_PADDLE_WIDTH / 2.0 - GameConfig.DEFAULT_BALL_WIDTH / 2.0);
+    }
+
+    public boolean isFireMode() {
+        return isFireMode;
+    }
+    public void setFireMode(boolean fireMode) {
+        isFireMode = fireMode;
+    }
+
+    public void setFrames(double frames) {
+        this.frames = frames;
+    }
+
+    public void fireBall() {
+        if(isFireMode) {
+            if(frames > 0) {
+                frames -= 1;
+            } else {
+                isFireMode = false;
+            }
+        }
     }
 }

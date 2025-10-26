@@ -25,6 +25,7 @@ public class GameView {
         // Add initial objects to the scene
      //   state.getGameRoot().getChildren().add(state.getBall().getBallGroup());
         state.getGameRoot().getChildren().add(state.getPaddle().getPaddleGroup());
+        state.getGameRoot().getChildren().add(state.getPaddle2().getPaddleGroup());
         for (Bricks brick : state.getBricks()) {
             state.getGameRoot().getChildren().add(brick.getBrickGroup());
         }
@@ -48,6 +49,19 @@ public class GameView {
                         for(HitPoint hp : state.getHitPoints()) {
                             if(state.getGameRoot().getChildren().contains(hp.getHitPointGroup()) == false) {
                                 state.getGameRoot().getChildren().add(hp.getHitPointGroup());
+                            }
+                        }
+                        if(GlobalState.isGameOver()) {
+                            if(!GlobalState.isOverAdded()) {
+                                GlobalState.initLostMenu();
+                                state.getGameRoot().getChildren().add(GlobalState.getLostMenu());
+                                GlobalState.setOverAdded(true);
+                            }
+                        } else {
+                            if(GlobalState.isOverAdded()) {
+                                GlobalState.getLostMenu().getChildren().clear();
+                                state.getGameRoot().getChildren().remove(GlobalState.getLostMenu());
+                                GlobalState.setOverAdded(false);
                             }
                         }
 //                        if(state.getHitPoints().size() == 0) {
@@ -74,9 +88,11 @@ public class GameView {
                                     break;
                                 }
                             }
-                            state.getPadControl().moveWithMouse(state.getPaddle());
+                            state.getPadControl().moveWithWASD(state.getPaddle(), state.getPaddle2());
                             for(int i = 0 ; i < state.getBalls().size(); i++) {
-                                state.getPaddle().updatePaddle(state.getBalls().get(i));
+                                state.getPaddle2().updatePaddle(state.getBalls().get(i), state);
+                                state.getPaddle().updatePaddle(state.getBalls().get(i), state);
+
                             }
                             Iterator<PowerUp> iterator = state.getPowerUpList().iterator();
                             while(iterator.hasNext()) {
@@ -93,6 +109,18 @@ public class GameView {
                                     state.getGameRoot().getChildren().remove(powerup.getPowerUpGroup());
                                     iterator.remove();
                                 }
+                            }
+                            Iterator<Bullet> bulletIterator = state.getBullets().iterator();
+                            while(bulletIterator.hasNext()) {
+                                Bullet bullet = bulletIterator.next();
+                                if(!state.getGameRoot().getChildren().contains(bullet.getBulletGroup())) {
+                                    state.getGameRoot().getChildren().add(bullet.getBulletGroup());
+                                }
+                                if(bullet.isDestroyed()) {
+                                    state.getGameRoot().getChildren().remove(bullet.getBulletGroup());
+                                    bulletIterator.remove();
+                                }
+                                bullet.update();
                             }
                             Iterator<Bricks> brickIterator = state.getBricks().iterator();
                             while(brickIterator.hasNext()) {
@@ -114,6 +142,22 @@ public class GameView {
                                         break;
                                     }
                                 }
+                                for(int i = 0 ; i < state.getBullets().size(); i++) {
+                                    if(brick.updateBrick(state.getBullets().get(i))) {
+                                        if((int)(Math.random() * 10) == 0) {
+                                            PowerUp newPow = new PowerUp(
+                                                    brick.getBrickGroup().getLayoutX(),
+                                                    brick.getBrickGroup().getLayoutY()
+                                            );
+                                            newPow.getRandomPowerUp(state);
+                                            state.getPowerUpList().add(newPow);
+                                        }
+                                        state.getGameRoot().getChildren().remove(brick.getBrickGroup());
+                                        brickIterator.remove();
+                                        collides = 1;
+                                        break;
+                                    }
+                                }
                                 if(collides == 1) break;
                             }
                             if(isDied) {
@@ -121,6 +165,9 @@ public class GameView {
                                 System.out.println(state.getHitPoints().getLast());
                                 state.getGameRoot().getChildren().remove(state.getHitPoints().getLast().getHitPointGroup());
                                 state.getHitPoints().removeLast();
+                                if(state.getHitPoints().isEmpty()) {
+                                    GlobalState.setGameOver(true);
+                                }
                             }
                         } else {
                             PauseMenu.back(timeline);
