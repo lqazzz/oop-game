@@ -12,7 +12,7 @@
     <children>
         <ImageView fitHeight="900.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../images/Background/main.png" />
+                <Image url="@../images/default/main.png" />
             </image>
         </ImageView>
         <Slider layoutX="545.0" layoutY="250.0" prefHeight="94.0" prefWidth="221.0" />

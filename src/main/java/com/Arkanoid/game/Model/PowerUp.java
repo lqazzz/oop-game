@@ -31,7 +31,7 @@ public class PowerUp extends MovableObject {
     public void getRandomPowerUp(GameState state) {
         int randomPowerUp = 0;
         if(powerUpGroup.getChildren().isEmpty()) {
-            img = new Image(getClass().getResourceAsStream("/images/Power/" + powerType[randomPowerUp]));
+            img = new Image(getClass().getResourceAsStream("/images/default/Power/" + powerType[randomPowerUp]));
             view = new ImageView(img);
             view.setFitHeight(GameConfig.BRICK_HEIGHT);
             view.setFitWidth(GameConfig.BRICK_WIDTH);

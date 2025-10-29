@@ -5,25 +5,25 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1200.0" style="-fx-background-image: url('@../images/Background/main.png');                -fx-background-size: cover;                -fx-background-repeat: no-repeat;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Arkanoid.game.Controller.ModeGamePlayController">
+<AnchorPane prefHeight="900.0" prefWidth="1200.0" style="-fx-background-image: url('@../images/default/main.png');                -fx-background-size: cover;                -fx-background-repeat: no-repeat;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Arkanoid.game.Controller.ModeGamePlayController">
    <children>
       <ImageView fitHeight="900.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/Background/main.png" />
+            <Image url="@../images/default/main.png" />
          </image>
       </ImageView>
       <Button fx:id="settingsButton" contentDisplay="GRAPHIC_ONLY" layoutX="507.0" layoutY="336.0" mnemonicParsing="false" onAction="#switchToLevel" prefHeight="87.0" prefWidth="120.0" text="Button" textOverrun="CLIP">
          <graphic>
             <ImageView fitHeight="72.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/Button/level.png" />
+                  <Image url="@../images/default/Button/level.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
       <ImageView fitHeight="249.2" fitWidth="711.9" layoutX="230.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/Background/gameName.png" />
+            <Image url="@../images/default/Title/breakout.png" />
          </image>
       </ImageView>
       <Button fx:id="backButton" onAction="#switchToPreviousPage" layoutX="35.0" layoutY="42.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="101.0" text="Button">
@@ -39,7 +39,7 @@
          <graphic>
             <ImageView fitHeight="72.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/Button/pvp.png" />
+                  <Image url="@../images/default/Button/pvp.png" />
                </image>
             </ImageView>
          </graphic>
@@ -48,7 +48,7 @@
          <graphic>
             <ImageView fitHeight="72.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/Button/score.png" />
+                  <Image url="@../images/default/Button/score.png" />
                </image>
             </ImageView>
          </graphic>

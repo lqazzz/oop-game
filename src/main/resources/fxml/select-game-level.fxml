@@ -9,7 +9,7 @@
    <children>
       <ImageView fitHeight="900.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/Background/main.png" />
+            <Image url="@../images/default/main.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="900.0" fitWidth="1200.0" layoutX="8.0" pickOnBounds="true" preserveRatio="true">
@@ -21,7 +21,7 @@
          <graphic>
             <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/Number/Type3/1.png" />
+                  <Image url="@../images/default/Number/1.png" />
                </image>
             </ImageView>
          </graphic>
@@ -48,7 +48,7 @@
          <graphic>
             <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/Number/Type3/2.png" />
+                  <Image url="@../images/default/Number/2.png" />
                </image>
             </ImageView>
          </graphic>
@@ -57,7 +57,7 @@
          <graphic>
             <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/Number/Type3/3.png" />
+                  <Image url="@../images/default/Number/3.png" />
                </image>
             </ImageView>
          </graphic>
@@ -66,7 +66,7 @@
          <graphic>
             <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/Number/Type3/4.png" />
+                  <Image url="@../images/default/Number/4.png" />
                </image>
             </ImageView>
          </graphic>
@@ -75,7 +75,7 @@
          <graphic>
             <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/Number/Type3/5.png" />
+                  <Image url="@../images/default/Number/5.png" />
                </image>
             </ImageView>
          </graphic>
@@ -84,7 +84,7 @@
          <graphic>
             <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/Number/Type3/6.png" />
+                  <Image url="@../images/default/Number/6.png" />
                </image>
             </ImageView>
          </graphic>
@@ -93,7 +93,7 @@
          <graphic>
             <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/Number/Type3/7.png" />
+                  <Image url="@../images/default/Number/7.png" />
                </image>
             </ImageView>
          </graphic>
@@ -102,7 +102,7 @@
          <graphic>
             <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/Number/Type3/8.png" />
+                  <Image url="@../images/default/Number/8.png" />
                </image>
             </ImageView>
          </graphic>
@@ -111,7 +111,7 @@
          <graphic>
             <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/Number/Type3/12.png" />
+                  <Image url="@../images/default/Number/12.png" />
                </image>
             </ImageView>
          </graphic>
@@ -120,7 +120,7 @@
          <graphic>
             <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/Number/Type3/11.png" />
+                  <Image url="@../images/default/Number/11.png" />
                </image>
             </ImageView>
          </graphic>
@@ -129,7 +129,7 @@
          <graphic>
             <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/Number/Type3/10.png" />
+                  <Image url="@../images/default/Number/10.png" />
                </image>
             </ImageView>
          </graphic>
@@ -138,7 +138,7 @@
          <graphic>
             <ImageView fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/Number/Type3/9.png" />
+                  <Image url="@../images/default/Number/9.png" />
                </image>
             </ImageView>
          </graphic>

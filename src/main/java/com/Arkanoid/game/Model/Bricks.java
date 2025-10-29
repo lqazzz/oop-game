@@ -20,7 +20,7 @@ public class Bricks extends GameObject {
         this.hitPoint = hitPoint;
         if(typeBrick == "9") typeBrick = "unbreakable";
         this.typeBrick = typeBrick;
-        img = new Image(getClass().getResourceAsStream("/images/Brick/" + typeBrick + ".png"));
+        img = new Image(getClass().getResourceAsStream("/images/default/Brick/" + typeBrick + ".png"));
         view = new ImageView(img);
         view.setFitWidth(width);
         view.setFitHeight(height);
