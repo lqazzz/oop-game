@@ -25,7 +25,7 @@ public class GameView {
         // Add initial objects to the scene
      //   state.getGameRoot().getChildren().add(state.getBall().getBallGroup());
         state.getGameRoot().getChildren().add(state.getPaddle().getPaddleGroup());
-        state.getGameRoot().getChildren().add(state.getPaddle2().getPaddleGroup());
+    //    state.getGameRoot().getChildren().add(state.getPaddle2().getPaddleGroup());
         for (Bricks brick : state.getBricks()) {
             state.getGameRoot().getChildren().add(brick.getBrickGroup());
         }

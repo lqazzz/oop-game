@@ -11,7 +11,7 @@ public class RippleEffect {
     public static void wave(Pane root, double x, double y) {
         // Fix sound wave where colliding right screen broder cause full circle instead of half
         Circle wave = new Circle(x, y, 0);
-        wave.setStroke(new RadialGradient(0, 0, x, y, 1, true, CycleMethod.NO_CYCLE, new Stop(0, Color.CYAN), new Stop(1, Color.DEEPSKYBLUE)
+            wave.setStroke(new RadialGradient(0, 0, x, y, 1, true, CycleMethod.NO_CYCLE, new Stop(0, Color.CYAN), new Stop(1, Color.DEEPSKYBLUE)
         ));
         wave.setStrokeWidth(3);
         wave.setFill(Color.TRANSPARENT);

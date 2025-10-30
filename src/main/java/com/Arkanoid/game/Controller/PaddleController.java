@@ -3,6 +3,7 @@ package com.Arkanoid.game.Controller;
 import com.Arkanoid.game.Model.Paddle;
 import com.Arkanoid.game.Utils.GameConfig;
 import com.Arkanoid.game.Utils.GlobalState;
+import com.Arkanoid.game.View.PauseMenu;
 import javafx.scene.input.KeyCode;
 
 public class PaddleController {
@@ -39,6 +40,13 @@ public class PaddleController {
             }
             else if(e.getCode() == KeyCode.RIGHT) {
                 paddle2.setMoveRight(true);
+            }
+            else if(e.getCode() == KeyCode.ESCAPE) {
+                if(!GlobalState.isGamePaused()) {
+                    GlobalState.initPauseMenu();
+                }
+                GlobalState.setGamePaused(!GlobalState.isGamePaused());
+              //  PauseMenu.
             }
         });
         GlobalState.getScene().setOnKeyReleased(e -> {

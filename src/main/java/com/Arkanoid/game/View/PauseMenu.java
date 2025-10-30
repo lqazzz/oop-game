@@ -70,6 +70,7 @@ public class PauseMenu {
     public static void pause() {
         GlobalState.getScene().setOnKeyPressed(e -> {
             if(e.getCode() == KeyCode.ESCAPE) {
+                System.out.println("Handle");
                 if(!GlobalState.isGamePaused()) {
                     GlobalState.initPauseMenu();
                 }
