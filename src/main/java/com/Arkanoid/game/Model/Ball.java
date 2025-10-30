@@ -25,9 +25,14 @@ public class Ball extends MovableObject {
         super(x, y, GameConfig.DEFAULT_BALL_WIDTH, GameConfig.DEFAULT_BALL_HEIGHT);
         view.setFitHeight(GameConfig.DEFAULT_BALL_HEIGHT);
         view.setFitWidth(GameConfig.DEFAULT_BALL_WIDTH);
+
+
         ballGroup.getChildren().addAll(view);
-        ballGroup.setLayoutX(GameConfig.DEFAULT_BALL_LAYOUT_X);
-        ballGroup.setLayoutY(GameConfig.DEFAULT_BALL_LAYOUT_Y);
+//        ballGroup.setLayoutX(GameConfig.DEFAULT_BALL_LAYOUT_X);
+//        ballGroup.setLayoutY(GameConfig.DEFAULT_BALL_LAYOUT_Y);
+        ballGroup.setLayoutX(x);
+        ballGroup.setLayoutY(y);
+
         dx = GameConfig.DEFAULT_SPEED;//left to right
         dy = GameConfig.DEFAULT_SPEED;//left to right
 //        isMoved = false;
@@ -70,6 +75,45 @@ public class Ball extends MovableObject {
             return false;
         }
     }
+
+    public int update(PongGameState state) {
+        if(ballGroup.getLayoutY() > GameConfig.DEFAULT_SCREEN_HEIGHT - GameConfig.DEFAULT_BALL_HEIGHT) {
+            return -1;
+        }
+        if (ballGroup.getLayoutY() < 0) {
+            return 1;
+        }
+        if(GlobalState.isBallMoved()) {
+            fireBall();
+            move();
+            if(isHitWindowVertical()) {
+                setAngleVertical(true);
+                if(getLayoutY() < 0) {
+                    ballGroup.setLayoutY(GameConfig.DEFAULT_PADDLE_HEIGHT - ballGroup.getBoundsInParent().getHeight() - 1);
+                } else if (getLayoutY() + ballGroup.getBoundsInParent().getHeight() > GameConfig.DEFAULT_PADDLE_HEIGHT) { // chạm tường dưới
+                    ballGroup.setLayoutY(GameConfig.DEFAULT_PADDLE_HEIGHT - ballGroup.getBoundsInParent().getHeight() - 1);
+                }
+                return 0;
+            }
+            if(isHitWindowHorizontal()){
+                setAngleHorizontal(true);
+                if (getLayoutX() < 0) {
+                    ballGroup.setLayoutX(1);
+                } else if (getLayoutX() + ballGroup.getBoundsInParent().getWidth() > GameConfig.DEFAULT_SCREEN_WIDTH) { // tường phải
+                    ballGroup.setLayoutX(GameConfig.DEFAULT_SCREEN_WIDTH - ballGroup.getBoundsInParent().getWidth() - 1);
+                }
+                return 0;
+            }
+            return 0;
+        } else {
+            GlobalState.getScene().setOnMouseClicked(e -> {
+                GlobalState.setBallMoved(true);
+            });
+            moveWithPad(state);
+            return 0;
+        }
+    }
+
 
     @Override
     public void render(GraphicsContext gc) {
@@ -142,10 +186,24 @@ public class Ball extends MovableObject {
         angle = 45;
     }
 
+    public void resetBall(PongGameState state) {
+        ballGroup.setLayoutX(GameConfig.DEFAULT_SCREEN_WIDTH / 2);
+        ballGroup.setLayoutY(GameConfig.DEFAULT_SCREEN_HEIGHT / 2 - GameConfig.DEFAULT_BALL_WIDTH / 2);
+        GlobalState.setBallMoved(false);
+        angle = 45;
+    }
+
+
     public void moveWithPad(GameState state) {
         ballGroup.setLayoutX(state.getPaddle().getPaddleGroup().getLayoutX()
                 + GameConfig.DEFAULT_PADDLE_WIDTH / 2.0 - GameConfig.DEFAULT_BALL_WIDTH / 2.0);
     }
+
+    public void moveWithPad(PongGameState state) {
+        ballGroup.setLayoutX(state.getPaddle().getPaddleGroup().getLayoutX()
+                + GameConfig.DEFAULT_PADDLE_WIDTH / 2.0 - GameConfig.DEFAULT_BALL_WIDTH / 2.0);
+    }
+
 
     public boolean isFireMode() {
         return isFireMode;

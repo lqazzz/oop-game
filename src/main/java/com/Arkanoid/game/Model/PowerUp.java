@@ -29,7 +29,7 @@ public class PowerUp extends MovableObject {
     }
 
     public void getRandomPowerUp(GameState state) {
-        int randomPowerUp = (int)Math.random() * 9;
+        int randomPowerUp = (int)(Math.random() * 9);
         if(powerUpGroup.getChildren().isEmpty()) {
             img = new Image(getClass().getResourceAsStream("/images/default/Power/" + powerType[randomPowerUp]));
             view = new ImageView(img);
@@ -39,8 +39,26 @@ public class PowerUp extends MovableObject {
             view.setLayoutY(getLayoutY());
             powerUpGroup.getChildren().add(view);
             this.typePowerup = randomPowerUp;
+            System.out.println(randomPowerUp);
         }
     }
+
+    public void getRandomPowerUp(PongGameState state) {
+        int randomPowerUp = (int)(Math.random() * 9);
+        if(powerUpGroup.getChildren().isEmpty()) {
+            img = new Image(getClass().getResourceAsStream("/images/default/Power/" + powerType[randomPowerUp]));
+            view = new ImageView(img);
+            view.setFitHeight(GameConfig.BRICK_HEIGHT);
+            view.setFitWidth(GameConfig.BRICK_WIDTH);
+            view.setLayoutX(getLayoutX());
+            view.setLayoutY(getLayoutY());
+            powerUpGroup.getChildren().add(view);
+            this.typePowerup = randomPowerUp;
+            System.out.println(randomPowerUp);
+        }
+    }
+
+
     @Override
     public void update() {
 

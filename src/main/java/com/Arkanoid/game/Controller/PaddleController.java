@@ -28,7 +28,9 @@ public class PaddleController {
             }
         });
     }
-    public void moveWithWASD(Paddle paddle, Paddle paddle2) {
+    public void moveWithWASD(Paddle paddle2, Paddle paddle) {
+        GlobalState.getScene().getRoot().requestFocus();
+        // switch
         GlobalState.getScene().setOnKeyPressed(e -> {
             if(e.getCode() == KeyCode.A) {
                 paddle.setMoveLeft(true);
@@ -57,9 +59,11 @@ public class PaddleController {
             }
             else if(e.getCode() == KeyCode.LEFT) {
                 paddle2.setMoveLeft(false);
+                System.out.println("up move left");
             }
             else if(e.getCode() == KeyCode.RIGHT) {
                 paddle2.setMoveRight(false);
+                System.out.println("up move right");
             }
         });
         //The h xai phim hay chuot

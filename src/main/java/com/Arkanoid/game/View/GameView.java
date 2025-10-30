@@ -19,16 +19,23 @@ public class GameView {
     private AnimationTimer animationTimer;
     private Timeline timeline;
 
-    public GameView() {}
+    public GameView() {
+        GlobalState.setLostSignal(0);
+    }
 
     public void render(GameState state) {
+        GlobalState.setLostSignal(0);
+
         // Add initial objects to the scene
      //   state.getGameRoot().getChildren().add(state.getBall().getBallGroup());
         state.getGameRoot().getChildren().add(state.getPaddle().getPaddleGroup());
-    //    state.getGameRoot().getChildren().add(state.getPaddle2().getPaddleGroup());
+        state.getGameRoot().getChildren().add(state.getPaddle2().getPaddleGroup());
+        GlobalState.setLostSignal(0);
+
         for (Bricks brick : state.getBricks()) {
             state.getGameRoot().getChildren().add(brick.getBrickGroup());
         }
+
         timeline = new Timeline(
                 new KeyFrame(Duration.millis(10), new EventHandler<ActionEvent>() {
                     @Override

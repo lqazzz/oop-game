@@ -4,6 +4,7 @@ import com.Arkanoid.game.Model.GameState;
 import com.Arkanoid.game.Utils.ButtonEffect;
 import com.Arkanoid.game.Utils.GlobalState;
 import com.Arkanoid.game.View.GameView;
+import com.Arkanoid.game.View.PongGameView;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -46,11 +47,21 @@ public class GameController {
         }
     }
     @FXML
-    public void initialize(){
-        updateTheme(rootPane);
+    public void initialize() {
+        updateTheme(rootPane);//
         GameState model = new GameState(gameGroup); // chỗ này
         GameView view = new GameView();
-        System.out.println("Ok");
         view.render(model);
+        // Giờ tạo thêm 1 biến ở globalstate xem đang chơi ch độ nào
+        // if(gs.type == 'regular') {
+        // GameState model = new GameState(gameGroup);
+        // GameView view = new GameView(); /
+        // else if(gs.type == 'pong')
+        // PongGameState model = new...
+        // PongGameView view = new ..
+
+
+
+        System.out.println("Ok");
     }
 }

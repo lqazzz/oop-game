@@ -2,6 +2,7 @@ package com.Arkanoid.game.View;
 
 import com.Arkanoid.game.Controller.PauseMenuController;
 import com.Arkanoid.game.Model.GameState;
+import com.Arkanoid.game.Model.PongGameState;
 import com.Arkanoid.game.Utils.GameConfig;
 import com.Arkanoid.game.Utils.GlobalState;
 import javafx.animation.AnimationTimer;
@@ -24,6 +25,7 @@ public class PauseMenu {
     protected static Rectangle overlay = new Rectangle(GameConfig.DEFAULT_SCREEN_WIDTH, GameConfig.DEFAULT_SCREEN_HEIGHT, Color.BLACK);
     protected static Group pauseMenu = new Group();
     protected static Group lostMenu = new Group();
+
     protected static Group wonMenu = new Group();
     protected static Group popUpBackground = new Group();
     protected static Image popUpImg;
@@ -58,7 +60,13 @@ public class PauseMenu {
     public static Group getLostMenu() {
         GlobalState.getScene().getStylesheets().add(PauseMenu.class.getResource("/fxml/styles.css").toExternalForm());
         if(lostMenu.getChildren().isEmpty()) {
-            title = new Text("You lost nigga, kys");
+            if (GlobalState.getLostSignal() == 0) {
+                title = new Text("You lost nigga");
+            } else if (GlobalState.getLostSignal() == -1) {
+                title = new Text("A won");
+            } else if (GlobalState.getLostSignal() == 1) {
+                title = new Text("B won");
+            }
             overlay.setOpacity(0.5);
             lostMenu.getChildren().add(overlay);
             lostMenu.getChildren().add(getPopUpBackground());
@@ -67,6 +75,8 @@ public class PauseMenu {
         }
         return lostMenu;
     }
+
+
     public static void pause() {
         GlobalState.getScene().setOnKeyPressed(e -> {
             if(e.getCode() == KeyCode.ESCAPE) {
@@ -89,6 +99,7 @@ public class PauseMenu {
                 GlobalState.setPauseAdded(false);
                 GlobalState.setOverAdded(false);
                 GlobalState.setGameOver(false);
+
                 pauseMenuController.switchToSelectLevel(e);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -101,6 +112,13 @@ public class PauseMenu {
             pauseMenuController.unPauseGame(state);
         });
     }
+
+    public static void unPause(PongGameState state) {
+        getContinueBtn().setOnAction(e -> {
+            pauseMenuController.unPauseGame(state);
+        });
+    }
+
 
     public static Button getReplayBtn() {
         replayImg = new Image(PauseMenu.class.getResourceAsStream("/images/Icon/replay.png"));
@@ -153,4 +171,5 @@ public class PauseMenu {
         title.setScaleY(2);
         return title;
     }
+
 }
