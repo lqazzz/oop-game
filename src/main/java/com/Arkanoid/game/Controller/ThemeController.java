@@ -52,17 +52,21 @@ public class ThemeController extends Scene {
     @FXML
     public void switchToXmas(ActionEvent event) throws IOException {
         GlobalState.newTheme = "xmas";
+        SoundController.playMusic("xmas.mp3" , true);
         applyTheme(rootPane, event);
     }
 
     @FXML public void  switchToHalloween(ActionEvent event) throws IOException {
         GlobalState.newTheme = "halloween";
+     //  SoundController.stopMusic();
+        SoundController.playMusic("halloween.mp3" , true);
         applyTheme(rootPane, event);
 
     }
 
     @FXML public void switchToDefault(ActionEvent event) throws  IOException {
         GlobalState.newTheme = "default";
+        SoundController.playMusic("background.mp3" , true);
         applyTheme(rootPane, event);
 
     }

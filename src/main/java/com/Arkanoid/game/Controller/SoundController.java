@@ -30,9 +30,7 @@ public class SoundController {
             return;
         }
         Media media = new Media(resourceUrl.toExternalForm());
-        if(currentPlayer == null) {
-            currentPlayer = new MediaPlayer(media);
-        }
+        currentPlayer = new MediaPlayer(media);
         if (loop) {
             currentPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         }
