@@ -24,9 +24,15 @@ public class GlobalState {
     private static boolean ballMoved = false;
     private static boolean gamePaused = false;
     private static boolean pauseAdded = false;
+    private static int level = 0;
     private static boolean gameOver = false;
     private static boolean overAdded = false;
-
+    public static void setLevel(int level) {
+        GlobalState.level = level;
+    }
+    public static int getLevel() {
+        return level;
+    }
     public static void initPauseMenu() {
         GlobalState.pauseMenu = PauseMenu.getPauseMenu();
     }

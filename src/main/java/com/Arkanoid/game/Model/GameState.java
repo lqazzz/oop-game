@@ -9,6 +9,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,22 +30,44 @@ public class GameState {
     private List<Bullet> bullets = new ArrayList<>();
     private Group gameRoot;
     private PaddleController padControl = new PaddleController();
+    private int level = 12;
+    private int[][] mapData;
+    private int[][] loadMap(InputStream inputStream) {
+        List<int[]> rows = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.trim().split("\\s+");
+                int[] row = new int[parts.length];
+                for (int i = 0; i < parts.length; i++) {
+                    row[i] = Integer.parseInt(parts[i]);
+                }
+                rows.add(row);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return rows.toArray(new int[0][]);
+    }
     public GameState(Group gameRoot) {
         this.gameRoot = gameRoot;
         ball = new Ball(GameConfig.DEFAULT_BALL_LAYOUT_X, GameConfig.DEFAULT_BALL_LAYOUT_Y, -1);
         balls.add(ball);
         paddle = new Paddle(GameConfig.DEFAULT_PADDLE_LAYOUT_X, GameConfig.DEFAULT_PADDLE_LAYOUT_Y, GameConfig.DEFAULT_PADDLE_WIDTH, GameConfig.DEFAULT_PADDLE_HEIGHT);
-        paddle2 = new Paddle(GameConfig.DEFAULT_PADDLE_LAYOUT_X, GameConfig.DEFAULT_PADDLE_LAYOUT_Y, GameConfig.DEFAULT_PADDLE_WIDTH, GameConfig.DEFAULT_PADDLE_HEIGHT);
-        // sau tao se lam load map o day
-        int BRICK_COLS = 18;
-        int BRICK_ROWS = 7;
-        int startX = 15 + 4 * BRICK_WIDTH;
+        paddle2 = new Paddle(GameConfig.DEFAULT_PADDLE_LAYOUT_X, GameConfig.DEFAULT_PADDLE_LAYOUT_Y, GameConfig.DEFAULT_PADDLE_WIDTH, GameConfig.DEFAULT_PADDLE_HEIGHT);        InputStream input = getClass().getResourceAsStream("/maps/" + GlobalState.getLevel() + ".txt");
+        if (input == null) {
+            System.err.println("Không tìm thấy file maps/1.txt trong resource!");
+        } else {
+            mapData = loadMap(input);
+        }
+        int startX = 15 + 6 * BRICK_WIDTH;
         int startY = 80;
-        for (int row = 0; row < BRICK_ROWS; row++) {
-            for (int col = 0; col < BRICK_COLS; col++) {
+        for (int row = 0; row < mapData.length; row++) {
+            for (int col = 0; col < mapData[row].length; col++) {
                 int x = startX + col * BRICK_WIDTH;
                 int y = startY + row * (BRICK_HEIGHT);
-                bricks.add(new Bricks(x, y, 1, BRICK_WIDTH, BRICK_HEIGHT, String.valueOf(row + 1)));
+                if(mapData[row][col] == 0) continue;
+                bricks.add(new Bricks(x, y, 1, BRICK_WIDTH, BRICK_HEIGHT, String.valueOf(mapData[row][col])));
             }
         }
         for(int i = 0; i < 3 ; i++) {
