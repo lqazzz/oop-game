@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1200.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Arkanoid.game.Controller.MainPageController">
+<AnchorPane fx:id="rootPane" prefHeight="900.0" prefWidth="1200.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Arkanoid.game.Controller.MainPageController">
     <children>
         <ImageView fitHeight="900.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -14,7 +14,7 @@
         </ImageView>
         <Button contentDisplay="GRAPHIC_ONLY" layoutX="44.0" layoutY="42.0" mnemonicParsing="false" onAction="#switchToGuide" text="How to play">
             <graphic>
-                <ImageView fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView  fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../images/Icon/information.png" />
                     </image>
@@ -30,7 +30,7 @@
         <Button layoutX="116.0" layoutY="39.0" mnemonicParsing="false" text="How to play" />
         <Button contentDisplay="GRAPHIC_ONLY" layoutX="507.0" layoutY="336.0" mnemonicParsing="false" onAction="#switchToModeGame" stylesheets="@styles.css" text="Play">
          <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id = "play" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../images/default/Button/play.png" />
                     </image>
@@ -38,7 +38,7 @@
          </graphic></Button>
         <Button contentDisplay="GRAPHIC_ONLY" layoutX="506.0" layoutY="431.0" mnemonicParsing="false" onAction="#switchToSetting" prefHeight="35.0" prefWidth="108.0" stylesheets="@styles.css" text="Setting" textAlignment="JUSTIFY">
          <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="setting" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../images/default/Button/setting.png" />
                     </image>
@@ -46,7 +46,7 @@
          </graphic></Button>
         <Button contentDisplay="GRAPHIC_ONLY" layoutX="557.0" layoutY="529.0" mnemonicParsing="false" onAction="#quitGame" stylesheets="@styles.css" text="Quit">
             <graphic>
-                <ImageView fitHeight="51.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="quit" fitHeight="51.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../images/default/Button/quit.png" />
                     </image>
@@ -54,8 +54,17 @@
             </graphic></Button>
         <ImageView fitHeight="249.2" fitWidth="711.9" layoutX="230.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../images/Background/gameName.png" />
+                <Image url="@../images/default/Title/breakout.png" />
             </image>
         </ImageView>
+      <Button contentDisplay="GRAPHIC_ONLY" layoutX="1075.0" layoutY="732.0" mnemonicParsing="false" onAction="#switchToTheme" text="Skin">
+         <graphic>
+            <ImageView fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Icon/list.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
     </children>
 </AnchorPane>

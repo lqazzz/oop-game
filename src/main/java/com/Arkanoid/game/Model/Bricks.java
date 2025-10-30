@@ -1,5 +1,6 @@
 package com.Arkanoid.game.Model;
 import com.Arkanoid.game.Utils.GameConfig;
+import com.Arkanoid.game.Utils.GlobalState;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
@@ -20,7 +21,7 @@ public class Bricks extends GameObject {
         this.hitPoint = hitPoint;
         if(typeBrick == "9") typeBrick = "unbreakable";
         this.typeBrick = typeBrick;
-        img = new Image(getClass().getResourceAsStream("/images/default/Brick/" + typeBrick + ".png"));
+        img = new Image(getClass().getResourceAsStream("/images/" + GlobalState.newTheme + "/Brick/" + typeBrick + ".png"));
         view = new ImageView(img);
         view.setFitWidth(width);
         view.setFitHeight(height);

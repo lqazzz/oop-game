@@ -1,14 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
+<AnchorPane fx:id="rootPane" prefHeight="900.0" prefWidth="1200.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Arkanoid.game.Controller.ThemeController">
+    <ImageView fx:id="bgr" fitHeight="900.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../images/default/main.png" />
+        </image>
+    </ImageView>
+    <Button contentDisplay="GRAPHIC_ONLY" layoutX="35.0" layoutY="42.0" mnemonicParsing="false" onAction="#switchToMainPage" stylesheets="@styles.css" text="Back ">
+        <graphic>
+            <ImageView fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../images/Icon/back.png" />
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
+    <Button contentDisplay="GRAPHIC_ONLY" layoutX="116.0" layoutY="42.0" mnemonicParsing="false" onAction="#switchToMainPage" stylesheets="@styles.css" text="Home">
+        <graphic>
+            <ImageView fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../images/Icon/home.png" />
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
+    <Group fx:id="gameGroup" />
+   <Button id = "xmas" onAction="#switchToXmas" layoutX="87.0" layoutY="270.0" mnemonicParsing="false" prefHeight="362.0" prefWidth="248.0" text="Button">
+      <graphic>
+         <ImageView fitHeight="412.0" fitWidth="264.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../images/xmas/theme.png" />
+            </image>
+         </ImageView>
+      </graphic>
+   </Button>
+   <Button id = "hal" onAction="#switchToHalloween" layoutX="457.0" layoutY="270.0" mnemonicParsing="false" prefHeight="362.0" prefWidth="288.0" text="Button">
+      <graphic>
+         <ImageView fitHeight="412.0" fitWidth="264.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../images/halloween/theme.png" />
+            </image>
+         </ImageView>
+      </graphic>
+   </Button>
+   <Button id = "def" onAction="#switchToDefault" layoutX="825.0" layoutY="270.0" mnemonicParsing="false" prefHeight="362.0" prefWidth="277.0" text="Button">
+      <graphic>
+         <ImageView fitHeight="402.0" fitWidth="286.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../images/default/theme.png" />
+            </image>
+         </ImageView>
+      </graphic>
+   </Button>
 
 </AnchorPane>

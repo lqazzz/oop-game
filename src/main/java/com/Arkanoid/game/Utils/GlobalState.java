@@ -15,6 +15,8 @@ public class GlobalState {
     public static Group lostMenu = new Group();
     public static Group wonMenu = new Group();
     private static boolean musicMuted = false;
+    public static String currenTheme = "def";
+    public static String newTheme = "default";
     private static boolean soundMuted = false;
     private static double lastMusicTime = 0;
     private static boolean[] isBallBought = {true, false, false, false, false, false};

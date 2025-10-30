@@ -1,6 +1,6 @@
 package com.Arkanoid.game.application;
 
-import com.Arkanoid.game.Controller.SoundController;
+import com.Arkanoid.game.Controller.*;
 import com.Arkanoid.game.Utils.GlobalState;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,9 +19,13 @@ public class Main extends Application {
         launch(args);
     }
     public void start(Stage primaryStage) throws Exception {
+        MainPageController.currentTheme = "default";
+        SelectLevelController.currentTheme = "default";
+        ThemeController.currentTheme = "default";
+        SettingController.currentTheme = "default";
+        GameController.currentTheme = "default";
         SoundController.playMusic("background.mp3", true);
         Font.loadFont(getClass().getResource("/font/PaytoneOne-Regular.ttf").toExternalForm(), 12);
-
         GlobalState.setRoot(FXMLLoader.load(getClass().getResource("/fxml/main-page.fxml")));
         GlobalState.setScene(GlobalState.getRoot());
         GlobalState.getScene().getStylesheets().add(getClass().getResource("/fxml/styles.css").toExternalForm());

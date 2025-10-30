@@ -28,7 +28,9 @@ public class Scene {
     public void switchToGuide(ActionEvent event) throws IOException {
         loadScene(event, "/fxml/how-to-play.fxml");
     }
-
+    public void switchToTheme(ActionEvent event) throws IOException {
+        loadScene(event, "/fxml/select-theme.fxml");
+    }
     public void switchToShop(ActionEvent event) throws IOException {
         loadScene(event, "/fxml/skin.fxml");
     }
