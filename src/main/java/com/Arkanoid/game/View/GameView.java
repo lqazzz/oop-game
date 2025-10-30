@@ -64,10 +64,6 @@ public class GameView {
                                 GlobalState.setOverAdded(false);
                             }
                         }
-//                        if(state.getHitPoints().size() == 0) {
-//                            System.out.println("Die");
-//                            return;
-//                        }
                         if(!GlobalState.isGamePaused() && state.getHitPoints().size() > 0) {
                            boolean isDied = false;
                            Iterator<Ball> iteratorBall = state.getBalls().iterator();
@@ -88,7 +84,7 @@ public class GameView {
                                     break;
                                 }
                             }
-                            state.getPadControl().moveWithWASD(state.getPaddle(), state.getPaddle2());
+                            state.getPadControl().moveWithWASDSingleplayer(state.getPaddle());
                             for(int i = 0 ; i < state.getBalls().size(); i++) {
                                 state.getPaddle2().updatePaddle(state.getBalls().get(i), state);
                                 state.getPaddle().updatePaddle(state.getBalls().get(i), state);
