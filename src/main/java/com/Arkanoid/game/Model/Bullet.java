@@ -14,6 +14,7 @@ public class Bullet extends MovableObject {
         super(x, y, width, height);
         view.setFitWidth(width);
         view.setFitHeight(height);
+        view.setRotate(90);
         bulletGroup.getChildren().add(view);
         bulletGroup.setLayoutX(x);
         bulletGroup.setLayoutY(y);

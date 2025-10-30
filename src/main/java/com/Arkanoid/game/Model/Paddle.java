@@ -152,9 +152,9 @@ public class Paddle extends MovableObject{
                 if(shootFrames % 50 == 0) {
                     double x = paddleGroup.getLayoutX();
                     double y = paddleGroup.getLayoutY();
-                    Bullet leftBullet = new Bullet(x, y + 10, 5, 10);
+                    Bullet leftBullet = new Bullet(x, y + 10, 47, 27);
                     Bullet rightBullet = new Bullet(x + GameConfig.DEFAULT_PADDLE_WIDTH - 5,
-                            y + 10, 5, 10);
+                            y + 10, 47, 27);
                     state.getBullets().add(leftBullet);
                     state.getBullets().add(rightBullet);
                 }

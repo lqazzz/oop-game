@@ -128,7 +128,7 @@ public class GameView {
                                 Bricks brick = brickIterator.next();
                                 for(int i = 0 ; i < state.getBalls().size(); i++) {
                                     if(brick.updateBrick(state.getBalls().get(i))) {
-                                        if((int)(Math.random() * 10) == 0) {
+                                        if((int)(Math.random() * 0) == 0) {
                                             PowerUp newPow = new PowerUp(
                                                 brick.getBrickGroup().getLayoutX(),
                                                 brick.getBrickGroup().getLayoutY()
