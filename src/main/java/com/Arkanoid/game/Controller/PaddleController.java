@@ -28,7 +28,7 @@ public class PaddleController {
             }
         });
     }
-    public void moveWithWASD(Paddle paddle2, Paddle paddle) {
+    public void moveWithWASD(Paddle paddle, Paddle paddle2) {
         GlobalState.getScene().getRoot().requestFocus();
         // switch
         GlobalState.getScene().setOnKeyPressed(e -> {

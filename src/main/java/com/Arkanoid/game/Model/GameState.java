@@ -54,7 +54,8 @@ public class GameState {
         ball = new Ball(GameConfig.DEFAULT_BALL_LAYOUT_X, GameConfig.DEFAULT_BALL_LAYOUT_Y, -1);
         balls.add(ball);
         paddle = new Paddle(GameConfig.DEFAULT_PADDLE_LAYOUT_X, GameConfig.DEFAULT_PADDLE_LAYOUT_Y, GameConfig.DEFAULT_PADDLE_WIDTH, GameConfig.DEFAULT_PADDLE_HEIGHT);
-        paddle2 = new Paddle(GameConfig.DEFAULT_PADDLE_LAYOUT_X, GameConfig.DEFAULT_PADDLE_LAYOUT_Y, GameConfig.DEFAULT_PADDLE_WIDTH, GameConfig.DEFAULT_PADDLE_HEIGHT);
+//        paddle2 = new Paddle(GameConfig.DEFAULT_PADDLE_LAYOUT_X, GameConfig.DEFAULT_PADDLE_LAYOUT_Y, GameConfig.DEFAULT_PADDLE_WIDTH, GameConfig.DEFAULT_PADDLE_HEIGHT);
+        paddle2 = new Paddle(1500, GameConfig.DEFAULT_PADDLE_LAYOUT_Y, 1500, GameConfig.DEFAULT_PADDLE_HEIGHT);
 
         InputStream input = getClass().getResourceAsStream("/maps/" + GlobalState.getLevel() + ".txt");
         if (input == null) {
@@ -72,7 +73,7 @@ public class GameState {
                 bricks.add(new Bricks(x, y, 1, BRICK_WIDTH, BRICK_HEIGHT, String.valueOf(mapData[row][col])));
             }
         }
-        for(int i = 0; i < 1; i++) {
+        for(int i = 0; i < 3; i++) {
             hps.add(new HitPoint(23 + 40 * i , 838));
         }
     }
