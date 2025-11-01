@@ -46,9 +46,9 @@
          </graphic></Button>
         <Button contentDisplay="GRAPHIC_ONLY" layoutX="557.0" layoutY="529.0" mnemonicParsing="false" onAction="#quitGame" stylesheets="@styles.css" text="Quit">
             <graphic>
-                <ImageView fx:id="quit" fitHeight="51.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="quit" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/default/Button/quit.png" />
+                        <Image url="@../images/default/Button/exit.png" />
                     </image>
                 </ImageView>
             </graphic></Button>

@@ -24,16 +24,26 @@ public class Paddle extends MovableObject{
     protected ImageView view;
     protected boolean isMoveLeft = false;
     protected boolean isMoveRight = false;
+    protected boolean isMoveLeft2 = false;
+    protected boolean isMoveRight2 = false;
     protected Ball ball;
     public Paddle(double x, double y, int width, int height) {
         super(x , y , width ,height );
         img = new Image(getClass().getResourceAsStream(GlobalState.getCurrentPadPath()));
         view = new ImageView(img);
-        view.setFitHeight(GameConfig.DEFAULT_PADDLE_HEIGHT);
-        view.setFitWidth(GameConfig.DEFAULT_PADDLE_WIDTH);
+//        view.setFitHeight(GameConfig.DEFAULT_PADDLE_HEIGHT);
+//        view.setFitWidth(GameConfig.DEFAULT_PADDLE_WIDTH);
+
+        view.setFitHeight(height);
+        view.setFitWidth(width);
+
+
         paddleGroup.getChildren().add(view);
-        paddleGroup.setLayoutX(GameConfig.DEFAULT_PADDLE_LAYOUT_X);
-        paddleGroup.setLayoutY(GameConfig.DEFAULT_PADDLE_LAYOUT_Y);
+//        paddleGroup.setLayoutX(GameConfig.DEFAULT_PADDLE_LAYOUT_X);
+//        paddleGroup.setLayoutY(GameConfig.DEFAULT_PADDLE_LAYOUT_Y);
+        paddleGroup.setLayoutX(x);
+        paddleGroup.setLayoutY(y);
+
     }
     //Fix ball goes inside paddle at speed 1
     public Bounds getBoundsTop(){
@@ -59,7 +69,7 @@ public class Paddle extends MovableObject{
     @Override
     public void update() {
     }
-    public boolean collision(Ball ball){
+    public boolean collision(Ball ball) {
         Bounds ballBounds = ball.getBallGroup().getBoundsInParent();
         if(ballBounds.intersects(getBounds())) {
             if(ballBounds.intersects(getBoundsTop())) {
@@ -69,6 +79,16 @@ public class Paddle extends MovableObject{
                 ball.setAngleSpecific(90 - hitPos * 60);
                 return true;
             }
+
+            if(ballBounds.intersects(getBoundsBottom())) {
+                double paddleCenterX = paddleGroup.getLayoutX() + GameConfig.DEFAULT_PADDLE_WIDTH / 2.0;
+                double ballCenterX = ball.getBallGroup().getLayoutX() + GameConfig.DEFAULT_BALL_WIDTH / 2.0;
+                double hitPos = (ballCenterX - paddleCenterX) / (GameConfig.DEFAULT_PADDLE_WIDTH / 2.0);
+                ball.setAngleSpecific(270 + hitPos * 60); // này tôi thử từng cái =)) xem cái nào chạy đúng
+                // nma chạy kiểu này cứ sai sai
+                return true;
+            }
+
             if(ballBounds.intersects(getBoundsTop()) && ballBounds.intersects(getBoundsLeft())) {
                 ball.setAngleSpecific(165);
                 return true;
@@ -93,6 +113,7 @@ public class Paddle extends MovableObject{
         if (angle < 0) angle += 360;
         return angle;
     }
+
     public boolean collision(PowerUp power, GameState state){
         if(power.getPowerUpGroup().getBoundsInParent().intersects(getBoundsTop())){
             if(power.typePowerup == 8) {
@@ -135,6 +156,51 @@ public class Paddle extends MovableObject{
         }
         return false;
     }
+
+    public boolean collision(PowerUp power, PongGameState state){
+        if(power.getPowerUpGroup().getBoundsInParent().intersects(getBoundsTop())){
+            if(power.typePowerup == 8) {
+                List<Ball> balls = new ArrayList<>(state.getBalls());
+                if(balls.size() >= 30) return true;
+                for(Ball ball : balls) {
+                    if(state.getBalls().size() >= 30) break;;
+                    double x = ball.getLayoutX();
+                    double y = ball.getLayoutY();
+                    double angle = ball.getAngle();
+                    double angleLeft = angle - 10;
+                    double angleRight = angle + 10;
+                    Ball leftBall = new Ball(x, y, -1);
+                    leftBall.setAngleSpecific(normalizeAngle(angleLeft));
+                    Ball rightBall = new Ball(x, y, -1);
+                    rightBall.setAngleSpecific(normalizeAngle(angleRight));
+                    state.getBalls().add(leftBall);
+                    state.getBalls().add(rightBall);
+                }
+            }
+            if(power.typePowerup == 3) {
+                stretchFrames = 600;
+                isStretched = true;
+            }
+            if(power.typePowerup == 1) {
+                for(Ball ball : state.getBalls()) {
+                    ball.setFireMode(true);
+                    ball.setFrames(600);
+                }
+            }
+            if(power.typePowerup == 0) {
+                isShooting = true;
+                shootFrames = 600;
+            }
+            if(power.typePowerup == 2) {
+                HitPoint hp = state.getHitPoints().getLast();
+                state.getHitPoints().add(new HitPoint(hp.getHitPointGroup().getLayoutX() + 40 , hp.getHitPointGroup().getLayoutY()));
+            }
+            return true;
+        }
+        return false;
+    }
+
+
     public void paddleStretch() {
         if(isStretched) {
             if(stretchFrames > 0) {
@@ -165,6 +231,27 @@ public class Paddle extends MovableObject{
             shootFrames = 600;
         }
     }
+
+    public void shootBullets(PongGameState state) {
+        if(isShooting) {
+            if(shootFrames > 0) {
+                if(shootFrames % 50 == 0) {
+                    double x = paddleGroup.getLayoutX();
+                    double y = paddleGroup.getLayoutY();
+                    Bullet leftBullet = new Bullet(x, y + 10, 47, 27);
+                    Bullet rightBullet = new Bullet(x + GameConfig.DEFAULT_PADDLE_WIDTH - 5,
+                            y + 10, 47, 27);
+                    state.getBullets().add(leftBullet);
+                    state.getBullets().add(rightBullet);
+                }
+                shootFrames -= 1;
+            }
+        } else {
+            isShooting = false;
+            shootFrames = 600;
+        }
+    }
+
     @Override
     public void render(GraphicsContext gc) {
 //        Image img = new Image(getClass().getResourceAsStream("/images/Paddle/gray.png"));
@@ -195,6 +282,16 @@ public class Paddle extends MovableObject{
         paddleStretch();
         return collision(ball);
     }
+    
+    public boolean updatePaddle(Ball ball, PongGameState state) {
+        moveLeft();
+        moveRight();
+        shootBullets(state);
+        paddleStretch();
+        return collision(ball);
+    }
+
+
     public boolean updatePaddle(PowerUp power, GameState state) {
         return collision(power, state);
     }
@@ -208,5 +305,18 @@ public class Paddle extends MovableObject{
 
     public void setMoveRight(boolean moveRight) {
         isMoveRight = moveRight;
+    }
+
+    public void setMoveLeft2(boolean moveLeft) {
+        isMoveLeft2 = moveLeft;
+    }
+
+    public void setMoveRight2(boolean moveRight) {
+        isMoveRight2 = moveRight;
+    }
+
+
+    public boolean updatePaddle(PowerUp power, PongGameState state) {
+        return collision(power, state);
     }
 }

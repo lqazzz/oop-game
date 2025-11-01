@@ -2,17 +2,22 @@ package com.Arkanoid.game.Utils;
 
 import com.Arkanoid.game.View.PauseMenu;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class GlobalState {
+    // default: 0
+    private static int gameMode = 1;
     private static Stage stage;
     private static Parent root;
     private static Scene scene;
     public static Group gameRoot = new Group();
     public static Group pauseMenu = new Group();
     public static Group lostMenu = new Group();
+    private static int lostSignal = 0;
+
     public static Group wonMenu = new Group();
     private static boolean musicMuted = false;
     public static String currenTheme = "def";
@@ -47,12 +52,8 @@ public class GlobalState {
         return currentBallPath;
     }
 
-    public static void setCurrentBallPath(String currentBallPath) {
-        GlobalState.currentBallPath = currentBallPath;
-    }
-
-    public static String getCurrentPadPath() {
-        return currentPadPath;
+    public static boolean getIsBallBought(int index) {
+        return isBallBought[index];
     }
 
     public static void setCurrentPadPath(String currentPadPath) {
@@ -169,5 +170,21 @@ public class GlobalState {
 
     public static void setOverAdded(boolean overAdded) {
         GlobalState.overAdded = overAdded;
+    }
+
+    public static int getGameMode() {
+        return gameMode;
+    }
+
+    public static void setGameMode(int gameMode) {
+        GlobalState.gameMode = gameMode;
+    }
+
+    public static int getLostSignal() {
+        return lostSignal;
+    }
+
+    public static void setLostSignal(int lostSignal) {
+        GlobalState.lostSignal = lostSignal;
     }
 }

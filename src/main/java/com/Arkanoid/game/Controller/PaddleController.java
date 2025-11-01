@@ -18,42 +18,9 @@ public class PaddleController {
             }
         });
     }
-    public void moveWithWASDSingleplayer(Paddle paddle) {
-        GlobalState.getScene().setOnKeyPressed(e -> {
-            if(e.getCode() == KeyCode.A) {
-                paddle.setMoveLeft(true);
-            } else if(e.getCode() == KeyCode.D) {
-                paddle.setMoveRight(true);
-            }
-            else if(e.getCode() == KeyCode.LEFT) {
-                paddle.setMoveLeft(true);
-            }
-            else if(e.getCode() == KeyCode.RIGHT) {
-                paddle.setMoveRight(true);
-            }
-            else if(e.getCode() == KeyCode.ESCAPE) {
-                if(!GlobalState.isGamePaused()) {
-                    GlobalState.initPauseMenu();
-                }
-                GlobalState.setGamePaused(!GlobalState.isGamePaused());
-                //  PauseMenu.
-            }
-        });
-        GlobalState.getScene().setOnKeyReleased(e -> {
-            if(e.getCode() == KeyCode.A) {
-                paddle.setMoveLeft(false);
-            } else if(e.getCode() == KeyCode.D) {
-                paddle.setMoveRight(false);
-            }
-            else if(e.getCode() == KeyCode.LEFT) {
-                paddle.setMoveLeft(false);
-            }
-            else if(e.getCode() == KeyCode.RIGHT) {
-                paddle.setMoveRight(false);
-            }
-        });
-    }
-    public void moveWithWASDMultiplayer(Paddle paddle, Paddle paddle2) {
+    public void moveWithWASD(Paddle paddle, Paddle paddle2) {
+        GlobalState.getScene().getRoot().requestFocus();
+        // switch
         GlobalState.getScene().setOnKeyPressed(e -> {
             if(e.getCode() == KeyCode.A) {
                 paddle.setMoveLeft(true);
@@ -82,9 +49,11 @@ public class PaddleController {
             }
             else if(e.getCode() == KeyCode.LEFT) {
                 paddle2.setMoveLeft(false);
+                System.out.println("up move left");
             }
             else if(e.getCode() == KeyCode.RIGHT) {
                 paddle2.setMoveRight(false);
+                System.out.println("up move right");
             }
         });
     }

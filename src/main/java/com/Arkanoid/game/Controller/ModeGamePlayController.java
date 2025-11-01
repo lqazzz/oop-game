@@ -23,6 +23,9 @@ public class ModeGamePlayController extends Scene {
     private Button settingsButton;
     @FXML private Button pvpButton;
     @FXML private Button scoresButton;
+    @FXML void switchToPVP(ActionEvent event) throws IOException {
+         super.switchToPong(event);
+    }
     @FXML
     public void switchToLevel(ActionEvent event) throws IOException {
         super.switchToSelectLevel(event);

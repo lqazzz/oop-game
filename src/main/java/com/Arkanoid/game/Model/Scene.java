@@ -13,6 +13,9 @@ public class Scene {
         loadScene(event, "/fxml/setting.fxml");
     }
 
+    public void switchToPong(ActionEvent event) throws  IOException {
+        loadScene(event, "/fxml/pong-game.fxml");
+    }
     public void switchToMainPage(ActionEvent event) throws IOException {
         loadScene(event, "/fxml/main-page.fxml");
     }
