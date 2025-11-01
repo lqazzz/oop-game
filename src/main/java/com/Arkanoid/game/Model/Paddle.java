@@ -152,6 +152,17 @@ public class Paddle extends MovableObject{
                 HitPoint hp = state.getHitPoints().getLast();
                 state.getHitPoints().add(new HitPoint(hp.getHitPointGroup().getLayoutX() + 40 , hp.getHitPointGroup().getLayoutY()));
             }
+            if(power.typePowerup == 4) { // SLOWER
+                for(Ball ball : state.getBalls()) {
+                    ball.setSlowerMode();
+                }
+            }
+            if(power.typePowerup == 5) { // SPEEDUP
+                for(Ball ball : state.getBalls()) {
+                    ball.setSpeedupMode();
+                }
+            }
+
             return true;
         }
         return false;
