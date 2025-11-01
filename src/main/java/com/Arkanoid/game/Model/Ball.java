@@ -57,7 +57,7 @@ public class Ball extends MovableObject {
     }
     public boolean update(GameState state) {
         if(ballGroup.getLayoutY() > 850) {
-           // resetBall(state);
+            // resetBall(state);
             return true;
         }
         if(GlobalState.isBallMoved()) {

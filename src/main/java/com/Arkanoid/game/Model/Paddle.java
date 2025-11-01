@@ -203,11 +203,16 @@ public class Paddle extends MovableObject{
 
     public void paddleStretch() {
         if(isStretched) {
+                String padPath = GlobalState.getCurrentPadPath();
             if(stretchFrames > 0) {
+                String firstPart = padPath.substring(0, padPath.length() - 10);
+                System.out.println(firstPart);
+                view.setImage(new Image(getClass().getResourceAsStream(firstPart + "large.png")));
                 view.setFitWidth(GameConfig.DEFAULT_PADDLE_WIDTH * 1.2);
                 stretchFrames -= 1;
             } else {
                 isStretched = false;
+                view.setImage(new Image(getClass().getResourceAsStream(padPath)));
                 view.setFitWidth(GameConfig.DEFAULT_PADDLE_WIDTH);
             }
         }

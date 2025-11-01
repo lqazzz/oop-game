@@ -68,3 +68,7 @@ Text {
     -fx-font-size: 50px;
     -fx-fill: #333;
 }
+TextField {
+    -fx-font-family: "Paytone One Regular";
+    -fx-font-size: 30px;
+}

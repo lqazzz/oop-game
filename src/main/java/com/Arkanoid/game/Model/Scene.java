@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class Scene {
@@ -36,6 +37,9 @@ public class Scene {
     }
     public void switchToShop(ActionEvent event) throws IOException {
         loadScene(event, "/fxml/skin.fxml");
+    }
+    public void switchToRanking(ActionEvent event) throws IOException {
+        loadScene(event, "/fxml/ranking.fxml");
     }
     public void loadScene(ActionEvent event, String path) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
