@@ -8,6 +8,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -87,8 +88,10 @@ public class Ball extends MovableObject {
             }
             return false;
         } else {
-            GlobalState.getScene().setOnMouseClicked(e -> {
-                GlobalState.setBallMoved(true);
+            GlobalState.getScene().setOnKeyTyped(e -> {
+                if(e.getCharacter().equals(" ")) {
+                    GlobalState.setBallMoved(true);
+                }
             });
             moveWithPad(state);
             return false;
