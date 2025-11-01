@@ -24,7 +24,7 @@ public class Main extends Application {
         ThemeController.currentTheme = "default";
         SettingController.currentTheme = "default";
         GameController.currentTheme = "default";
-       // SoundController.playMusic("background.mp3", true);
+        SoundController.playMusic("background.mp3", true);
         Font.loadFont(getClass().getResource("/font/PaytoneOne-Regular.ttf").toExternalForm(), 12);
         GlobalState.setRoot(FXMLLoader.load(getClass().getResource("/fxml/main-page.fxml")));
         GlobalState.setScene(GlobalState.getRoot());
