@@ -6,6 +6,7 @@ module com.Arkanoid.game {
     requires java.desktop;
     requires javafx.base;
 //    requires com.Arkanoid.game;
+//    requires com.Arkanoid.game;
 
     opens com.Arkanoid.game.Controller to javafx.fxml;
     opens com.Arkanoid.game.Model to javafx.fxml;
