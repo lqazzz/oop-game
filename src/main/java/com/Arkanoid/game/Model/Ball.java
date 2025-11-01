@@ -1,4 +1,5 @@
 package com.Arkanoid.game.Model;
+import com.Arkanoid.game.Utils.BallTrailEffect;
 import com.Arkanoid.game.Utils.GameConfig;
 import com.Arkanoid.game.Utils.GlobalState;
 import javafx.animation.FillTransition;
@@ -24,6 +25,7 @@ public class Ball extends MovableObject {
     protected String typeBall;
     protected Image img;
     protected ImageView view;
+    private BallTrailEffect trailEffect;
     private LinkedList<Circle> trail = new LinkedList<>();
     private static final int MAX_TRAIL_SIZE = 15;
     Group ballGroup = new Group();
@@ -44,8 +46,10 @@ public class Ball extends MovableObject {
 //        isMoved = false;
     }
 
-    private void updateTrail(Pane root) {
-
+    public void setTrailEffect(Group gameRoot) {
+        if (trailEffect == null) {
+            trailEffect = new BallTrailEffect(gameRoot, img);
+        }
     }
 
     public double getAngle() {
@@ -159,7 +163,16 @@ public class Ball extends MovableObject {
         dy = -GameConfig.DEFAULT_SPEED * Math.sin(Math.toRadians(angle));
         ballGroup.setLayoutX(ballGroup.getLayoutX() + GameConfig.DEFAULT_SPEED * Math.cos(Math.toRadians(angle)));
         ballGroup.setLayoutY(ballGroup.getLayoutY() - GameConfig.DEFAULT_SPEED * Math.sin(Math.toRadians(angle)));
-        updateTrail((Pane)GlobalState.getRoot());
+
+        if (trailEffect != null) {
+            trailEffect.addTrail(
+                    ballGroup.getLayoutX(),
+                    ballGroup.getLayoutY(),
+                    GameConfig.DEFAULT_BALL_WIDTH,
+                    GameConfig.DEFAULT_BALL_HEIGHT,
+                    isFireMode
+            );
+        }
     }
     public void setAngleSpecific(double newAngle) {
         angle = newAngle;
@@ -212,6 +225,10 @@ public class Ball extends MovableObject {
     }
 
     public void resetBall(GameState state) {
+        if (trailEffect != null) {
+            trailEffect.clearAll();
+        }
+
         ballGroup.setLayoutX(state.getPaddle().getPaddleGroup().getLayoutX() + GameConfig.DEFAULT_PADDLE_WIDTH / 2.0 - GameConfig.DEFAULT_BALL_WIDTH / 2.0);
         ballGroup.setLayoutY(GameConfig.DEFAULT_BALL_LAYOUT_Y);
         GlobalState.setBallMoved(false);
@@ -219,6 +236,10 @@ public class Ball extends MovableObject {
     }
 
     public void resetBall(PongGameState state) {
+        if (trailEffect != null) {
+            trailEffect.clearAll();
+        }
+
         ballGroup.setLayoutX(GameConfig.DEFAULT_SCREEN_WIDTH / 2);
         ballGroup.setLayoutY(GameConfig.DEFAULT_SCREEN_HEIGHT / 2 - GameConfig.DEFAULT_BALL_WIDTH / 2);
         GlobalState.setBallMoved(false);
@@ -257,4 +278,13 @@ public class Ball extends MovableObject {
             }
         }
     }
+
+    public void updateBallImage(Image newImage) {
+        this.img = newImage;
+        this.view.setImage(newImage);
+        if (trailEffect != null) {
+            trailEffect.updateBallImage(newImage);
+        }
+    }
+
 }
