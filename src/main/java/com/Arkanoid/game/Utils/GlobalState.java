@@ -2,22 +2,18 @@ package com.Arkanoid.game.Utils;
 
 import com.Arkanoid.game.View.PauseMenu;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class GlobalState {
-    // default: 0
-    private static int gameMode = 1;
     private static Stage stage;
     private static Parent root;
     private static Scene scene;
     public static Group gameRoot = new Group();
     public static Group pauseMenu = new Group();
     public static Group lostMenu = new Group();
-    private static int lostSignal = 0;
-
     public static Group wonMenu = new Group();
     private static boolean musicMuted = false;
     public static String currenTheme = "def";
@@ -34,6 +30,29 @@ public class GlobalState {
     private static int level = 0;
     private static boolean gameOver = false;
     private static boolean overAdded = false;
+    private static int lostSignal = 0;
+    private static Rectangle leftWallLine;
+    private static Rectangle rightWallLine;
+    private static Rectangle topWallLine;
+
+    public static Rectangle getLeftWallLine() {
+        return leftWallLine;
+    }
+    public static void setLeftWallLine(Rectangle leftWallLine) {
+        GlobalState.leftWallLine = leftWallLine;
+    }
+    public static Rectangle getRightWallLine() {
+        return rightWallLine;
+    }
+    public static void setRightWallLine(Rectangle rightWallLine) {
+        GlobalState.rightWallLine = rightWallLine;
+    }
+    public static Rectangle getTopWallLine() {
+        return topWallLine;
+    }
+    public static void setTopWallLine(Rectangle topWallLine) {
+        GlobalState.topWallLine = topWallLine;
+    }
     public static void setLevel(int level) {
         GlobalState.level = level;
     }
@@ -43,7 +62,13 @@ public class GlobalState {
     public static void initPauseMenu() {
         GlobalState.pauseMenu = PauseMenu.getPauseMenu();
     }
+    public static void setLostSignal(int lostSignal) {
+        GlobalState.lostSignal = lostSignal;
+    }
 
+    public static int getLostSignal() {
+       return GlobalState.lostSignal;
+    }
     public static void initLostMenu() {
         GlobalState.lostMenu = PauseMenu.getLostMenu();
     }
@@ -52,8 +77,12 @@ public class GlobalState {
         return currentBallPath;
     }
 
-    public static boolean getIsBallBought(int index) {
-        return isBallBought[index];
+    public static void setCurrentBallPath(String currentBallPath) {
+        GlobalState.currentBallPath = currentBallPath;
+    }
+
+    public static String getCurrentPadPath() {
+        return currentPadPath;
     }
 
     public static void setCurrentPadPath(String currentPadPath) {
@@ -170,21 +199,5 @@ public class GlobalState {
 
     public static void setOverAdded(boolean overAdded) {
         GlobalState.overAdded = overAdded;
-    }
-
-    public static int getGameMode() {
-        return gameMode;
-    }
-
-    public static void setGameMode(int gameMode) {
-        GlobalState.gameMode = gameMode;
-    }
-
-    public static int getLostSignal() {
-        return lostSignal;
-    }
-
-    public static void setLostSignal(int lostSignal) {
-        GlobalState.lostSignal = lostSignal;
     }
 }

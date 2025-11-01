@@ -264,13 +264,13 @@ public class Paddle extends MovableObject{
 
     public void moveLeft() {
         if(GlobalState.isGamePaused() == false && isMoveLeft
-            && paddleGroup.getLayoutX() > 0)  {
+            && paddleGroup.getLayoutX() > 204)  {
             paddleGroup.setLayoutX(paddleGroup.getLayoutX() - GameConfig.DEFAULT_SPEED);
         }
     }
     public void moveRight() {
         if(GlobalState.isGamePaused() == false && isMoveRight
-            && paddleGroup.getLayoutX() + view.getFitWidth() < GameConfig.DEFAULT_SCREEN_WIDTH) {
+            && paddleGroup.getLayoutX() + view.getFitWidth() < GameConfig.DEFAULT_SCREEN_WIDTH - 204) {
             paddleGroup.setLayoutX(paddleGroup.getLayoutX() + GameConfig.DEFAULT_SPEED);
         }
     }

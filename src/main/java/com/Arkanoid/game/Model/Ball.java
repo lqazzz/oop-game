@@ -1,15 +1,19 @@
 package com.Arkanoid.game.Model;
 import com.Arkanoid.game.Utils.GameConfig;
 import com.Arkanoid.game.Utils.GlobalState;
-import com.Arkanoid.game.Utils.RippleEffect;
+import javafx.animation.FillTransition;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
+
+import java.util.LinkedList;
 
 public class Ball extends MovableObject {
     protected double angle = 45;
@@ -20,6 +24,8 @@ public class Ball extends MovableObject {
     protected String typeBall;
     protected Image img;
     protected ImageView view;
+    private LinkedList<Circle> trail = new LinkedList<>();
+    private static final int MAX_TRAIL_SIZE = 15;
     Group ballGroup = new Group();
     public Ball(double x, double y, double radius) {
         super(x, y, GameConfig.DEFAULT_BALL_WIDTH, GameConfig.DEFAULT_BALL_HEIGHT);
@@ -39,6 +45,35 @@ public class Ball extends MovableObject {
         dy = GameConfig.DEFAULT_SPEED;//left to right
 //        isMoved = false;
     }
+
+    private void updateTrail(Pane root) {
+        if(root == null) {
+            System.out.println("null");
+            return;
+        }
+        Circle c = new Circle(
+                getBallGroup().getLayoutX() + getWidth() / 2,
+                getBallGroup().getLayoutY() + getHeight() / 2,
+                getWidth() / 2
+        );
+        c.setFill(Color.web("#FF00FF", 0.8));
+        root.getChildren().add(c);
+        getBallGroup().toFront();
+        trail.addFirst(c);
+        if (trail.size() > MAX_TRAIL_SIZE) {
+            Circle removed = trail.removeLast();
+            root.getChildren().remove(removed);
+        }
+        double opacity = 0.8;
+        double radius = getWidth() / 2;
+        for (Circle t : trail) {
+            t.setOpacity(opacity);
+            t.setRadius(radius);
+            opacity *= 0.85;
+            radius *= 0.95;
+        }
+    }
+
     public double getAngle() {
         return angle;
     }
@@ -52,19 +87,23 @@ public class Ball extends MovableObject {
             move();
             if(isHitWindowVertical()) {
                 setAngleVertical(true);
-                if(getLayoutY() < 0) {
+                if(ballGroup.getLayoutY() < 0) {
+                    flashWall(GlobalState.getTopWallLine());
                     ballGroup.setLayoutY(1);
-                } else if (getLayoutY() + ballGroup.getBoundsInParent().getHeight() > GameConfig.DEFAULT_PADDLE_HEIGHT) { // chạm tường dưới
+                } else if (ballGroup.getLayoutY() + ballGroup.getBoundsInParent().getHeight() > GameConfig.DEFAULT_PADDLE_HEIGHT) { // chạm tường dưới
                     ballGroup.setLayoutY(GameConfig.DEFAULT_PADDLE_HEIGHT - ballGroup.getBoundsInParent().getHeight() - 1);
                 }
                 return false;
             }
             if(isHitWindowHorizontal()){
                 setAngleHorizontal(true);
-                if (getLayoutX() < 0) {
-                    ballGroup.setLayoutX(1);
-                } else if (getLayoutX() + ballGroup.getBoundsInParent().getWidth() > GameConfig.DEFAULT_SCREEN_WIDTH) { // tường phải
-                    ballGroup.setLayoutX(GameConfig.DEFAULT_SCREEN_WIDTH - ballGroup.getBoundsInParent().getWidth() - 1);
+                System.out.println(getLayoutX());
+                if (ballGroup.getLayoutX() < 204) {
+                    flashWall(GlobalState.getLeftWallLine());
+                    ballGroup.setLayoutX(204);
+                } else if (ballGroup.getLayoutX() + ballGroup.getBoundsInParent().getWidth() > GameConfig.DEFAULT_SCREEN_WIDTH - 204) { // tường phải
+                    flashWall(GlobalState.getRightWallLine());
+                    ballGroup.setLayoutX(GameConfig.DEFAULT_SCREEN_WIDTH - ballGroup.getBoundsInParent().getWidth() - 1 - 204);
                 }
                 return false;
             }
@@ -76,6 +115,26 @@ public class Ball extends MovableObject {
             moveWithPad(state);
             return false;
         }
+    }
+    public void clearTrail(Pane root) {
+        for(Circle t : trail) {
+            root.getChildren().remove(t);
+        }
+        trail.clear();
+    }
+    private void flashWall(Rectangle wall) {
+        if (wall == null) return;
+        Color defaultColor = Color.web("#00FFFF20");
+        Color neonColor = Color.web("#00FFFF");
+        wall.setEffect(new DropShadow(25, neonColor));
+        FillTransition ft = new FillTransition(Duration.millis(200), wall, defaultColor, neonColor);
+        ft.setAutoReverse(true);
+        ft.setCycleCount(1);
+        ft.setOnFinished(e -> {
+            wall.setFill(defaultColor);
+            wall.setEffect(null);
+        });
+        ft.play();
     }
 
     public int update(PongGameState state) {
@@ -129,6 +188,7 @@ public class Ball extends MovableObject {
         dy = -GameConfig.DEFAULT_SPEED * Math.sin(Math.toRadians(angle));
         ballGroup.setLayoutX(ballGroup.getLayoutX() + GameConfig.DEFAULT_SPEED * Math.cos(Math.toRadians(angle)));
         ballGroup.setLayoutY(ballGroup.getLayoutY() - GameConfig.DEFAULT_SPEED * Math.sin(Math.toRadians(angle)));
+        updateTrail((Pane)GlobalState.getRoot());
     }
     public void setAngleSpecific(double newAngle) {
         angle = newAngle;
@@ -144,16 +204,15 @@ public class Ball extends MovableObject {
         }
     }
     public boolean isHitWindowHorizontal() {
-        if(ballGroup.getLayoutX() > 0 && ballGroup.getLayoutX() < GameConfig.DEFAULT_SCREEN_WIDTH - getWidth()) {
+        if(ballGroup.getLayoutX() > 204 && ballGroup.getLayoutX() < GameConfig.DEFAULT_SCREEN_WIDTH - getWidth() - 204) {
             return false;
         }
-        RippleEffect.wave((Pane) GlobalState.getRoot(), ballGroup.getLayoutX() , ballGroup.getLayoutY());
         return true;
     }
     public boolean isHitWindowVertical() {
         if(ballGroup.getLayoutY() > 0 && (ballGroup.getLayoutY() < GameConfig.DEFAULT_SCREEN_HEIGHT - getHeight())) {
             return false;
-        }RippleEffect.wave((Pane) GlobalState.getRoot(), ballGroup.getLayoutX() , ballGroup.getLayoutY());
+        }
         return true;
     }
 

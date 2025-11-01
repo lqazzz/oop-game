@@ -3,6 +3,8 @@ package com.Arkanoid.game.Utils;
 public class GameConfig {
     public static final int DEFAULT_SCREEN_WIDTH = 1200;
     public static final int DEFAULT_SCREEN_HEIGHT = 900;
+    public static final  int INGAME_SCREEN_WIDTH = 800;
+    public static final int INGAME_SCREEN_HEIGHT = 600;
     public static final int DEFAULT_PADDLE_HEIGHT = 28;
     public static final int DEFAULT_PADDLE_WIDTH = 124;
     public static final int DEFAULT_BALL_HEIGHT = 20;
