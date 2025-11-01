@@ -27,6 +27,7 @@ public class GameView {
         GlobalState.setLostSignal(0);
     }
 
+
     public void render(GameState state) {
         GlobalState.setLostSignal(0);
 

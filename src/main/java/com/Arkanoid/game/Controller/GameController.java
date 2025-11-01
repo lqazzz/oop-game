@@ -49,7 +49,7 @@ public class GameController {
     @FXML
     public void initialize() {
         updateTheme(rootPane);//
-        GameState model = new GameState(gameGroup); // chỗ này
+        GameState model = new GameState(gameGroup);
         GameView view = new GameView();
         view.render(model);
         // Giờ tạo thêm 1 biến ở globalstate xem đang chơi ch độ nào

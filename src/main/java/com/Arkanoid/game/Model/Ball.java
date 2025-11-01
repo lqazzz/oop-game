@@ -36,8 +36,6 @@ public class Ball extends MovableObject {
 
 
         ballGroup.getChildren().addAll(view);
-//        ballGroup.setLayoutX(GameConfig.DEFAULT_BALL_LAYOUT_X);
-//        ballGroup.setLayoutY(GameConfig.DEFAULT_BALL_LAYOUT_Y);
         ballGroup.setLayoutX(x);
         ballGroup.setLayoutY(y);
 
@@ -47,31 +45,7 @@ public class Ball extends MovableObject {
     }
 
     private void updateTrail(Pane root) {
-        if(root == null) {
-            System.out.println("null");
-            return;
-        }
-        Circle c = new Circle(
-                getBallGroup().getLayoutX() + getWidth() / 2,
-                getBallGroup().getLayoutY() + getHeight() / 2,
-                getWidth() / 2
-        );
-        c.setFill(Color.web("#FF00FF", 0.8));
-        root.getChildren().add(c);
-        getBallGroup().toFront();
-        trail.addFirst(c);
-        if (trail.size() > MAX_TRAIL_SIZE) {
-            Circle removed = trail.removeLast();
-            root.getChildren().remove(removed);
-        }
-        double opacity = 0.8;
-        double radius = getWidth() / 2;
-        for (Circle t : trail) {
-            t.setOpacity(opacity);
-            t.setRadius(radius);
-            opacity *= 0.85;
-            radius *= 0.95;
-        }
+
     }
 
     public double getAngle() {
@@ -117,10 +91,7 @@ public class Ball extends MovableObject {
         }
     }
     public void clearTrail(Pane root) {
-        for(Circle t : trail) {
-            root.getChildren().remove(t);
-        }
-        trail.clear();
+
     }
     private void flashWall(Rectangle wall) {
         if (wall == null) return;
