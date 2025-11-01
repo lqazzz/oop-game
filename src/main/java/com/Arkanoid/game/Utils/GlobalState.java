@@ -24,9 +24,9 @@ public class GlobalState {
     public static String newTheme = "default";
     private static boolean soundMuted = false;
     private static double lastMusicTime = 0;
-    private static boolean[] isBallBought = {true, false, false, false, false, false};
     private static int currentBall = 0;
-    private static boolean[] isPadBought = {true, false, false, false, false, false};
+    private static String currentBallPath = "/images/Ball/default.png";
+    private static String currentPadPath = "/images/Paddle/default/normal.png";
     private static int currentPad = 0;
     private static boolean ballMoved = false;
     private static boolean gamePaused = false;
@@ -48,13 +48,16 @@ public class GlobalState {
         GlobalState.lostMenu = PauseMenu.getLostMenu();
     }
 
+    public static String getCurrentBallPath() {
+        return currentBallPath;
+    }
 
     public static boolean getIsBallBought(int index) {
         return isBallBought[index];
     }
 
-    public static void setIsBallBought(int index) {
-        GlobalState.isBallBought[index] = true;
+    public static void setCurrentPadPath(String currentPadPath) {
+        GlobalState.currentPadPath = currentPadPath;
     }
 
     public static int getCurrentBall() {
@@ -63,14 +66,6 @@ public class GlobalState {
 
     public static void setCurrentBall(int currentBall) {
         GlobalState.currentBall = currentBall;
-    }
-
-    public static boolean getIsPadBought(int index) {
-        return isPadBought[index];
-    }
-
-    public static void setIsPadBought(int index) {
-        GlobalState.isPadBought[index] = true;
     }
 
     public static int getCurrentPad() {

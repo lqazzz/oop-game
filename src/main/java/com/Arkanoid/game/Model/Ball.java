@@ -18,11 +18,13 @@ public class Ball extends MovableObject {
     protected double dy;
     protected boolean isFireMode;
     protected String typeBall;
-    protected Image img = new Image(getClass().getResourceAsStream("/images/Ball/halloween.png"));
-    protected ImageView view = new ImageView(img);
+    protected Image img;
+    protected ImageView view;
     Group ballGroup = new Group();
     public Ball(double x, double y, double radius) {
         super(x, y, GameConfig.DEFAULT_BALL_WIDTH, GameConfig.DEFAULT_BALL_HEIGHT);
+        img = new Image(getClass().getResourceAsStream(GlobalState.getCurrentBallPath()));
+        view = new ImageView(img);
         view.setFitHeight(GameConfig.DEFAULT_BALL_HEIGHT);
         view.setFitWidth(GameConfig.DEFAULT_BALL_WIDTH);
 

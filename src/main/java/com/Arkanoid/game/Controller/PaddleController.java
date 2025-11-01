@@ -11,16 +11,6 @@ public class PaddleController {
     public PaddleController(){}
 
     public void moveWithMouse(Paddle paddle) {
-        /**
-         * Might want to consider pad follow cursor at certain speed rather than instant tp at cursor X pos
-         * since moving cursor too fast outside window cause paddle to not fully go left/right
-         */
-        /**
-         * your mom fat!
-         */
-        //M vt dc cmt nhu nay chua ma chui
-        //Full tieng anh ra
-        //Xuong xa vcl, dung kid
         GlobalState.getScene().setOnMouseMoved(e -> {
             if(e.getX() > GameConfig.DEFAULT_PADDLE_WIDTH / 2.0 &&
             e.getX() < GameConfig.DEFAULT_SCREEN_WIDTH - GameConfig.DEFAULT_PADDLE_WIDTH / 2.0 && !GlobalState.isGameOver()) {
@@ -66,12 +56,5 @@ public class PaddleController {
                 System.out.println("up move right");
             }
         });
-        //The h xai phim hay chuot
-        //Gi co, noi lai di
-        //T chua limit vi co xai dau
-        //An may
-        //The bo chuot a u
-
-//Dai t        // noob lowtech cha biet cdg ve cong nghe
     }
 }

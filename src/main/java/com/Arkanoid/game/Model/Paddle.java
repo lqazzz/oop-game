@@ -29,7 +29,7 @@ public class Paddle extends MovableObject{
     protected Ball ball;
     public Paddle(double x, double y, int width, int height) {
         super(x , y , width ,height );
-        img = new Image(getClass().getResourceAsStream("/images/Paddle/red.png"));
+        img = new Image(getClass().getResourceAsStream(GlobalState.getCurrentPadPath()));
         view = new ImageView(img);
 //        view.setFitHeight(GameConfig.DEFAULT_PADDLE_HEIGHT);
 //        view.setFitWidth(GameConfig.DEFAULT_PADDLE_WIDTH);
