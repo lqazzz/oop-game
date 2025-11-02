@@ -1,11 +1,12 @@
 package com.Arkanoid.game.Utils;
 
-import javafx.animation.FadeTransition;
 import javafx.scene.Group;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.util.Duration;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.util.LinkedList;
 
@@ -17,12 +18,16 @@ public class BallTrailEffect {
     private static final int MAX_TRAIL_LENGTH = 25;
 
     private static class TrailParticle {
-        ImageView view;
+        ImageView ballView;
+        Rectangle colorOverlay;
         int age;
+        boolean isFireMode;
 
-        TrailParticle(ImageView view) {
-            this.view = view;
+        TrailParticle(ImageView ballView, Rectangle colorOverlay, boolean isFireMode) {
+            this.ballView = ballView;
+            this.colorOverlay = colorOverlay;
             this.age = 0;
+            this.isFireMode = isFireMode;
         }
     }
 
@@ -33,26 +38,20 @@ public class BallTrailEffect {
     }
 
     public void addTrail(double x, double y, double width, double height, boolean isFireMode) {
-        cleanupOldTrails();
-
         if (activeTrails.size() >= MAX_TRAIL_LENGTH) {
-            TrailParticle oldest = activeTrails.removeFirst();
-            gameRoot.getChildren().remove(oldest.view);
+            removeOldestTrail();
         }
 
         for (TrailParticle particle : activeTrails) {
             particle.age++;
         }
 
-        double baseOpacity = isFireMode ? 0.85 : 0.75;
-
-        ImageView trailView = createTrailWithOpacity(
-                width,
-                height,
-                baseOpacity,
-                isFireMode
-        );
-
+        ImageView trailView = new ImageView(ballImage);
+        trailView.setFitWidth(width);
+        trailView.setFitHeight(height);
+        trailView.setPreserveRatio(true);
+        trailView.setSmooth(true);
+        trailView.setCache(true);
         trailView.setLayoutX(x);
         trailView.setLayoutY(y);
 
@@ -60,46 +59,72 @@ public class BallTrailEffect {
         trailView.setEffect(blur);
 
         if (!gameRoot.getChildren().isEmpty()) {
-            gameRoot.getChildren().addFirst(trailView);
+            gameRoot.getChildren().add(0, trailView);
         } else {
             gameRoot.getChildren().add(trailView);
         }
 
-        updateAllTrailOpacity(isFireMode);
+        Rectangle fireOverlay = null;
+        if (isFireMode) {
+            fireOverlay = new Rectangle(width, height);
 
-        activeTrails.addLast(new TrailParticle(trailView));
+            fireOverlay.setFill(Color.rgb(255, 40, 0, 0.7));
+            fireOverlay.setLayoutX(x);
+            fireOverlay.setLayoutY(y);
+            fireOverlay.setBlendMode(BlendMode.ADD);
+
+            javafx.scene.effect.DropShadow fireGlow = new javafx.scene.effect.DropShadow();
+            fireGlow.setColor(Color.rgb(255, 80, 0, 0.9));
+            fireGlow.setRadius(12);
+            fireGlow.setSpread(0.7);
+            fireOverlay.setEffect(fireGlow);
+
+            if (gameRoot.getChildren().size() > 1) {
+                gameRoot.getChildren().add(1, fireOverlay);
+            } else {
+                gameRoot.getChildren().add(fireOverlay);
+            }
+        }
+
+        updateAllTrailOpacity();
+
+        activeTrails.addLast(new TrailParticle(trailView, fireOverlay, isFireMode));
     }
 
-    private void updateAllTrailOpacity(boolean isFireMode) {
+    private void updateAllTrailOpacity() {
         int total = activeTrails.size();
         int index = 0;
 
         for (TrailParticle particle : activeTrails) {
             double progress = (double) index / (double) total;
 
-            double maxOpacity = isFireMode ? 0.9 : 0.75;
+            double maxOpacity = particle.isFireMode ? 0.9 : 0.75;
             double opacity = Math.pow(progress, 2.5) * maxOpacity;
 
-            particle.view.setOpacity(opacity);
+            particle.ballView.setOpacity(opacity);
 
             double scale = 0.7 + (progress * 0.3);
-            particle.view.setScaleX(scale);
-            particle.view.setScaleY(scale);
+            particle.ballView.setScaleX(scale);
+            particle.ballView.setScaleY(scale);
+
+            if (particle.colorOverlay != null) {
+                particle.colorOverlay.setOpacity(opacity * 0.85);
+                particle.colorOverlay.setScaleX(scale);
+                particle.colorOverlay.setScaleY(scale);
+            }
 
             index++;
         }
     }
 
-    private ImageView createTrailWithOpacity(double width, double height, double opacity, boolean isFireMode) {
-        ImageView view = new ImageView(ballImage);
-        view.setFitWidth(width);
-        view.setFitHeight(height);
-        view.setPreserveRatio(true);
-        view.setSmooth(true);
-        view.setCache(true);
-        view.setOpacity(opacity);
-
-        return view;
+    private void removeOldestTrail() {
+        if (!activeTrails.isEmpty()) {
+            TrailParticle oldest = activeTrails.removeFirst();
+            gameRoot.getChildren().remove(oldest.ballView);
+            if (oldest.colorOverlay != null) {
+                gameRoot.getChildren().remove(oldest.colorOverlay);
+            }
+        }
     }
 
     public void cleanupOldTrails() {
@@ -108,10 +133,10 @@ public class BallTrailEffect {
             if (oldest.age > MAX_TRAIL_LENGTH) {
                 activeTrails.removeFirst();
 
-                FadeTransition fade = new FadeTransition(Duration.millis(100), oldest.view);
-                fade.setToValue(0.0);
-                fade.setOnFinished(e -> gameRoot.getChildren().remove(oldest.view));
-                fade.play();
+                gameRoot.getChildren().remove(oldest.ballView);
+                if (oldest.colorOverlay != null) {
+                    gameRoot.getChildren().remove(oldest.colorOverlay);
+                }
             } else {
                 break;
             }
@@ -120,7 +145,10 @@ public class BallTrailEffect {
 
     public void clearAll() {
         for (TrailParticle particle : activeTrails) {
-            gameRoot.getChildren().remove(particle.view);
+            gameRoot.getChildren().remove(particle.ballView);
+            if (particle.colorOverlay != null) {
+                gameRoot.getChildren().remove(particle.colorOverlay);
+            }
         }
         activeTrails.clear();
     }
