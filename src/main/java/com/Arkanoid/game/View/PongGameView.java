@@ -57,7 +57,6 @@ public class PongGameView {
                             }
                         } else {
                             if(GlobalState.isOverAdded()) {
-                                GlobalState.getLostMenu().getChildren().clear();
                                 state.getGameRoot().getChildren().remove(GlobalState.getLostMenu());
                                 GlobalState.setOverAdded(false);
                             }
@@ -85,7 +84,7 @@ public class PongGameView {
                                     break;
                                 }
                             }
-                            state.getPadControl().moveWithWASD(state.getPaddle(), state.getPaddle2());
+                            state.getPadControl().moveWithWASDMulti(state.getPaddle(), state.getPaddle2());
                             for(int i = 0 ; i < state.getBalls().size(); i++) {
                                 state.getPaddle2().updatePaddle(state.getBalls().get(i), state);
                                 state.getPaddle().updatePaddle(state.getBalls().get(i), state);
@@ -101,7 +100,7 @@ public class PongGameView {
                                 }
                             }
                         } else {
-                            PauseMenu.back(timeline);
+                            PauseMenu.backPongGame(timeline);
                             PauseMenu.unPause(state);
                         }
                     }

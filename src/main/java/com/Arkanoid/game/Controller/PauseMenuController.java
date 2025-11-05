@@ -21,4 +21,8 @@ public class PauseMenuController extends Scene {
         super.switchToSelectLevel(event);
     }
 
+    public void switchToMainPage(ActionEvent event) throws IOException {
+        super.switchToMainPage(event);
+    }
+
 }

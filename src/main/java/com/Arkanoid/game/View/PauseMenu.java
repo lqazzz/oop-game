@@ -1,6 +1,7 @@
 package com.Arkanoid.game.View;
 
 import com.Arkanoid.game.Controller.PauseMenuController;
+import com.Arkanoid.game.Controller.RankingController;
 import com.Arkanoid.game.Model.GameState;
 import com.Arkanoid.game.Model.PongGameState;
 import com.Arkanoid.game.Utils.GameConfig;
@@ -10,6 +11,7 @@ import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -31,20 +33,25 @@ public class PauseMenu {
     protected static Image popUpImg;
     protected static Image replayImg;
     protected static Image continueImg;
+    protected static Image homeImg;
     protected static ImageView popUpView;
     protected static Image backImg;
     protected static ImageView replayView;
     protected static ImageView continueView;
     protected static ImageView backView;
+    protected static ImageView homeView;
     protected static Button replayBtn = new Button();
     protected static Button continueBtn = new Button();
     protected static Button backBtn = new Button();
+    protected static Button homeBtn = new Button();
     protected static Text title;
+    protected static TextField nameInput = new TextField();
 
     public PauseMenu() {
     }
     public static Group getPauseMenu() {
         GlobalState.getScene().getStylesheets().add(PauseMenu.class.getResource("/fxml/styles.css").toExternalForm());
+        pauseMenu.getChildren().clear();
         if(pauseMenu.getChildren().isEmpty()) {
             title = new Text("Game paused");
             overlay.setOpacity(0.5);
@@ -59,6 +66,7 @@ public class PauseMenu {
     }
     public static Group getLostMenu() {
         GlobalState.getScene().getStylesheets().add(PauseMenu.class.getResource("/fxml/styles.css").toExternalForm());
+        lostMenu.getChildren().clear();
         if(lostMenu.getChildren().isEmpty()) {
             if (GlobalState.getLostSignal() == 0) {
                 title = new Text("You lost nigga");
@@ -76,11 +84,31 @@ public class PauseMenu {
         return lostMenu;
     }
 
+    public static Group getWonMenu() {
+        GlobalState.getScene().getStylesheets().add(PauseMenu.class.getResource("/fxml/styles.css").toExternalForm());
+        wonMenu.getChildren().clear();
+        if(wonMenu.getChildren().isEmpty()) {
+            title = new Text("You won!!!");
+            overlay.setOpacity(0.5);
+            wonMenu.getChildren().add(overlay);
+            wonMenu.getChildren().add(getPopUpBackground());
+            wonMenu.getChildren().add(getBackBtn());
+            wonMenu.getChildren().add(getTitleText());
+            if(GlobalState.getLevel() == 12) {
+                wonMenu.getChildren().add(getNameInput());
+                wonMenu.getChildren().add(getHomeBtn());
+            }
+        }
+        return wonMenu;
+    }
 
     public static void pause() {
         GlobalState.getScene().setOnKeyPressed(e -> {
             if(e.getCode() == KeyCode.ESCAPE) {
                 System.out.println("Handle");
+                if(GlobalState.isGameOver() || GlobalState.isGameWon()) {
+                    return;
+                }
                 if(!GlobalState.isGamePaused()) {
                     GlobalState.initPauseMenu();
                 }
@@ -99,8 +127,30 @@ public class PauseMenu {
                 GlobalState.setPauseAdded(false);
                 GlobalState.setOverAdded(false);
                 GlobalState.setGameOver(false);
-
+                GlobalState.setBallMoved(false);
+                GlobalState.setWonAdded(false);
+                GlobalState.setGameWon(false);
                 pauseMenuController.switchToSelectLevel(e);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+    }
+
+    public static void backPongGame(Timeline timeline) {
+        getBackBtn().setOnAction(e -> {
+            try {
+                if (timeline != null) {
+                    timeline.stop();
+                }
+                GlobalState.setGamePaused(false);
+                GlobalState.setPauseAdded(false);
+                GlobalState.setOverAdded(false);
+                GlobalState.setGameOver(false);
+                GlobalState.setBallMoved(false);
+                GlobalState.setWonAdded(false);
+                GlobalState.setGameWon(false);
+                pauseMenuController.switchToModeGame(e);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -119,6 +169,30 @@ public class PauseMenu {
         });
     }
 
+    public static void saveAndBackHome(Timeline timeline) {
+        homeBtn.setOnAction(e -> {
+        System.out.println("Gay");
+            try {
+                if(!GlobalState.isGameWon()) {
+                    return;
+                }
+                if (timeline != null) {
+                    timeline.stop();
+                }
+                RankingController.updateRanking(nameInput.getText() + " 400");
+                GlobalState.setGamePaused(false);
+                GlobalState.setPauseAdded(false);
+                GlobalState.setOverAdded(false);
+                GlobalState.setGameOver(false);
+                GlobalState.setBallMoved(false);
+                GlobalState.setWonAdded(false);
+                GlobalState.setGameWon(false);
+                pauseMenuController.switchToMainPage(e);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+    }
 
     public static Button getReplayBtn() {
         replayImg = new Image(PauseMenu.class.getResourceAsStream("/images/Icon/replay.png"));
@@ -170,6 +244,34 @@ public class PauseMenu {
         title.setScaleX(2);
         title.setScaleY(2);
         return title;
+    }
+
+    public static TextField getNameInput() {
+        nameInput.setLayoutX(350);
+        nameInput.setLayoutY(350);
+        nameInput.setPrefHeight(100);
+        nameInput.setPrefWidth(500);
+        nameInput.setPromptText("Enter your name:");
+        return nameInput;
+    }
+
+    public static Button getHomeBtn() {
+        homeImg = new Image(PauseMenu.class.getResourceAsStream("/images/Icon/home.png"));
+        homeView = new ImageView(homeImg);
+        homeView.setFitWidth(150);
+        homeView.setFitHeight(150);
+        homeBtn.setGraphic(homeView);
+        homeBtn.setLayoutX(525);
+        homeBtn.setLayoutY(460);
+        homeBtn.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        return homeBtn;
+    }
+
+    public static void addPauseMenu() {
+        if(!GlobalState.isGamePaused()) {
+            GlobalState.initPauseMenu();
+        }
+        GlobalState.setGamePaused(!GlobalState.isGamePaused());
     }
 
 }

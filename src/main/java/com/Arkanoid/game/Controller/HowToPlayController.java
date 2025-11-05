@@ -1,35 +1,43 @@
 package com.Arkanoid.game.Controller;
 
-import com.Arkanoid.game.Model.GameState;
-import com.Arkanoid.game.Utils.ButtonEffect;
+import com.Arkanoid.game.Model.Scene;
 import com.Arkanoid.game.Utils.GlobalState;
-import com.Arkanoid.game.View.GameView;
-import com.Arkanoid.game.View.PauseMenu;
-import com.Arkanoid.game.View.PongGameView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
-public class GameController {
+public class HowToPlayController extends Scene {
+    @FXML AnchorPane rootPane;
+    @FXML ImageView background;
     public static String currentTheme;
-    @FXML private AnchorPane rootPane;
     @FXML
-    private Group gameGroup;
-    @FXML
-    public void pauseGame(ActionEvent event) throws IOException {
-        PauseMenu.addPauseMenu();
+    public void initialize() {
+        updateTheme(rootPane);
+        String url = background.getImage().getUrl();
+        if (url != null && !url.contains("/images/default")) {
+            for (Node node : rootPane.getChildrenUnmodifiable()) {
+                if (node instanceof Text text) {
+                    System.out.println(text.getText());
+                    text.setStyle("-fx-fill: white;");
+                }
+            }
+        }
     }
-
+    @FXML
+    public void switchToMainPage(ActionEvent event) throws IOException {
+        super.switchToMainPage(event);
+    }
     public void updateTheme(Parent parent) {
         if(parent == null) return;
         currentTheme = GlobalState.newTheme;
+
         for(Node node : parent.getChildrenUnmodifiable()) {
             if(node instanceof ImageView imageView && imageView.getImage() != null) {
                 updateImage(imageView);
@@ -54,23 +62,5 @@ public class GameController {
             } catch (Exception e) {
             }
         }
-    }
-    @FXML
-    public void initialize() {
-        updateTheme(rootPane);//
-        GameState model = new GameState(gameGroup);
-        GameView view = new GameView();
-        view.render(model);
-        // Giờ tạo thêm 1 biến ở globalstate xem đang chơi ch độ nào
-        // if(gs.type == 'regular') {
-        // GameState model = new GameState(gameGroup);
-        // GameView view = new GameView(); /
-        // else if(gs.type == 'pong')
-        // PongGameState model = new...
-        // PongGameView view = new ..
-
-
-
-        System.out.println("Ok");
     }
 }

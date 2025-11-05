@@ -15,6 +15,8 @@ public class GlobalState {
     public static Group pauseMenu = new Group();
     public static Group lostMenu = new Group();
     public static Group wonMenu = new Group();
+    private static int lostSignal = 0;
+
     private static boolean musicMuted = false;
     public static String currenTheme = "def";
     public static String newTheme = "default";
@@ -29,8 +31,9 @@ public class GlobalState {
     private static boolean pauseAdded = false;
     private static int level = 0;
     private static boolean gameOver = false;
+    private static boolean gameWon = true;
+    private static boolean wonAdded = false;
     private static boolean overAdded = false;
-    private static int lostSignal = 0;
     private static Rectangle leftWallLine;
     private static Rectangle rightWallLine;
     private static Rectangle topWallLine;
@@ -72,6 +75,8 @@ public class GlobalState {
     public static void initLostMenu() {
         GlobalState.lostMenu = PauseMenu.getLostMenu();
     }
+
+    public static void initWonMenu() { GlobalState.wonMenu = PauseMenu.getWonMenu(); }
 
     public static String getCurrentBallPath() {
         return currentBallPath;
@@ -185,6 +190,8 @@ public class GlobalState {
         return lostMenu;
     }
 
+    public static Group getWonMenu() { return wonMenu; }
+
     public static boolean isGameOver() {
         return gameOver;
     }
@@ -200,4 +207,21 @@ public class GlobalState {
     public static void setOverAdded(boolean overAdded) {
         GlobalState.overAdded = overAdded;
     }
+
+    public static boolean isGameWon() {
+        return gameWon;
+    }
+
+    public static void setGameWon(boolean gameWon) {
+        GlobalState.gameWon = gameWon;
+    }
+
+    public static boolean isWonAdded() {
+        return wonAdded;
+    }
+
+    public static void setWonAdded(boolean wonAdded) {
+        GlobalState.wonAdded = wonAdded;
+    }
+
 }

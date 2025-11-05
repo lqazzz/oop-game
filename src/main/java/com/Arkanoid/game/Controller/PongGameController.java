@@ -3,6 +3,7 @@ package com.Arkanoid.game.Controller;
 import com.Arkanoid.game.Model.PongGameState;
 import com.Arkanoid.game.Model.Scene;
 import com.Arkanoid.game.Utils.GlobalState;
+import com.Arkanoid.game.View.PauseMenu;
 import com.Arkanoid.game.View.PongGameView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,9 +18,10 @@ import java.io.IOException;
 public class PongGameController extends Scene {
     public static String theme = "";
     @FXML public Group gameGroup;
+
     @FXML
-    public void switchToMainPage(ActionEvent event) throws IOException {
-        super.switchToMainPage(event);
+    public void pauseGame(ActionEvent event) throws IOException {
+        PauseMenu.addPauseMenu();
     }
 
     @FXML

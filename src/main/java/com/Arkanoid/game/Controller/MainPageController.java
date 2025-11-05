@@ -33,10 +33,14 @@ public class MainPageController extends Scene {
     public void switchToShop(ActionEvent event) throws IOException {
         super.switchToShop(event);
     }
+    @FXML
     public void switchToGuide(ActionEvent event) throws IOException {
         super.switchToGuide(event);
     }
-
+    @FXML
+    public void switchToRanking(ActionEvent event) throws IOException {
+        super.switchToRanking(event);
+    }
     @FXML private AnchorPane rootPane;
 
     @FXML

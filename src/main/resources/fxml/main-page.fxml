@@ -27,6 +27,14 @@
                         <Image url="@../images/Icon/store.png" />
                     </image></ImageView>
             </graphic></Button>
+        <Button contentDisplay="GRAPHIC_ONLY" layoutX="44.0" layoutY="732.0" mnemonicParsing="false" onAction="#switchToRanking" text="Ranking">
+         <graphic>
+            <ImageView fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Icon/ranking.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
         <Button contentDisplay="GRAPHIC_ONLY" layoutX="507.0" layoutY="336.0" mnemonicParsing="false" onAction="#switchToModeGame" stylesheets="@styles.css" text="Play">
          <graphic>
                 <ImageView fx:id="play" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
@@ -43,20 +51,20 @@
                     </image>
                 </ImageView>
          </graphic></Button>
-        <Button contentDisplay="GRAPHIC_ONLY" layoutX="507.0" layoutY="513.0" mnemonicParsing="false" onAction="#quitGame" stylesheets="@styles.css" text="Quit">
-         <graphic>
+        <Button contentDisplay="GRAPHIC_ONLY" layoutX="507.0" layoutY="529.0" mnemonicParsing="false" onAction="#quitGame" stylesheets="@styles.css" text="Quit">
+            <graphic>
                 <ImageView fx:id="quit" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../images/default/Button/exit.png" />
                     </image>
                 </ImageView>
-         </graphic></Button>
+            </graphic></Button>
         <ImageView fitHeight="249.2" fitWidth="711.9" layoutX="230.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/default/Title/breakout.png" />
             </image>
         </ImageView>
-      <Button contentDisplay="GRAPHIC_ONLY" layoutX="1075.0" layoutY="732.0" mnemonicParsing="false" onAction="#switchToTheme" stylesheets="@styles.css" text="Exit">
+      <Button contentDisplay="GRAPHIC_ONLY" layoutX="1075.0" layoutY="732.0" mnemonicParsing="false" onAction="#switchToTheme" text="Skin">
          <graphic>
             <ImageView fitHeight="62.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
                <image>
