@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 public class PowerUp extends MovableObject {
     protected int typeIdx;
     protected String[] powerType = {"bulletPower.png", "fireBall.png", "heart.png", "paddleIncrease.png",
-            "shieldProtect.png", "slowDown.png", "speedUp.png", "threeBall.png"};
+            "slowDown.png", "speedUp.png", "threeBall.png", "shieldProtect.png"};
     protected int hitPoint;
     protected String typeBrick;
     protected Image img;
@@ -29,7 +29,8 @@ public class PowerUp extends MovableObject {
     }
 
     public void getRandomPowerUp(GameState state) {
-        int randomPowerUp = (int)(Math.random() * 7);
+//        int randomPowerUp = (int)(Math.random() * 7);
+        int randomPowerUp = 1;
         if(powerUpGroup.getChildren().isEmpty()) {
             img = new Image(getClass().getResourceAsStream("/images/default/Power/" + powerType[randomPowerUp]));
             view = new ImageView(img);

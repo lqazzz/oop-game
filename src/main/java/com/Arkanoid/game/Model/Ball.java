@@ -27,6 +27,14 @@ public class Ball extends MovableObject {
     protected Image img;
     protected ImageView view;
     private BallTrailEffect trailEffect;
+    // for speed up & slow down
+    private double speedMultiplier = 1.0;
+    private double speedFrames = 0;
+    private static final double SPEED_SLOW = 0.6;
+    private static final double SPEED_FAST = 1.5;
+    private static final double SPEED_DURATION = 600;
+
+
     private LinkedList<Circle> trail = new LinkedList<>();
     private static final int MAX_TRAIL_SIZE = 15;
     Group ballGroup = new Group();
@@ -62,6 +70,7 @@ public class Ball extends MovableObject {
             return true;
         }
         if(GlobalState.isBallMoved()) {
+            updateSpeedEffect();
             fireBall();
             move();
             if(isHitWindowVertical()) {
@@ -161,11 +170,15 @@ public class Ball extends MovableObject {
         gc.setLineWidth(1);
         gc.strokeOval(getX(), getY(), getWidth(), getHeight());  // same as circle
     }
+
     public void move() {
-        dx = GameConfig.DEFAULT_SPEED * Math.cos(Math.toRadians(angle));
-        dy = -GameConfig.DEFAULT_SPEED * Math.sin(Math.toRadians(angle));
-        ballGroup.setLayoutX(ballGroup.getLayoutX() + GameConfig.DEFAULT_SPEED * Math.cos(Math.toRadians(angle)));
-        ballGroup.setLayoutY(ballGroup.getLayoutY() - GameConfig.DEFAULT_SPEED * Math.sin(Math.toRadians(angle)));
+        // ÁP DỤNG SPEED MULTIPLIER
+        double currentSpeed = GameConfig.DEFAULT_SPEED * speedMultiplier;
+
+        dx = currentSpeed * Math.cos(Math.toRadians(angle));
+        dy = -currentSpeed * Math.sin(Math.toRadians(angle));
+        ballGroup.setLayoutX(ballGroup.getLayoutX() + currentSpeed * Math.cos(Math.toRadians(angle)));
+        ballGroup.setLayoutY(ballGroup.getLayoutY() - currentSpeed * Math.sin(Math.toRadians(angle)));
 
         if (trailEffect != null) {
             trailEffect.addTrail(
@@ -177,6 +190,7 @@ public class Ball extends MovableObject {
             );
         }
     }
+
     public void setAngleSpecific(double newAngle) {
         angle = newAngle;
     }
@@ -231,6 +245,9 @@ public class Ball extends MovableObject {
         if (trailEffect != null) {
             trailEffect.clearAll();
         }
+
+        speedMultiplier = 1.0;
+        speedFrames = 0;
 
         ballGroup.setLayoutX(state.getPaddle().getPaddleGroup().getLayoutX() + GameConfig.DEFAULT_PADDLE_WIDTH / 2.0 - GameConfig.DEFAULT_BALL_WIDTH / 2.0);
         ballGroup.setLayoutY(GameConfig.DEFAULT_BALL_LAYOUT_Y);
@@ -287,6 +304,27 @@ public class Ball extends MovableObject {
         this.view.setImage(newImage);
         if (trailEffect != null) {
             trailEffect.updateBallImage(newImage);
+        }
+    }
+
+
+    // change speed
+    public void setSlowerMode() {
+        speedMultiplier = SPEED_SLOW;
+        speedFrames = SPEED_DURATION;
+    }
+
+    public void setSpeedupMode() {
+        speedMultiplier = SPEED_FAST;
+        speedFrames = SPEED_DURATION;
+    }
+
+    public void updateSpeedEffect() {
+        if (speedFrames > 0) {
+            speedFrames--;
+            if (speedFrames <= 0) {
+                speedMultiplier = 1.0;
+            }
         }
     }
 
