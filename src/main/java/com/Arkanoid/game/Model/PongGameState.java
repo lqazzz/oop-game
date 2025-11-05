@@ -32,7 +32,7 @@ public class PongGameState {
     private PaddleController padControl = new PaddleController();
     public PongGameState(Group gameRoot) {
         this.gameRoot = gameRoot;
-        ball = new Ball(GameConfig.DEFAULT_SCREEN_WIDTH / 2, GameConfig.DEFAULT_SCREEN_HEIGHT / 2 - GameConfig.DEFAULT_BALL_WIDTH / 2, -1);
+        ball = new Ball(GameConfig.DEFAULT_SCREEN_WIDTH / 2 - GameConfig.DEFAULT_BALL_HEIGHT / 2, GameConfig.DEFAULT_SCREEN_HEIGHT / 2 - GameConfig.DEFAULT_BALL_WIDTH / 2, -1);
 
         // add trail
         ball.setTrailEffect(gameRoot);

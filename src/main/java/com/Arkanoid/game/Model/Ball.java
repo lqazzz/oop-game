@@ -157,7 +157,6 @@ public class Ball extends MovableObject {
             GlobalState.getScene().setOnMouseClicked(e -> {
                 GlobalState.setBallMoved(true);
             });
-            moveWithPad(state);
             return 0;
         }
     }

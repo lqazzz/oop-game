@@ -2,6 +2,7 @@ package com.Arkanoid.game.Controller;
 
 import com.Arkanoid.game.Model.Scene;
 import com.Arkanoid.game.Utils.GlobalState;
+import com.Arkanoid.game.application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -27,9 +28,17 @@ public class RankingController extends Scene {
     public static String currentTheme;
     @FXML
     public void initialize() throws IOException {
-        System.out.println("Gay");
+//        System.out.println("Gay");
         updateTheme(rootPane);
-        File file = new File("/home/khoa/Desktop/idea-IC-252.25557.131/oop-game/src/main/resources/ranking/ranking.txt");
+        String path = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        StringBuilder sb = new StringBuilder(path);
+        int index = sb.indexOf("/target/classes/");
+        if (index != -1) {
+            sb.replace(index, index + "/target/classes/".length(), "/src/main/resources/ranking/ranking.txt");
+        }
+        path = sb.toString();
+        System.out.println(path);
+        File file = new File(path);
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             top1.setText(br.readLine());
             top2.setText(br.readLine());
