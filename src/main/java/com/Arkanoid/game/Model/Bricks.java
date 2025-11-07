@@ -35,7 +35,6 @@ public class Bricks extends GameObject {
     }
 
     public void setNewBrick(int typeBrick) {
-
         img = new Image(getClass().getResourceAsStream("/images/" + GlobalState.newTheme + "/Brick/" + typeBrick + ".png"));
         view = new ImageView(img);
         view.setFitWidth(width);
@@ -83,8 +82,8 @@ public class Bricks extends GameObject {
             if(!ball.isFireMode()) {
                 if(!typeBrick.equals("9")) {
                     hitPoint--;
-                    setNewBrick(hitPoint);
-                    System.out.println("call");
+                    if(hitPoint >= 1) setNewBrick(hitPoint);
+                  //  System.out.println("call");
                 }
                 if ((ballBounds.intersects(getBoundsLeft()) && ballBounds.intersects(getBoundsBottom()))) {
                     ball.setAngleVertical(isOppositeDirY);
