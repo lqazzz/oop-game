@@ -21,6 +21,7 @@ public class PongGameController extends Scene {
 
     @FXML
     public void pauseGame(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         PauseMenu.addPauseMenu();
     }
 

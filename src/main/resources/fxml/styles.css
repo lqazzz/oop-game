@@ -72,3 +72,12 @@ TextField {
     -fx-font-family: "Paytone One Regular";
     -fx-font-size: 30px;
 }
+TextField {
+    -fx-background-color: transparent;
+    -fx-border-color: #aaaaaa;
+    -fx-border-width: 0 0 2 0; /* underline only */
+    -fx-text-fill: #000000; /* black text */
+    -fx-prompt-text-fill: rgba(0, 0, 0, 0.5); /* gray placeholder */
+    -fx-padding: 6 0 4 0;
+}
+

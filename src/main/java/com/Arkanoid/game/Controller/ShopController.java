@@ -75,11 +75,13 @@ public class ShopController extends Scene {
     }
     @FXML
     public void switchToMainPage(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         super.switchToMainPage(event);
     }
     //Balls
     @FXML
     public void getCurrentBall(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         Button clicked = (Button) event.getSource();
         GlobalState.setCurrentBall(ballMap.get(clicked.getId()));
         GlobalState.setCurrentBallPath("/images/Ball/" + clicked.getId() + ".png");
@@ -107,6 +109,7 @@ public class ShopController extends Scene {
     //Pads
     @FXML
     public void getCurrentPad(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         Button clicked = (Button) event.getSource();
         String padName = clicked.getId().toLowerCase();
         GlobalState.setCurrentPadPath("/images/Paddle/" + padName + "/normal.png");

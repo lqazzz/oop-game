@@ -20,6 +20,8 @@ public class SettingController extends Scene {
     private ImageView soundBtn;
     @FXML
     private Slider musicSlider;
+    @FXML
+    private Slider soundSlider;
     private final Image soundOn = new Image(getClass().getResource("/images/Icon/audioOn.png").toExternalForm());
     private final Image soundOff = new Image(getClass().getResource("/images/Icon/audioOff.png").toExternalForm());
     public static String currentTheme;
@@ -28,7 +30,9 @@ public class SettingController extends Scene {
     public void initialize() {
         updateTheme(rootPane);
         updateSoundIcon();
+        updateMusicIcon();
         musicSlider.setValue((GlobalState.isMusicMuted() ? 0 : 1) * 100);
+        soundSlider.setValue((GlobalState.isSoundMuted() ? 0 : 1) * 100);
         musicBtn.setImage(GlobalState.isMusicMuted() ? soundOff : soundOn);
         soundBtn.setImage(GlobalState.isSoundMuted() ? soundOff : soundOn);
     }
@@ -63,17 +67,21 @@ public class SettingController extends Scene {
     }
     @FXML
     public void changeMusicState(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         SoundController.getInstance().toggleMusic(musicSlider);
         updateMusicIcon();
     }
 
     @FXML
     public void changeSoundState(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
+        SoundController.getInstance().toggleSound(soundSlider);
         updateSoundIcon();
     }
 
     @FXML
     public void switchToMainPage(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         super.switchToMainPage(event);
     }
 
@@ -83,8 +91,13 @@ public class SettingController extends Scene {
     }
 
     @FXML
+    public void changeSoundVolume() {
+        SoundController.getInstance().changeSoundVolume(soundSlider);
+    }
+
+    @FXML
     private void updateSoundIcon() {
-        musicBtn.setImage(GlobalState.isSoundMuted() ? soundOff : soundOn);
+        soundBtn.setImage(GlobalState.isSoundMuted() ? soundOff : soundOn);
     }
 
     @FXML

@@ -18,10 +18,12 @@ public class SelectLevelController extends Scene {
     @FXML private AnchorPane rootPane;
     @FXML
     public void switchToHome(ActionEvent event) throws IOException{
+        SoundController.getInstance().playBtnClick();
         super.switchToMainPage(event);
     }
     @FXML
     public void switchToPrevious(ActionEvent event) throws IOException{
+        SoundController.getInstance().playBtnClick();
         super.switchToModeGame(event);
     }
     @FXML void initialize() {
@@ -59,6 +61,7 @@ public class SelectLevelController extends Scene {
     }
     @FXML
     public void selectedLevel(ActionEvent event) throws IOException{
+        SoundController.getInstance().playBtnClick();
         Button selectedButton = (Button)event.getSource();
         int level = Integer.parseInt(selectedButton.getId());
         GlobalState.setLevel(level);

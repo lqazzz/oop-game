@@ -2,6 +2,7 @@ package com.Arkanoid.game.View;
 
 import com.Arkanoid.game.Controller.PauseMenuController;
 import com.Arkanoid.game.Controller.RankingController;
+import com.Arkanoid.game.Controller.SoundController;
 import com.Arkanoid.game.Model.GameState;
 import com.Arkanoid.game.Model.PongGameState;
 import com.Arkanoid.game.Utils.GameConfig;
@@ -21,6 +22,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class PauseMenu {
     static PauseMenuController pauseMenuController = new PauseMenuController();
@@ -79,6 +83,7 @@ public class PauseMenu {
             lostMenu.getChildren().add(overlay);
             lostMenu.getChildren().add(getPopUpBackground());
             lostMenu.getChildren().add(getBackBtn());
+            lostMenu.getChildren().add(getHomeBtn());
             lostMenu.getChildren().add(getTitleText());
         }
         return lostMenu;
@@ -105,6 +110,7 @@ public class PauseMenu {
     public static void pause() {
         GlobalState.getScene().setOnKeyPressed(e -> {
             if(e.getCode() == KeyCode.ESCAPE) {
+                SoundController.getInstance().playBtnClick();
                 System.out.println("Handle");
                 if(GlobalState.isGameOver() || GlobalState.isGameWon()) {
                     return;
@@ -120,6 +126,7 @@ public class PauseMenu {
     public static void back(Timeline timeline) {
         getBackBtn().setOnAction(e -> {
             try {
+                SoundController.getInstance().playBtnClick();
                 if (timeline != null) {
                     timeline.stop();
                 }
@@ -140,6 +147,7 @@ public class PauseMenu {
     public static void backPongGame(Timeline timeline) {
         getBackBtn().setOnAction(e -> {
             try {
+                SoundController.getInstance().playBtnClick();
                 if (timeline != null) {
                     timeline.stop();
                 }
@@ -159,12 +167,14 @@ public class PauseMenu {
 
     public static void unPause(GameState state) {
         getContinueBtn().setOnAction(e -> {
+            SoundController.getInstance().playBtnClick();
             pauseMenuController.unPauseGame(state);
         });
     }
 
     public static void unPause(PongGameState state) {
         getContinueBtn().setOnAction(e -> {
+            SoundController.getInstance().playBtnClick();
             pauseMenuController.unPauseGame(state);
         });
     }
@@ -173,13 +183,20 @@ public class PauseMenu {
         homeBtn.setOnAction(e -> {
         System.out.println("Gay");
             try {
+                SoundController.getInstance().playBtnClick();
                 if(!GlobalState.isGameWon()) {
                     return;
                 }
                 if (timeline != null) {
                     timeline.stop();
                 }
-                RankingController.updateRanking(nameInput.getText() + " 400");
+                if(!nameInput.getText().isEmpty()) {
+                    RankingController.updateRanking(nameInput.getText() + " 400");
+                } else {
+                    String dateFormat = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    String timeFormat = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+                    RankingController.updateRanking(dateFormat + " " + timeFormat + " 400");
+                }
                 GlobalState.setGamePaused(false);
                 GlobalState.setPauseAdded(false);
                 GlobalState.setOverAdded(false);
@@ -247,8 +264,8 @@ public class PauseMenu {
     }
 
     public static TextField getNameInput() {
-        nameInput.setLayoutX(350);
-        nameInput.setLayoutY(350);
+        nameInput.setLayoutX(325);
+        nameInput.setLayoutY(325);
         nameInput.setPrefHeight(100);
         nameInput.setPrefWidth(500);
         nameInput.setPromptText("Enter your name:");

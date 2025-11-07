@@ -70,15 +70,26 @@
 package com.Arkanoid.game.Controller;
 
 import com.Arkanoid.game.Utils.GlobalState;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 import java.net.URL;
 
 public class SoundController {
 
     private MediaPlayer currentPlayer;
+    private static AudioClip btnClick = new AudioClip(SoundController.class.getResource("/sfx/blipSelect.wav").toExternalForm());
+    private static AudioClip bulletSound = new AudioClip(SoundController.class.getResource("/sfx/laserShoot.wav").toExternalForm());
+    private static AudioClip normalBrickSound = new AudioClip(SoundController.class.getResource("/sfx/Brick2.wav").toExternalForm());
+    private static AudioClip supermanBrickSound = new AudioClip(SoundController.class.getResource("/sfx/BrickMetal2.wav").toExternalForm());
+    private static AudioClip powerUpSound = new AudioClip(SoundController.class.getResource("/sfx/powerUp.wav").toExternalForm());
     private static SoundController instance = new SoundController();
 
     private SoundController() {
@@ -87,6 +98,43 @@ public class SoundController {
     public static SoundController getInstance() {
         return instance;
     }
+
+    public void playBtnClick() {
+        if(!GlobalState.isSoundMuted()) {
+            btnClick.stop();
+            btnClick.play();
+        }
+    }
+
+    public void playBulletSound() {
+        if(!GlobalState.isSoundMuted()) {
+            bulletSound.stop();
+            bulletSound.play();
+        }
+    }
+
+    public void playNormalBrickSound() {
+        if(!GlobalState.isSoundMuted()) {
+            normalBrickSound.stop();
+            normalBrickSound.play();
+        }
+    }
+
+    public void playSupermanBrickSound() {
+        if(!GlobalState.isSoundMuted()) {
+            supermanBrickSound.stop();
+            supermanBrickSound.play();
+        }
+    }
+
+    public void playPowerUpSound() {
+        if(!GlobalState.isSoundMuted()) {
+            powerUpSound.stop();
+            powerUpSound.play();
+        }
+    }
+
+
 
     public void playMusic(String fileName, boolean loop) {
         stopMusic();
@@ -131,6 +179,28 @@ public class SoundController {
             });
 
             GlobalState.setMusicMuted(currentPlayer.getVolume() == 0);
+        }
+    }
+
+    public void toggleSound(Slider soundSlider) {
+        if(btnClick != null) {
+            if(!GlobalState.isSoundMuted()) {
+                soundSlider.setValue(0);
+            } else {
+                soundSlider.setValue(100);
+            }
+            GlobalState.setSoundMuted(!GlobalState.isSoundMuted());
+        }
+    }
+
+    public void changeSoundVolume(Slider soundSlider) {
+        if (btnClick != null) {
+            btnClick.setVolume(soundSlider.getValue() / 100.0);
+
+            soundSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+                btnClick.setVolume(newVal.doubleValue() / 100.0);
+            });
+            GlobalState.setSoundMuted(btnClick.getVolume() == 0);
         }
     }
 

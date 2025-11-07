@@ -32,6 +32,7 @@ public class HowToPlayController extends Scene {
     }
     @FXML
     public void switchToMainPage(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         super.switchToMainPage(event);
     }
     public void updateTheme(Parent parent) {

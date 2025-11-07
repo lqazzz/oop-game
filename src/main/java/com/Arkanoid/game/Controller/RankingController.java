@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,21 +24,36 @@ public class RankingController extends Scene {
     @FXML Text top3;
     @FXML Text top4;
     @FXML Text top5;
+    @FXML Text top1Score;
+    @FXML Text top2Score;
+    @FXML Text top3Score;
+    @FXML Text top4Score;
+    @FXML Text top5Score;
+    List<Text> topArr;
+    List<Text> topScoreArr;
     @FXML AnchorPane rootPane;
     @FXML ImageView background;
     public static String currentTheme;
     @FXML
     public void initialize() throws IOException {
-//        System.out.println("Gay");
+        topArr = new ArrayList<>(Arrays.asList(top1, top2, top3, top4, top5));
+        topScoreArr = new ArrayList<>(Arrays.asList(top1Score, top2Score, top3Score, top4Score, top5Score));
         updateTheme(rootPane);
         System.out.println(GlobalState.getRankingPath());
         File file = new File(GlobalState.getRankingPath());
+        int idx = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            top1.setText(br.readLine());
-            top2.setText(br.readLine());
-            top3.setText(br.readLine());
-            top4.setText(br.readLine());
-            top5.setText(br.readLine());
+            String line;
+            while((line = br.readLine()) != null) {
+                String[] parts = line.trim().split("\\s+");
+                StringBuilder name = new StringBuilder();
+                for(int i = 0; i < parts.length - 1; ++i) {
+                    name.append(parts[i]).append(" ");
+                }
+                topArr.get(idx).setText(name.toString());
+                topScoreArr.get(idx).setText(parts[parts.length-1]);
+                idx += 1;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,6 +69,7 @@ public class RankingController extends Scene {
     }
     @FXML
     public void switchToMainPage(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         super.switchToMainPage(event);
     }
 

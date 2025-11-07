@@ -21,7 +21,6 @@ public class Bricks extends GameObject {
     public Bricks(int x, int y, int hitPoint,  int width, int height, String typeBrick ) {
         super(x , y , width , height);
         this.hitPoint = hitPoint;
-        if(typeBrick == "9") typeBrick = "9";
         this.typeBrick = typeBrick;
         img = new Image(getClass().getResourceAsStream("/images/" + GlobalState.newTheme + "/Brick/" + typeBrick + ".png"));
         view = new ImageView(img);

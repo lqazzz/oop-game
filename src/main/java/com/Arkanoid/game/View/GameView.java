@@ -1,5 +1,6 @@
 package com.Arkanoid.game.View;
 
+import com.Arkanoid.game.Controller.SoundController;
 import com.Arkanoid.game.Model.*;
 import com.Arkanoid.game.Utils.GameConfig;
 import com.Arkanoid.game.Utils.GlobalState;
@@ -146,6 +147,7 @@ public class GameView {
                                     iterator.remove();
                                 }
                                 if(state.getPaddle().updatePaddle(powerup, state)){
+                                    SoundController.getInstance().playPowerUpSound();
                                     state.getGameRoot().getChildren().remove(powerup.getPowerUpGroup());
                                     iterator.remove();
                                 }
@@ -168,8 +170,13 @@ public class GameView {
                                 Bricks brick = brickIterator.next();
                                 for(int i = 0 ; i < state.getBalls().size(); i++) {
                                     if(brick.updateBrick(state.getBalls().get(i))) {
+                                        if(brick.getType().equals("9")) {
+                                            SoundController.getInstance().playSupermanBrickSound();
+                                        } else {
+                                            SoundController.getInstance().playNormalBrickSound();
+                                        }
                                         if(brick.getHitPoint() <= 0) {
-                                            if((int)(Math.random() * 10) == 0) {
+                                            if((int)(Math.random() * 20) == 0) {
                                                 PowerUp newPow = new PowerUp(
                                                     brick.getBrickGroup().getLayoutX(),
                                                     brick.getBrickGroup().getLayoutY()
@@ -186,6 +193,11 @@ public class GameView {
                                 }
                                 for(int i = 0 ; i < state.getBullets().size(); i++) {
                                     if(brick.updateBrick(state.getBullets().get(i))) {
+                                        if(brick.getType().equals("9")) {
+                                            SoundController.getInstance().playSupermanBrickSound();
+                                        } else {
+                                            SoundController.getInstance().playNormalBrickSound();
+                                        }
                                         if(brick.getHitPoint() <= 0) {
                                             if((int)(Math.random() * 10) == 0) {
                                                 PowerUp newPow = new PowerUp(

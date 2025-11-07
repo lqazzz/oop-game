@@ -24,18 +24,22 @@ public class ModeGamePlayController extends Scene {
     @FXML private Button pvpButton;
     @FXML private Button scoresButton;
     @FXML void switchToPVP(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
          super.switchToPong(event);
     }
     @FXML
     public void switchToLevel(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         super.switchToSelectLevel(event);
     }
     @FXML
     public void switchToPreviousPage(ActionEvent event) throws IOException{
+        SoundController.getInstance().playBtnClick();
         super.switchToMainPage(event);
     }
     @FXML
     public void switchToHome(ActionEvent event) throws IOException{
+        SoundController.getInstance().playBtnClick();
         super.switchToMainPage(event);
     }
 

@@ -24,6 +24,7 @@ public class GameController {
     private Group gameGroup;
     @FXML
     public void pauseGame(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         PauseMenu.addPauseMenu();
     }
 

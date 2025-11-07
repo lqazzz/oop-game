@@ -1,5 +1,5 @@
 package com.Arkanoid.game.Model;
-
+import com.Arkanoid.game.Controller.SoundController;
 import com.Arkanoid.game.Utils.GlobalState;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
@@ -293,6 +293,7 @@ public class Paddle extends MovableObject{
                     );
                     state.getBullets().add(leftBullet);
                     state.getBullets().add(rightBullet);
+                    SoundController.getInstance().playBulletSound();
                 }
                 shootFrames -= 1;
             }
