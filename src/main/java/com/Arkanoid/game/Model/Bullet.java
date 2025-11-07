@@ -10,7 +10,7 @@ public class Bullet extends MovableObject {
     protected Group bulletGroup = new Group();
     protected ImageView view = new ImageView(
             new Image(getClass().getResourceAsStream("/images/default/Power/bullet.png")));
-    Bullet(double x, double y, double width, double height) {
+    public Bullet(double x, double y, double width, double height) {
         super(x, y, width, height);
         view.setFitWidth(width);
         view.setFitHeight(height);

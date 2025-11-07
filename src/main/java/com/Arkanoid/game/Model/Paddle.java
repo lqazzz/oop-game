@@ -126,10 +126,14 @@ public class Paddle extends MovableObject{
                     double angle = ball.getAngle();
                     double angleLeft = angle - 10;
                     double angleRight = angle + 10;
-                    Ball leftBall = new Ball(x, y, -1);
+
+                    // factory method
+                    Ball leftBall = state.getFactory().createBall(x, y, state.getGameRoot());
                     leftBall.setAngleSpecific(normalizeAngle(angleLeft));
-                    Ball rightBall = new Ball(x, y, -1);
+
+                    Ball rightBall = state.getFactory().createBall(x, y, state.getGameRoot());
                     rightBall.setAngleSpecific(normalizeAngle(angleRight));
+
                     state.getBalls().add(leftBall);
                     state.getBalls().add(rightBall);
                 }
@@ -234,9 +238,8 @@ public class Paddle extends MovableObject{
                 if(shootFrames % 50 == 0) {
                     double x = paddleGroup.getLayoutX();
                     double y = paddleGroup.getLayoutY();
-                    Bullet leftBullet = new Bullet(x, y + 10, 47, 27);
-                    Bullet rightBullet = new Bullet(x + GameConfig.DEFAULT_PADDLE_WIDTH - 5,
-                            y + 10, 47, 27);
+                    Bullet leftBullet = state.getFactory().createBullet(x, y + 10);
+                    Bullet rightBullet = state.getFactory().createBullet(x + GameConfig.DEFAULT_PADDLE_WIDTH - 5, y + 10);
                     state.getBullets().add(leftBullet);
                     state.getBullets().add(rightBullet);
                 }
