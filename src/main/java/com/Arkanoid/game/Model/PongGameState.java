@@ -1,23 +1,14 @@
 package com.Arkanoid.game.Model;
 
 import com.Arkanoid.game.Controller.PaddleController;
+import com.Arkanoid.game.Factory.DefaultGameObjectFactory;
+import com.Arkanoid.game.Factory.GameObjectFactory;
 import com.Arkanoid.game.Utils.GameConfig;
-import com.Arkanoid.game.Utils.GlobalState;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.Arkanoid.game.Utils.GameConfig.BRICK_HEIGHT;
-import static com.Arkanoid.game.Utils.GameConfig.BRICK_WIDTH;
 
 public class PongGameState {
     private Ball ball;
@@ -30,20 +21,37 @@ public class PongGameState {
     private List<Bullet> bullets = new ArrayList<>();
     private Group gameRoot;
     private PaddleController padControl = new PaddleController();
+
+    private GameObjectFactory factory = new DefaultGameObjectFactory();
+
     public PongGameState(Group gameRoot) {
         this.gameRoot = gameRoot;
-        ball = new Ball(GameConfig.DEFAULT_SCREEN_WIDTH / 2 - GameConfig.DEFAULT_BALL_HEIGHT / 2, GameConfig.DEFAULT_SCREEN_HEIGHT / 2 - GameConfig.DEFAULT_BALL_WIDTH / 2, -1);
 
-        // add trail
-        ball.setTrailEffect(gameRoot);
-
+        ball = factory.createBall(
+                (GameConfig.DEFAULT_SCREEN_WIDTH - GameConfig.DEFAULT_BALL_HEIGHT) / 2,
+                (GameConfig.DEFAULT_SCREEN_HEIGHT- GameConfig.DEFAULT_BALL_WIDTH) / 2,
+                gameRoot
+        );
         balls.add(ball);
-        paddle = new Paddle(GameConfig.DEFAULT_PADDLE_LAYOUT_X, GameConfig.DEFAULT_PADDLE_LAYOUT_Y, GameConfig.DEFAULT_PADDLE_WIDTH, GameConfig.DEFAULT_PADDLE_HEIGHT);
-        paddle2 = new Paddle(GameConfig.DEFAULT_PADDLE_LAYOUT_X, GameConfig.DEFAULT_PADDLE_LAYOUT_Y_REVERSE, GameConfig.DEFAULT_PADDLE_WIDTH, GameConfig.DEFAULT_PADDLE_HEIGHT);
+
+        paddle = new Paddle(
+                GameConfig.DEFAULT_PADDLE_LAYOUT_X,
+                GameConfig.DEFAULT_PADDLE_LAYOUT_Y,
+                GameConfig.DEFAULT_PADDLE_WIDTH,
+                GameConfig.DEFAULT_PADDLE_HEIGHT
+        );
+        paddle2 = new Paddle(
+                GameConfig.DEFAULT_PADDLE_LAYOUT_X,
+                GameConfig.DEFAULT_PADDLE_LAYOUT_Y_REVERSE,
+                GameConfig.DEFAULT_PADDLE_WIDTH,
+                GameConfig.DEFAULT_PADDLE_HEIGHT
+        );
 
         hps.add(new HitPoint(1500, 1500)); // move icon out of the screen
 
     }
+
+
     public List<Ball> getBalls() {
         return balls;
     }

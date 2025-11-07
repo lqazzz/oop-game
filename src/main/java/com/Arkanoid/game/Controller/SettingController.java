@@ -63,7 +63,7 @@ public class SettingController extends Scene {
     }
     @FXML
     public void changeMusicState(ActionEvent event) throws IOException {
-        SoundController.toggleMusic(musicSlider);
+        SoundController.getInstance().toggleMusic(musicSlider);
         updateMusicIcon();
     }
 
@@ -79,7 +79,7 @@ public class SettingController extends Scene {
 
     @FXML
     public void changeMusicVolume() {
-        SoundController.changeMusicVolume(musicSlider);
+        SoundController.getInstance().changeMusicVolume(musicSlider);
     }
 
     @FXML
