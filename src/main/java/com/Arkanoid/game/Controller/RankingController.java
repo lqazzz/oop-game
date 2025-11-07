@@ -2,7 +2,6 @@ package com.Arkanoid.game.Controller;
 
 import com.Arkanoid.game.Model.Scene;
 import com.Arkanoid.game.Utils.GlobalState;
-import com.Arkanoid.game.application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -16,7 +15,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 public class RankingController extends Scene {
     @FXML Text top1;
@@ -74,19 +72,19 @@ public class RankingController extends Scene {
     }
 
     public void updateTheme(Parent parent) {
-        if(parent == null) return;
+        if (parent == null) return;
         currentTheme = GlobalState.newTheme;
 
         for(Node node : parent.getChildrenUnmodifiable()) {
-            if(node instanceof ImageView imageView && imageView.getImage() != null) {
+            if (node instanceof ImageView imageView && imageView.getImage() != null) {
                 updateImage(imageView);
             }
-            if(node instanceof javafx.scene.control.Button button) {
-                if(button.getGraphic() instanceof ImageView imageView && imageView.getImage() != null) {
+            if (node instanceof javafx.scene.control.Button button) {
+                if (button.getGraphic() instanceof ImageView imageView && imageView.getImage() != null) {
                     updateImage(imageView);
                 }
             }
-            if(node instanceof Parent childParent) {
+            if (node instanceof Parent childParent) {
                 updateTheme(childParent);
             }
         }
@@ -122,13 +120,13 @@ public class RankingController extends Scene {
         int tempScore = Integer.parseInt(parts[parts.length - 1]);
         int index = 0;
         for(int i = 0; i < 5; ++i) {
-            if(tempScore >= score.get(i)) {
+            if (tempScore >= score.get(i)) {
                 break;
             }
             index += 1;
         }
         tops.add(index, insertScore);
-        File file = new File("/home/khoa/Desktop/idea-IC-252.25557.131/oop-game/src/main/resources/ranking/ranking.txt");
+        File file = new File("/oop-game/src/main/resources/ranking/ranking.txt");
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, false))) {
             bw.write("");
         }

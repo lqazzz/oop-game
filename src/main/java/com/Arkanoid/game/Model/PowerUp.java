@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 public class PowerUp extends MovableObject {
     protected int typeIdx;
     protected String[] powerType = {"bulletPower.png", "fireBall.png", "heart.png", "paddleIncrease.png",
-            "slowDown.png", "speedUp.png", "threeBall.png", "shieldProtect.png"};
+            "slowDown.png", "speedUp.png", "threeBall.png"};
     protected int hitPoint;
     protected String typeBrick;
     protected Image img;
@@ -18,8 +18,8 @@ public class PowerUp extends MovableObject {
     protected Group powerUpGroup = new Group();
     public PowerUp(double x, double y) {
         super(x, y, GameConfig.BRICK_WIDTH, GameConfig.BRICK_HEIGHT);
-        dx = GameConfig.DEFAULT_SPEED;//left to right
-        dy = GameConfig.DEFAULT_SPEED;//left to right
+        dx = GameConfig.DEFAULT_SPEED; // left to right
+        dy = GameConfig.DEFAULT_SPEED; // left to right
         setLayoutX(x);
         setLayoutY(y);
     }
@@ -29,9 +29,10 @@ public class PowerUp extends MovableObject {
     }
 
     public void getRandomPowerUp(GameState state) {
-        int randomPowerUp = (int)(Math.random() * 7);
-
-        if(powerUpGroup.getChildren().isEmpty()) {
+        int randomPowerUp = GlobalState.getRand().nextInt(7);
+//        int randomPowerUp = 6;
+//        int randomPowerUp = GlobalState.getRand().nextInt(2) == 0 ? 1 : 6;
+        if (powerUpGroup.getChildren().isEmpty()) {
             img = new Image(getClass().getResourceAsStream("/images/default/Power/" + powerType[randomPowerUp]));
             view = new ImageView(img);
             view.setFitHeight(GameConfig.BRICK_HEIGHT);
@@ -45,8 +46,8 @@ public class PowerUp extends MovableObject {
     }
 
     public void getRandomPowerUp(PongGameState state) {
-        int randomPowerUp = (int)(Math.random() * 9);
-        if(powerUpGroup.getChildren().isEmpty()) {
+        int randomPowerUp = GlobalState.getRand().nextInt(7);
+        if (powerUpGroup.getChildren().isEmpty()) {
             img = new Image(getClass().getResourceAsStream("/images/default/Power/" + powerType[randomPowerUp]));
             view = new ImageView(img);
             view.setFitHeight(GameConfig.BRICK_HEIGHT);

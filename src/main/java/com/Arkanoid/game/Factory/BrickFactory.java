@@ -19,9 +19,9 @@ public class BrickFactory {
 
     private static int getHitPointForType(int mapValue) {
         switch (mapValue) {
-            case 9: return Integer.MAX_VALUE; // Unbreakable
-            case 0: return 0; // Empty
-            default: return mapValue; // Normal brick
+            case 9: return Integer.MAX_VALUE;
+            case 0: return 0;
+            default: return mapValue;
         }
     }
 }

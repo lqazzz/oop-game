@@ -5,22 +5,21 @@ import com.Arkanoid.game.application.Main;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
+import java.util.Random;
 
 public class GlobalState {
     private static Stage stage;
     private static Parent root;
     private static Scene scene;
-    public static Group gameRoot = new Group();
     public static Group pauseMenu = new Group();
     public static Group lostMenu = new Group();
     public static Group wonMenu = new Group();
     private static int lostSignal = 0;
 
     private static boolean musicMuted = false;
-    public static String currenTheme = "def";
     public static String newTheme = "default";
     private static boolean soundMuted = false;
     private static double lastMusicTime = 0;
@@ -40,6 +39,8 @@ public class GlobalState {
     private static Rectangle rightWallLine;
     private static Rectangle topWallLine;
     private static String rankingPath;
+
+    private static Random rand = new Random();
 
     public static void initRankingPath() {
         rankingPath = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
@@ -239,6 +240,10 @@ public class GlobalState {
 
     public static void setWonAdded(boolean wonAdded) {
         GlobalState.wonAdded = wonAdded;
+    }
+
+    public static Random getRand() {
+        return rand;
     }
 
 }

@@ -114,7 +114,6 @@ public class GameState {
         return rows.toArray(new int[0][]);
     }
 
-    // Getters...
     public List<Ball> getBalls() { return balls; }
     public Ball getBall() { return ball; }
     public List<Bricks> getBricks() { return bricks; }

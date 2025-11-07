@@ -43,7 +43,7 @@
          <graphic>
             <ImageView fitHeight="72.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/default/Button/score.png" />
+<!--                  <Image url="@../images/default/Button/score.png" />-->
                </image>
             </ImageView>
          </graphic>

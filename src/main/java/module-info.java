@@ -5,6 +5,7 @@ module com.Arkanoid.game {
     requires javafx.media;
     requires java.desktop;
     requires javafx.base;
+    requires java.sql;
 //    requires com.Arkanoid.game;
 
 
