@@ -1,12 +1,15 @@
 package com.Arkanoid.game.View;
 
 import com.Arkanoid.game.Model.*;
+import com.Arkanoid.game.Utils.GameConfig;
 import com.Arkanoid.game.Utils.GlobalState;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.util.Iterator;
@@ -23,7 +26,20 @@ public class PongGameView {
 
     public void render(PongGameState state) {
         GlobalState.setLostSignal(-1);
-
+        double lineWidth = 5;
+        Color defaultLineColor = Color.web("#ADD8E6", 0.3);
+        Rectangle leftWall = new Rectangle(225, 0, lineWidth, GameConfig.DEFAULT_SCREEN_HEIGHT - 88);
+        leftWall.setFill(defaultLineColor);
+        state.getGameRoot().getChildren().add(leftWall);
+        GlobalState.setLeftWallLine(leftWall);
+        Rectangle rightWall = new Rectangle(GameConfig.DEFAULT_SCREEN_WIDTH - lineWidth - 225, 0, lineWidth, GameConfig.DEFAULT_SCREEN_HEIGHT - 88);
+        rightWall.setFill(defaultLineColor);
+        state.getGameRoot().getChildren().add(rightWall);
+        GlobalState.setRightWallLine(rightWall);
+        Rectangle topWall = new Rectangle(200, 0, GameConfig.DEFAULT_SCREEN_WIDTH - 400, lineWidth);
+        topWall.setFill(defaultLineColor);
+        state.getGameRoot().getChildren().add(topWall);
+        GlobalState.setTopWallLine(topWall);
         state.getGameRoot().getChildren().add(state.getPaddle().getPaddleGroup());
         state.getGameRoot().getChildren().add(state.getPaddle2().getPaddleGroup());
 

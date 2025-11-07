@@ -134,7 +134,7 @@ public class Ball extends MovableObject {
         if(GlobalState.isBallMoved()) {
             fireBall();
             move();
-            if(isHitWindowVertical()) {
+            if(isHitWindowVerticalPong()) {
                 setAngleVertical(true);
                 if(getLayoutY() < 0) {
                     ballGroup.setLayoutY(GameConfig.DEFAULT_PADDLE_HEIGHT - ballGroup.getBoundsInParent().getHeight() - 1);
@@ -143,12 +143,15 @@ public class Ball extends MovableObject {
                 }
                 return 0;
             }
-            if(isHitWindowHorizontal()){
+            if(isHitWindowHorizontalPong()){
                 setAngleHorizontal(true);
-                if (getLayoutX() < 0) {
-                    ballGroup.setLayoutX(1);
-                } else if (getLayoutX() + ballGroup.getBoundsInParent().getWidth() > GameConfig.DEFAULT_SCREEN_WIDTH) { // tường phải
-                    ballGroup.setLayoutX(GameConfig.DEFAULT_SCREEN_WIDTH - ballGroup.getBoundsInParent().getWidth() - 1);
+                System.out.println(getLayoutX());
+                if (ballGroup.getLayoutX() < 229) {
+                    flashWall(GlobalState.getLeftWallLine());
+                    ballGroup.setLayoutX(229);
+                } else if (ballGroup.getLayoutX() + ballGroup.getBoundsInParent().getWidth() > GameConfig.DEFAULT_SCREEN_WIDTH - 229) { // tường phải
+                    flashWall(GlobalState.getRightWallLine());
+                    ballGroup.setLayoutX(GameConfig.DEFAULT_SCREEN_WIDTH - ballGroup.getBoundsInParent().getWidth() - 1 - 229);
                 }
                 return 0;
             }
@@ -215,7 +218,18 @@ public class Ball extends MovableObject {
         }
         return true;
     }
-
+    public boolean isHitWindowHorizontalPong() {
+        if(ballGroup.getLayoutX() > 229 && ballGroup.getLayoutX() < GameConfig.DEFAULT_SCREEN_WIDTH - getWidth() - 229) {
+            return false;
+        }
+        return true;
+    }
+    public boolean isHitWindowVerticalPong() {
+        if(ballGroup.getLayoutY() > 0 && (ballGroup.getLayoutY() < GameConfig.DEFAULT_SCREEN_HEIGHT - getHeight())) {
+            return false;
+        }
+        return true;
+    }
     public Group getBallGroup() {
         return ballGroup;
     }

@@ -9,7 +9,7 @@ public class BrickFactory {
         String type = String.valueOf(mapValue);
 
         if (mapValue == 9) {
-            type = "unbreakable";
+            type = "9";
         }
 
         int hitPoint = getHitPointForType(mapValue);
@@ -21,7 +21,7 @@ public class BrickFactory {
         switch (mapValue) {
             case 9: return Integer.MAX_VALUE; // Unbreakable
             case 0: return 0; // Empty
-            default: return 1; // Normal brick
+            default: return mapValue; // Normal brick
         }
     }
 }

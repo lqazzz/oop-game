@@ -16,18 +16,32 @@ public class Bricks extends GameObject {
     protected Image img;
     protected ImageView view;
     protected Group brickGroup = new Group();
+    private int width;
+    private int height;
     public Bricks(int x, int y, int hitPoint,  int width, int height, String typeBrick ) {
         super(x , y , width , height);
         this.hitPoint = hitPoint;
-        if(typeBrick == "9") typeBrick = "unbreakable";
+        if(typeBrick == "9") typeBrick = "9";
         this.typeBrick = typeBrick;
         img = new Image(getClass().getResourceAsStream("/images/" + GlobalState.newTheme + "/Brick/" + typeBrick + ".png"));
         view = new ImageView(img);
+        this.width = width;
+        this.height = height;
         view.setFitWidth(width);
         view.setFitHeight(height);
         brickGroup.getChildren().add(view);
         brickGroup.setLayoutX(x);
         brickGroup.setLayoutY(y);
+    }
+
+    public void setNewBrick(int typeBrick) {
+
+        img = new Image(getClass().getResourceAsStream("/images/" + GlobalState.newTheme + "/Brick/" + typeBrick + ".png"));
+        view = new ImageView(img);
+        view.setFitWidth(width);
+        view.setFitHeight(height);
+        brickGroup.getChildren().remove(view);
+        brickGroup.getChildren().add(view);
     }
     public Bounds getBounds(){
         return new BoundingBox(getX(), getY(), getWidth(), getHeight());
@@ -69,6 +83,8 @@ public class Bricks extends GameObject {
             if(!ball.isFireMode()) {
                 if(!typeBrick.equals("9")) {
                     hitPoint--;
+                    setNewBrick(hitPoint);
+                    System.out.println("call");
                 }
                 if ((ballBounds.intersects(getBoundsLeft()) && ballBounds.intersects(getBoundsBottom()))) {
                     ball.setAngleVertical(isOppositeDirY);

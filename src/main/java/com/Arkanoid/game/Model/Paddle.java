@@ -294,6 +294,19 @@ public class Paddle extends MovableObject{
         }
     }
 
+    public void moveLeftPong() {
+        if(GlobalState.isGamePaused() == false && isMoveLeft
+                && paddleGroup.getLayoutX() > 233)  {
+            paddleGroup.setLayoutX(paddleGroup.getLayoutX() - GameConfig.DEFAULT_SPEED);
+        }
+    }
+    public void moveRightPong() {
+        if(GlobalState.isGamePaused() == false && isMoveRight
+                && paddleGroup.getLayoutX() + view.getFitWidth() < GameConfig.DEFAULT_SCREEN_WIDTH - 233) {
+            paddleGroup.setLayoutX(paddleGroup.getLayoutX() + GameConfig.DEFAULT_SPEED);
+        }
+    }
+
     public boolean updatePaddle(Ball ball, GameState state) {
         moveLeft();
         moveRight();
@@ -303,8 +316,8 @@ public class Paddle extends MovableObject{
     }
     
     public boolean updatePaddle(Ball ball, PongGameState state) {
-        moveLeft();
-        moveRight();
+        moveLeftPong();
+        moveRightPong();
         shootBullets(state);
         paddleStretch();
         return collision(ball);

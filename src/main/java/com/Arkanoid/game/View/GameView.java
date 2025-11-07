@@ -40,7 +40,7 @@ public class GameView {
             state.getGameRoot().getChildren().add(brick.getBrickGroup());
         }
         double lineWidth = 3;
-        Color defaultLineColor = Color.web("#ADD8E6", 0.3); // Xanh nhạt bán trong suốt
+        Color defaultLineColor = Color.web("#ADD8E6", 0.3);
         Rectangle leftWall = new Rectangle(200, 0, lineWidth, GameConfig.DEFAULT_SCREEN_HEIGHT - 88);
         leftWall.setFill(defaultLineColor);
         state.getGameRoot().getChildren().add(leftWall);
