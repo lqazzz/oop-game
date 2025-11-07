@@ -30,15 +30,8 @@ public class RankingController extends Scene {
     public void initialize() throws IOException {
 //        System.out.println("Gay");
         updateTheme(rootPane);
-        String path = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-        StringBuilder sb = new StringBuilder(path);
-        int index = sb.indexOf("/target/classes/");
-        if (index != -1) {
-            sb.replace(index, index + "/target/classes/".length(), "/src/main/resources/ranking/ranking.txt");
-        }
-        path = sb.toString();
-        System.out.println(path);
-        File file = new File(path);
+        System.out.println(GlobalState.getRankingPath());
+        File file = new File(GlobalState.getRankingPath());
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             top1.setText(br.readLine());
             top2.setText(br.readLine());

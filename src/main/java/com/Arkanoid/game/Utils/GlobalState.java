@@ -1,9 +1,11 @@
 package com.Arkanoid.game.Utils;
 
 import com.Arkanoid.game.View.PauseMenu;
+import com.Arkanoid.game.application.Main;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -37,6 +39,21 @@ public class GlobalState {
     private static Rectangle leftWallLine;
     private static Rectangle rightWallLine;
     private static Rectangle topWallLine;
+    private static String rankingPath;
+
+    public static void initRankingPath() {
+        rankingPath = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        StringBuilder sb = new StringBuilder(rankingPath);
+        int index = sb.indexOf("/target/classes/");
+        if (index != -1) {
+            sb.replace(index, index + "/target/classes/".length(), "/src/main/resources/ranking/ranking.txt");
+        }
+        rankingPath = sb.toString();
+    }
+
+    public static String getRankingPath() {
+        return rankingPath;
+    }
 
     public static Rectangle getLeftWallLine() {
         return leftWallLine;
