@@ -47,6 +47,7 @@ public class PongGameView {
                     @Override
                     public void handle(ActionEvent event) {
                         PauseMenu.pause();
+                        PauseMenu.saveAndBackHome(timeline);
                         if (GlobalState.isGamePaused()) {
                             if (!GlobalState.isPauseAdded()) {
                                 state.getGameRoot().getChildren().add(GlobalState.getPauseMenu());

@@ -157,8 +157,10 @@ public class Ball extends MovableObject {
             }
             return 0;
         } else {
-            GlobalState.getScene().setOnMouseClicked(e -> {
-                GlobalState.setBallMoved(true);
+            GlobalState.getScene().setOnKeyTyped(e -> {
+                if(e.getCharacter().equals(" ")) {
+                    GlobalState.setBallMoved(true);
+                }
             });
             return 0;
         }

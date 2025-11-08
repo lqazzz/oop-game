@@ -56,7 +56,6 @@ public class GameView {
                     @Override
 
                     public void handle(ActionEvent event) {
-
                         PauseMenu.pause();
                         PauseMenu.saveAndBackHome(timeline);
                         if (GlobalState.isGamePaused()) {
@@ -96,7 +95,6 @@ public class GameView {
                         }
                         if (GlobalState.isGameWon()) {
                             if (!GlobalState.isWonAdded()) {
-                                System.out.println("Gay");
                                 GlobalState.initWonMenu();
                                 state.getGameRoot().getChildren().add(GlobalState.getWonMenu());
                                 GlobalState.setWonAdded(true);
