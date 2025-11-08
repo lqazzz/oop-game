@@ -4,6 +4,7 @@ import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
 import javafx.scene.control.Button;
 import javafx.util.Duration;
+
 public class ButtonEffect {
     public static void applyCuteIdle(Button button) {
         ScaleTransition stX = new ScaleTransition(Duration.millis(400), button);

@@ -75,16 +75,20 @@ public class ShopController extends Scene {
     }
     @FXML
     public void switchToMainPage(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         super.switchToMainPage(event);
     }
+
     //Balls
     @FXML
     public void getCurrentBall(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         Button clicked = (Button) event.getSource();
         GlobalState.setCurrentBall(ballMap.get(clicked.getId()));
         GlobalState.setCurrentBallPath("/images/Ball/" + clicked.getId() + ".png");
         setCurrentBall();
     }
+
     public void setCurrentBall() {
         deselectAllBall();
         switch (GlobalState.getCurrentBall()) {
@@ -96,6 +100,7 @@ public class ShopController extends Scene {
             case 5 -> baseballSelect.setImage(selectImage);
         };
     }
+
     public void deselectAllBall() {
         defaultBallSelect.setImage(null);
         circuitSelect.setImage(null);
@@ -104,9 +109,11 @@ public class ShopController extends Scene {
         vietnamSelect.setImage(null);
         baseballSelect.setImage(null);
     }
+
     //Pads
     @FXML
     public void getCurrentPad(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         Button clicked = (Button) event.getSource();
         String padName = clicked.getId().toLowerCase();
         GlobalState.setCurrentPadPath("/images/Paddle/" + padName + "/normal.png");
@@ -134,19 +141,19 @@ public class ShopController extends Scene {
     }
 
     public void updateTheme(Parent parent) {
-        if(parent == null) return;
+        if (parent == null) return;
         currentTheme = GlobalState.newTheme;
 
         for(Node node : parent.getChildrenUnmodifiable()) {
-            if(node instanceof ImageView imageView && imageView.getImage() != null) {
+            if (node instanceof ImageView imageView && imageView.getImage() != null) {
                 updateImage(imageView);
             }
-            if(node instanceof javafx.scene.control.Button button) {
-                if(button.getGraphic() instanceof ImageView imageView && imageView.getImage() != null) {
+            if (node instanceof javafx.scene.control.Button button) {
+                if (button.getGraphic() instanceof ImageView imageView && imageView.getImage() != null) {
                     updateImage(imageView);
                 }
             }
-            if(node instanceof Parent childParent) {
+            if (node instanceof Parent childParent) {
                 updateTheme(childParent);
             }
         }

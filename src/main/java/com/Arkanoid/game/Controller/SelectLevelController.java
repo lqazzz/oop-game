@@ -1,6 +1,5 @@
 package com.Arkanoid.game.Controller;
 
-import com.Arkanoid.game.Model.GameState;
 import com.Arkanoid.game.Utils.GlobalState;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,10 +17,12 @@ public class SelectLevelController extends Scene {
     @FXML private AnchorPane rootPane;
     @FXML
     public void switchToHome(ActionEvent event) throws IOException{
+        SoundController.getInstance().playBtnClick();
         super.switchToMainPage(event);
     }
     @FXML
     public void switchToPrevious(ActionEvent event) throws IOException{
+        SoundController.getInstance().playBtnClick();
         super.switchToModeGame(event);
     }
     @FXML void initialize() {
@@ -29,19 +30,19 @@ public class SelectLevelController extends Scene {
     }
 
     public void updateTheme(Parent parent) {
-        if(parent == null) return;
+        if (parent == null) return;
         currentTheme = GlobalState.newTheme;
 
         for(Node node : parent.getChildrenUnmodifiable()) {
-            if(node instanceof ImageView imageView && imageView.getImage() != null) {
+            if (node instanceof ImageView imageView && imageView.getImage() != null) {
                 updateImage(imageView);
             }
-            if(node instanceof javafx.scene.control.Button button) {
-                if(button.getGraphic() instanceof ImageView imageView && imageView.getImage() != null) {
+            if (node instanceof javafx.scene.control.Button button) {
+                if (button.getGraphic() instanceof ImageView imageView && imageView.getImage() != null) {
                     updateImage(imageView);
                 }
             }
-            if(node instanceof Parent childParent) {
+            if (node instanceof Parent childParent) {
                 updateTheme(childParent);
             }
         }
@@ -59,6 +60,7 @@ public class SelectLevelController extends Scene {
     }
     @FXML
     public void selectedLevel(ActionEvent event) throws IOException{
+        SoundController.getInstance().playBtnClick();
         Button selectedButton = (Button)event.getSource();
         int level = Integer.parseInt(selectedButton.getId());
         GlobalState.setLevel(level);

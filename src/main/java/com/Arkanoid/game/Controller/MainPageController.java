@@ -23,28 +23,34 @@ public class MainPageController extends Scene {
 
     @FXML
     public void switchToSetting(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         super.switchToSetting(event);
     }
     @FXML
     public void switchToModeGame(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         super.switchToModeGame(event);
     }
     @FXML
     public void switchToShop(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         super.switchToShop(event);
     }
     @FXML
     public void switchToGuide(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         super.switchToGuide(event);
     }
     @FXML
     public void switchToRanking(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         super.switchToRanking(event);
     }
     @FXML private AnchorPane rootPane;
 
     @FXML
     public void switchToTheme(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         super.switchToTheme(event);
     }
 
@@ -53,19 +59,19 @@ public class MainPageController extends Scene {
     }
 
     public void updateTheme(Parent parent) {
-        if(parent == null) return;
+        if (parent == null) return;
         currentTheme = GlobalState.newTheme;
 
         for(Node node : parent.getChildrenUnmodifiable()) {
-            if(node instanceof ImageView imageView && imageView.getImage() != null) {
+            if (node instanceof ImageView imageView && imageView.getImage() != null) {
                 updateImage(imageView);
             }
-            if(node instanceof javafx.scene.control.Button button) {
-                if(button.getGraphic() instanceof ImageView imageView && imageView.getImage() != null) {
+            if (node instanceof javafx.scene.control.Button button) {
+                if (button.getGraphic() instanceof ImageView imageView && imageView.getImage() != null) {
                     updateImage(imageView);
                 }
             }
-            if(node instanceof Parent childParent) {
+            if (node instanceof Parent childParent) {
                 updateTheme(childParent);
             }
         }
@@ -78,6 +84,7 @@ public class MainPageController extends Scene {
             try {
                 imageView.setImage(new Image(newUrl));
             } catch (Exception e) {
+                System.out.println("Error");
             }
         }
     }

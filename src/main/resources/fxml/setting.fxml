@@ -15,7 +15,7 @@
                 <Image url="@../images/default/main.png" />
             </image>
         </ImageView>
-        <Slider layoutX="545.0" layoutY="250.0" prefHeight="94.0" prefWidth="221.0" />
+        <Slider fx:id="soundSlider" layoutX="545.0" layoutY="250.0" onMouseDragged="#changeSoundVolume" onMouseReleased="#updateSoundIcon" prefHeight="94.0" prefWidth="221.0" />
         <Slider fx:id="musicSlider" layoutX="545.0" layoutY="375.0" onMouseDragged="#changeMusicVolume" onMouseReleased="#updateMusicIcon" prefHeight="35.0" prefWidth="221.0" />
         <Text layoutX="278.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sound">
          </Text>

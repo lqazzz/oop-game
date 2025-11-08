@@ -35,7 +35,7 @@ public class Bullet extends MovableObject {
     }
 
     public boolean isDestroyed() {
-        if(bulletGroup.getLayoutY() <= 0) {
+        if (bulletGroup.getLayoutY() <= 0) {
             return true;
         }
         return isDestroyed;

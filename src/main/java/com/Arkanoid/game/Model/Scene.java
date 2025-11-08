@@ -48,7 +48,7 @@ public class Scene {
         GlobalState.setScene(GlobalState.getRoot());
         GlobalState.getStage().setScene(GlobalState.getScene());
     }
-//    public void loadNewScene(ActionEvent event){
+//    public void loadNewScene(ActionEvent event) {
 //        GameState stata = new GameState();
 //        GlobalState.setRoot(GlobalState.gameRoot);
 //        GlobalState.setScene(GlobalState.getRoot());

@@ -58,7 +58,7 @@ public class PongGameState {
     public Ball getBall() {
         return ball;
     }
-    public List<Bricks> getBricks(){
+    public List<Bricks> getBricks() {
         return bricks;
     }
     public Paddle getPaddle() {

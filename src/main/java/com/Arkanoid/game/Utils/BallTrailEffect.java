@@ -14,20 +14,76 @@ public class BallTrailEffect {
 
     private Group gameRoot;
     private LinkedList<TrailParticle> activeTrails;
+    private LinkedList<TrailParticle> particlePool; // Object pool
     private Image ballImage;
     private static final int MAX_TRAIL_LENGTH = 25;
+    private static final int POOL_SIZE = 30; // Kích thước pool
 
     private static class TrailParticle {
         ImageView ballView;
         Rectangle colorOverlay;
         int age;
         boolean isFireMode;
+        boolean inUse;
 
-        TrailParticle(ImageView ballView, Rectangle colorOverlay, boolean isFireMode) {
-            this.ballView = ballView;
-            this.colorOverlay = colorOverlay;
+        TrailParticle(Image ballImage) {
+            this.ballView = new ImageView(ballImage);
+            this.ballView.setPreserveRatio(true);
+            this.ballView.setSmooth(true);
+            this.ballView.setCache(true);
+
+            GaussianBlur blur = new GaussianBlur(0.8);
+            this.ballView.setEffect(blur);
+
+            this.colorOverlay = new Rectangle();
+            this.colorOverlay.setBlendMode(BlendMode.ADD);
+
+            javafx.scene.effect.DropShadow fireGlow = new javafx.scene.effect.DropShadow();
+            fireGlow.setColor(Color.rgb(255, 80, 0, 0.9));
+            fireGlow.setRadius(12);
+            fireGlow.setSpread(0.7);
+            this.colorOverlay.setEffect(fireGlow);
+
             this.age = 0;
-            this.isFireMode = isFireMode;
+            this.isFireMode = false;
+            this.inUse = false;
+        }
+
+        void reset() {
+            this.age = 0;
+            this.isFireMode = false;
+            this.inUse = false;
+            this.ballView.setOpacity(0);
+            this.colorOverlay.setOpacity(0);
+        }
+
+        void activate(double x, double y, double width, double height, boolean fireMode, Image ballImage) {
+            this.inUse = true;
+            this.isFireMode = fireMode;
+            this.age = 0;
+
+            if (this.ballView.getImage() != ballImage) {
+                this.ballView.setImage(ballImage);
+            }
+
+            this.ballView.setFitWidth(width);
+            this.ballView.setFitHeight(height);
+            this.ballView.setLayoutX(x);
+            this.ballView.setLayoutY(y);
+
+            if (fireMode) {
+                GaussianBlur blur = new GaussianBlur(1.2);
+                this.ballView.setEffect(blur);
+
+                this.colorOverlay.setWidth(width);
+                this.colorOverlay.setHeight(height);
+                this.colorOverlay.setLayoutX(x);
+                this.colorOverlay.setLayoutY(y);
+                this.colorOverlay.setFill(Color.rgb(255, 40, 0, 0.7));
+            } else {
+                GaussianBlur blur = new GaussianBlur(0.8);
+                this.ballView.setEffect(blur);
+            }
         }
     }
 
@@ -35,6 +91,36 @@ public class BallTrailEffect {
         this.gameRoot = gameRoot;
         this.ballImage = ballImage;
         this.activeTrails = new LinkedList<>();
+        this.particlePool = new LinkedList<>();
+
+        initializePool();
+    }
+
+    private void initializePool() {
+        for (int i = 0; i < POOL_SIZE; i++) {
+            TrailParticle particle = new TrailParticle(ballImage);
+            particlePool.add(particle);
+        }
+    }
+
+    private TrailParticle getParticleFromPool() {
+        if (!particlePool.isEmpty()) {
+            return particlePool.removeFirst();
+        }
+        return new TrailParticle(ballImage);
+    }
+
+    private void returnParticleToPool(TrailParticle particle) {
+        particle.reset();
+
+        gameRoot.getChildren().remove(particle.ballView);
+        if (particle.colorOverlay != null) {
+            gameRoot.getChildren().remove(particle.colorOverlay);
+        }
+
+        if (particlePool.size() < POOL_SIZE) {
+            particlePool.addLast(particle);
+        }
     }
 
     public void addTrail(double x, double y, double width, double height, boolean isFireMode) {
@@ -46,49 +132,25 @@ public class BallTrailEffect {
             particle.age++;
         }
 
-        ImageView trailView = new ImageView(ballImage);
-        trailView.setFitWidth(width);
-        trailView.setFitHeight(height);
-        trailView.setPreserveRatio(true);
-        trailView.setSmooth(true);
-        trailView.setCache(true);
-        trailView.setLayoutX(x);
-        trailView.setLayoutY(y);
-
-        GaussianBlur blur = new GaussianBlur(isFireMode ? 1.2 : 0.8);
-        trailView.setEffect(blur);
+        TrailParticle particle = getParticleFromPool();
+        particle.activate(x, y, width, height, isFireMode, ballImage);
 
         if (!gameRoot.getChildren().isEmpty()) {
-            gameRoot.getChildren().add(0, trailView);
+            gameRoot.getChildren().add(0, particle.ballView);
         } else {
-            gameRoot.getChildren().add(trailView);
+            gameRoot.getChildren().add(particle.ballView);
         }
 
-        Rectangle fireOverlay = null;
-        if (isFireMode) {
-            fireOverlay = new Rectangle(width, height);
-
-            fireOverlay.setFill(Color.rgb(255, 40, 0, 0.7));
-            fireOverlay.setLayoutX(x);
-            fireOverlay.setLayoutY(y);
-            fireOverlay.setBlendMode(BlendMode.ADD);
-
-            javafx.scene.effect.DropShadow fireGlow = new javafx.scene.effect.DropShadow();
-            fireGlow.setColor(Color.rgb(255, 80, 0, 0.9));
-            fireGlow.setRadius(12);
-            fireGlow.setSpread(0.7);
-            fireOverlay.setEffect(fireGlow);
-
+        if (isFireMode && particle.colorOverlay != null) {
             if (gameRoot.getChildren().size() > 1) {
-                gameRoot.getChildren().add(1, fireOverlay);
+                gameRoot.getChildren().add(1, particle.colorOverlay);
             } else {
-                gameRoot.getChildren().add(fireOverlay);
+                gameRoot.getChildren().add(particle.colorOverlay);
             }
         }
 
         updateAllTrailOpacity();
-
-        activeTrails.addLast(new TrailParticle(trailView, fireOverlay, isFireMode));
+        activeTrails.addLast(particle);
     }
 
     private void updateAllTrailOpacity() {
@@ -107,7 +169,7 @@ public class BallTrailEffect {
             particle.ballView.setScaleX(scale);
             particle.ballView.setScaleY(scale);
 
-            if (particle.colorOverlay != null) {
+            if (particle.colorOverlay != null && particle.isFireMode) {
                 particle.colorOverlay.setOpacity(opacity * 0.85);
                 particle.colorOverlay.setScaleX(scale);
                 particle.colorOverlay.setScaleY(scale);
@@ -120,40 +182,25 @@ public class BallTrailEffect {
     private void removeOldestTrail() {
         if (!activeTrails.isEmpty()) {
             TrailParticle oldest = activeTrails.removeFirst();
-            gameRoot.getChildren().remove(oldest.ballView);
-            if (oldest.colorOverlay != null) {
-                gameRoot.getChildren().remove(oldest.colorOverlay);
-            }
-        }
-    }
-
-    public void cleanupOldTrails() {
-        while (!activeTrails.isEmpty()) {
-            TrailParticle oldest = activeTrails.getFirst();
-            if (oldest.age > MAX_TRAIL_LENGTH) {
-                activeTrails.removeFirst();
-
-                gameRoot.getChildren().remove(oldest.ballView);
-                if (oldest.colorOverlay != null) {
-                    gameRoot.getChildren().remove(oldest.colorOverlay);
-                }
-            } else {
-                break;
-            }
+            returnParticleToPool(oldest);
         }
     }
 
     public void clearAll() {
-        for (TrailParticle particle : activeTrails) {
-            gameRoot.getChildren().remove(particle.ballView);
-            if (particle.colorOverlay != null) {
-                gameRoot.getChildren().remove(particle.colorOverlay);
-            }
+        while (!activeTrails.isEmpty()) {
+            TrailParticle particle = activeTrails.removeFirst();
+            returnParticleToPool(particle);
         }
-        activeTrails.clear();
     }
 
     public void updateBallImage(Image newImage) {
         this.ballImage = newImage;
+
+        for (TrailParticle particle : particlePool) {
+            particle.ballView.setImage(newImage);
+        }
+        for (TrailParticle particle : activeTrails) {
+            particle.ballView.setImage(newImage);
+        }
     }
 }

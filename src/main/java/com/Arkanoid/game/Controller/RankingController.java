@@ -2,7 +2,6 @@ package com.Arkanoid.game.Controller;
 
 import com.Arkanoid.game.Model.Scene;
 import com.Arkanoid.game.Utils.GlobalState;
-import com.Arkanoid.game.application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -14,8 +13,8 @@ import javafx.scene.text.Text;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 public class RankingController extends Scene {
     @FXML Text top1;
@@ -23,21 +22,36 @@ public class RankingController extends Scene {
     @FXML Text top3;
     @FXML Text top4;
     @FXML Text top5;
+    @FXML Text top1Score;
+    @FXML Text top2Score;
+    @FXML Text top3Score;
+    @FXML Text top4Score;
+    @FXML Text top5Score;
+    List<Text> topArr;
+    List<Text> topScoreArr;
     @FXML AnchorPane rootPane;
     @FXML ImageView background;
     public static String currentTheme;
     @FXML
     public void initialize() throws IOException {
-//        System.out.println("Gay");
+        topArr = new ArrayList<>(Arrays.asList(top1, top2, top3, top4, top5));
+        topScoreArr = new ArrayList<>(Arrays.asList(top1Score, top2Score, top3Score, top4Score, top5Score));
         updateTheme(rootPane);
         System.out.println(GlobalState.getRankingPath());
         File file = new File(GlobalState.getRankingPath());
+        int idx = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            top1.setText(br.readLine());
-            top2.setText(br.readLine());
-            top3.setText(br.readLine());
-            top4.setText(br.readLine());
-            top5.setText(br.readLine());
+            String line;
+            while((line = br.readLine()) != null) {
+                String[] parts = line.trim().split("\\s+");
+                StringBuilder name = new StringBuilder();
+                for(int i = 0; i < parts.length - 1; ++i) {
+                    name.append(parts[i]).append(" ");
+                }
+                topArr.get(idx).setText(name.toString());
+                topScoreArr.get(idx).setText(parts[parts.length-1]);
+                idx += 1;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,23 +67,24 @@ public class RankingController extends Scene {
     }
     @FXML
     public void switchToMainPage(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         super.switchToMainPage(event);
     }
 
     public void updateTheme(Parent parent) {
-        if(parent == null) return;
+        if (parent == null) return;
         currentTheme = GlobalState.newTheme;
 
         for(Node node : parent.getChildrenUnmodifiable()) {
-            if(node instanceof ImageView imageView && imageView.getImage() != null) {
+            if (node instanceof ImageView imageView && imageView.getImage() != null) {
                 updateImage(imageView);
             }
-            if(node instanceof javafx.scene.control.Button button) {
-                if(button.getGraphic() instanceof ImageView imageView && imageView.getImage() != null) {
+            if (node instanceof javafx.scene.control.Button button) {
+                if (button.getGraphic() instanceof ImageView imageView && imageView.getImage() != null) {
                     updateImage(imageView);
                 }
             }
-            if(node instanceof Parent childParent) {
+            if (node instanceof Parent childParent) {
                 updateTheme(childParent);
             }
         }
@@ -105,13 +120,13 @@ public class RankingController extends Scene {
         int tempScore = Integer.parseInt(parts[parts.length - 1]);
         int index = 0;
         for(int i = 0; i < 5; ++i) {
-            if(tempScore >= score.get(i)) {
+            if (tempScore >= score.get(i)) {
                 break;
             }
             index += 1;
         }
         tops.add(index, insertScore);
-        File file = new File("/home/khoa/Desktop/idea-IC-252.25557.131/oop-game/src/main/resources/ranking/ranking.txt");
+        File file = new File("/oop-game/src/main/resources/ranking/ranking.txt");
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, false))) {
             bw.write("");
         }

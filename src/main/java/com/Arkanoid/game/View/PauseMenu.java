@@ -2,11 +2,11 @@ package com.Arkanoid.game.View;
 
 import com.Arkanoid.game.Controller.PauseMenuController;
 import com.Arkanoid.game.Controller.RankingController;
+import com.Arkanoid.game.Controller.SoundController;
 import com.Arkanoid.game.Model.GameState;
 import com.Arkanoid.game.Model.PongGameState;
 import com.Arkanoid.game.Utils.GameConfig;
 import com.Arkanoid.game.Utils.GlobalState;
-import javafx.animation.AnimationTimer;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
@@ -17,10 +17,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class PauseMenu {
     static PauseMenuController pauseMenuController = new PauseMenuController();
@@ -52,7 +54,7 @@ public class PauseMenu {
     public static Group getPauseMenu() {
         GlobalState.getScene().getStylesheets().add(PauseMenu.class.getResource("/fxml/styles.css").toExternalForm());
         pauseMenu.getChildren().clear();
-        if(pauseMenu.getChildren().isEmpty()) {
+        if (pauseMenu.getChildren().isEmpty()) {
             title = new Text("Game paused");
             overlay.setOpacity(0.5);
             pauseMenu.getChildren().add(overlay);
@@ -67,9 +69,9 @@ public class PauseMenu {
     public static Group getLostMenu() {
         GlobalState.getScene().getStylesheets().add(PauseMenu.class.getResource("/fxml/styles.css").toExternalForm());
         lostMenu.getChildren().clear();
-        if(lostMenu.getChildren().isEmpty()) {
+        if (lostMenu.getChildren().isEmpty()) {
             if (GlobalState.getLostSignal() == 0) {
-                title = new Text("You lost nigga");
+                title = new Text("You lost");
             } else if (GlobalState.getLostSignal() == -1) {
                 title = new Text("A won");
             } else if (GlobalState.getLostSignal() == 1) {
@@ -79,6 +81,7 @@ public class PauseMenu {
             lostMenu.getChildren().add(overlay);
             lostMenu.getChildren().add(getPopUpBackground());
             lostMenu.getChildren().add(getBackBtn());
+            lostMenu.getChildren().add(getHomeBtn());
             lostMenu.getChildren().add(getTitleText());
         }
         return lostMenu;
@@ -87,14 +90,14 @@ public class PauseMenu {
     public static Group getWonMenu() {
         GlobalState.getScene().getStylesheets().add(PauseMenu.class.getResource("/fxml/styles.css").toExternalForm());
         wonMenu.getChildren().clear();
-        if(wonMenu.getChildren().isEmpty()) {
+        if (wonMenu.getChildren().isEmpty()) {
             title = new Text("You won!!!");
             overlay.setOpacity(0.5);
             wonMenu.getChildren().add(overlay);
             wonMenu.getChildren().add(getPopUpBackground());
             wonMenu.getChildren().add(getBackBtn());
             wonMenu.getChildren().add(getTitleText());
-            if(GlobalState.getLevel() == 12) {
+            if (GlobalState.getLevel() == 12) {
                 wonMenu.getChildren().add(getNameInput());
                 wonMenu.getChildren().add(getHomeBtn());
             }
@@ -104,12 +107,13 @@ public class PauseMenu {
 
     public static void pause() {
         GlobalState.getScene().setOnKeyPressed(e -> {
-            if(e.getCode() == KeyCode.ESCAPE) {
+            if (e.getCode() == KeyCode.ESCAPE) {
+                SoundController.getInstance().playBtnClick();
                 System.out.println("Handle");
-                if(GlobalState.isGameOver() || GlobalState.isGameWon()) {
+                if (GlobalState.isGameOver() || GlobalState.isGameWon()) {
                     return;
                 }
-                if(!GlobalState.isGamePaused()) {
+                if (!GlobalState.isGamePaused()) {
                     GlobalState.initPauseMenu();
                 }
                 GlobalState.setGamePaused(!GlobalState.isGamePaused());
@@ -120,6 +124,7 @@ public class PauseMenu {
     public static void back(Timeline timeline) {
         getBackBtn().setOnAction(e -> {
             try {
+                SoundController.getInstance().playBtnClick();
                 if (timeline != null) {
                     timeline.stop();
                 }
@@ -140,6 +145,7 @@ public class PauseMenu {
     public static void backPongGame(Timeline timeline) {
         getBackBtn().setOnAction(e -> {
             try {
+                SoundController.getInstance().playBtnClick();
                 if (timeline != null) {
                     timeline.stop();
                 }
@@ -159,12 +165,14 @@ public class PauseMenu {
 
     public static void unPause(GameState state) {
         getContinueBtn().setOnAction(e -> {
+            SoundController.getInstance().playBtnClick();
             pauseMenuController.unPauseGame(state);
         });
     }
 
     public static void unPause(PongGameState state) {
         getContinueBtn().setOnAction(e -> {
+            SoundController.getInstance().playBtnClick();
             pauseMenuController.unPauseGame(state);
         });
     }
@@ -173,13 +181,20 @@ public class PauseMenu {
         homeBtn.setOnAction(e -> {
         System.out.println("Gay");
             try {
-                if(!GlobalState.isGameWon()) {
+                SoundController.getInstance().playBtnClick();
+                if (!GlobalState.isGameWon()) {
                     return;
                 }
                 if (timeline != null) {
                     timeline.stop();
                 }
-                RankingController.updateRanking(nameInput.getText() + " 400");
+                if (!nameInput.getText().isEmpty()) {
+                    RankingController.updateRanking(nameInput.getText() + " 400");
+                } else {
+                    String dateFormat = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    String timeFormat = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+                    RankingController.updateRanking(dateFormat + " " + timeFormat + " 400");
+                }
                 GlobalState.setGamePaused(false);
                 GlobalState.setPauseAdded(false);
                 GlobalState.setOverAdded(false);
@@ -205,6 +220,7 @@ public class PauseMenu {
         replayBtn.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         return replayBtn;
     }
+
     public static Button getBackBtn() {
         backImg = new Image(PauseMenu.class.getResourceAsStream("/images/Icon/back.png"));
         backView = new ImageView(backImg);
@@ -247,8 +263,8 @@ public class PauseMenu {
     }
 
     public static TextField getNameInput() {
-        nameInput.setLayoutX(350);
-        nameInput.setLayoutY(350);
+        nameInput.setLayoutX(325);
+        nameInput.setLayoutY(325);
         nameInput.setPrefHeight(100);
         nameInput.setPrefWidth(500);
         nameInput.setPromptText("Enter your name:");
@@ -268,7 +284,7 @@ public class PauseMenu {
     }
 
     public static void addPauseMenu() {
-        if(!GlobalState.isGamePaused()) {
+        if (!GlobalState.isGamePaused()) {
             GlobalState.initPauseMenu();
         }
         GlobalState.setGamePaused(!GlobalState.isGamePaused());

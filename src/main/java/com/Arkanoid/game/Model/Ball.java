@@ -1,4 +1,5 @@
 package com.Arkanoid.game.Model;
+
 import com.Arkanoid.game.Utils.BallTrailEffect;
 import com.Arkanoid.game.Utils.GameConfig;
 import com.Arkanoid.game.Utils.GlobalState;
@@ -8,14 +9,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-
-import java.util.LinkedList;
 
 public class Ball extends MovableObject {
     protected double angle = 45;
@@ -27,6 +23,7 @@ public class Ball extends MovableObject {
     protected Image img;
     protected ImageView view;
     private BallTrailEffect trailEffect;
+
     // for speed up & slow down
     private double speedMultiplier = 1.0;
     private double speedFrames = 0;
@@ -34,10 +31,8 @@ public class Ball extends MovableObject {
     private static final double SPEED_FAST = 1.5;
     private static final double SPEED_DURATION = 600;
 
-
-    private LinkedList<Circle> trail = new LinkedList<>();
-    private static final int MAX_TRAIL_SIZE = 15;
     Group ballGroup = new Group();
+
     public Ball(double x, double y, double radius) {
         super(x, y, GameConfig.DEFAULT_BALL_WIDTH, GameConfig.DEFAULT_BALL_HEIGHT);
         img = new Image(getClass().getResourceAsStream(GlobalState.getCurrentBallPath()));
@@ -45,14 +40,12 @@ public class Ball extends MovableObject {
         view.setFitHeight(GameConfig.DEFAULT_BALL_HEIGHT);
         view.setFitWidth(GameConfig.DEFAULT_BALL_WIDTH);
 
-
         ballGroup.getChildren().addAll(view);
         ballGroup.setLayoutX(x);
         ballGroup.setLayoutY(y);
 
-        dx = GameConfig.DEFAULT_SPEED;//left to right
-        dy = GameConfig.DEFAULT_SPEED;//left to right
-//        isMoved = false;
+        dx = GameConfig.DEFAULT_SPEED;
+        dy = GameConfig.DEFAULT_SPEED;
     }
 
     public void setTrailEffect(Group gameRoot) {
@@ -64,32 +57,37 @@ public class Ball extends MovableObject {
     public double getAngle() {
         return angle;
     }
+
     public boolean update(GameState state) {
-        if(ballGroup.getLayoutY() > 850) {
-            // resetBall(state);
+        if (ballGroup.getLayoutY() > 850) {
+            if (trailEffect != null) {
+                trailEffect.clearAll();
+            }
             return true;
         }
-        if(GlobalState.isBallMoved()) {
+
+        if (GlobalState.isBallMoved()) {
             updateSpeedEffect();
             fireBall();
             move();
-            if(isHitWindowVertical()) {
+
+            if (isHitWindowVertical()) {
                 setAngleVertical(true);
-                if(ballGroup.getLayoutY() < 0) {
+                if (ballGroup.getLayoutY() < 0) {
                     flashWall(GlobalState.getTopWallLine());
                     ballGroup.setLayoutY(1);
-                } else if (ballGroup.getLayoutY() + ballGroup.getBoundsInParent().getHeight() > GameConfig.DEFAULT_PADDLE_HEIGHT) { // chạm tường dưới
+                } else if (ballGroup.getLayoutY() + ballGroup.getBoundsInParent().getHeight() > GameConfig.DEFAULT_PADDLE_HEIGHT) {
                     ballGroup.setLayoutY(GameConfig.DEFAULT_PADDLE_HEIGHT - ballGroup.getBoundsInParent().getHeight() - 1);
                 }
                 return false;
             }
-            if(isHitWindowHorizontal()){
+
+            if (isHitWindowHorizontal()) {
                 setAngleHorizontal(true);
-                System.out.println(getLayoutX());
                 if (ballGroup.getLayoutX() < 204) {
                     flashWall(GlobalState.getLeftWallLine());
                     ballGroup.setLayoutX(204);
-                } else if (ballGroup.getLayoutX() + ballGroup.getBoundsInParent().getWidth() > GameConfig.DEFAULT_SCREEN_WIDTH - 204) { // tường phải
+                } else if (ballGroup.getLayoutX() + ballGroup.getBoundsInParent().getWidth() > GameConfig.DEFAULT_SCREEN_WIDTH - 204) {
                     flashWall(GlobalState.getRightWallLine());
                     ballGroup.setLayoutX(GameConfig.DEFAULT_SCREEN_WIDTH - ballGroup.getBoundsInParent().getWidth() - 1 - 204);
                 }
@@ -98,7 +96,7 @@ public class Ball extends MovableObject {
             return false;
         } else {
             GlobalState.getScene().setOnKeyTyped(e -> {
-                if(e.getCharacter().equals(" ")) {
+                if (e.getCharacter().equals(" ")) {
                     GlobalState.setBallMoved(true);
                 }
             });
@@ -106,9 +104,7 @@ public class Ball extends MovableObject {
             return false;
         }
     }
-    public void clearTrail(Pane root) {
 
-    }
     private void flashWall(Rectangle wall) {
         if (wall == null) return;
         Color defaultColor = Color.web("#00FFFF20");
@@ -125,29 +121,39 @@ public class Ball extends MovableObject {
     }
 
     public int update(PongGameState state) {
-        if(ballGroup.getLayoutY() > GameConfig.DEFAULT_SCREEN_HEIGHT - GameConfig.DEFAULT_BALL_HEIGHT) {
+        if (ballGroup.getLayoutY() > GameConfig.DEFAULT_SCREEN_HEIGHT - GameConfig.DEFAULT_BALL_HEIGHT) {
+            if (trailEffect != null) {
+                trailEffect.clearAll();
+            }
             return -1;
         }
         if (ballGroup.getLayoutY() < 0) {
+            // Xóa trail trước khi trả về signal
+            if (trailEffect != null) {
+                trailEffect.clearAll();
+            }
             return 1;
         }
-        if(GlobalState.isBallMoved()) {
+
+        if (GlobalState.isBallMoved()) {
             fireBall();
             move();
-            if(isHitWindowVertical()) {
+
+            if (isHitWindowVertical()) {
                 setAngleVertical(true);
-                if(getLayoutY() < 0) {
+                if (getLayoutY() < 0) {
                     ballGroup.setLayoutY(GameConfig.DEFAULT_PADDLE_HEIGHT - ballGroup.getBoundsInParent().getHeight() - 1);
-                } else if (getLayoutY() + ballGroup.getBoundsInParent().getHeight() > GameConfig.DEFAULT_PADDLE_HEIGHT) { // chạm tường dưới
+                } else if (getLayoutY() + ballGroup.getBoundsInParent().getHeight() > GameConfig.DEFAULT_PADDLE_HEIGHT) {
                     ballGroup.setLayoutY(GameConfig.DEFAULT_PADDLE_HEIGHT - ballGroup.getBoundsInParent().getHeight() - 1);
                 }
                 return 0;
             }
-            if(isHitWindowHorizontal()){
+
+            if (isHitWindowHorizontal()) {
                 setAngleHorizontal(true);
                 if (getLayoutX() < 0) {
                     ballGroup.setLayoutX(1);
-                } else if (getLayoutX() + ballGroup.getBoundsInParent().getWidth() > GameConfig.DEFAULT_SCREEN_WIDTH) { // tường phải
+                } else if (getLayoutX() + ballGroup.getBoundsInParent().getWidth() > GameConfig.DEFAULT_SCREEN_WIDTH) {
                     ballGroup.setLayoutX(GameConfig.DEFAULT_SCREEN_WIDTH - ballGroup.getBoundsInParent().getWidth() - 1);
                 }
                 return 0;
@@ -161,17 +167,15 @@ public class Ball extends MovableObject {
         }
     }
 
-
     @Override
     public void render(GraphicsContext gc) {
         gc.drawImage(img, getX(), getY(), getWidth(), getHeight());
         gc.setStroke(Color.RED);
         gc.setLineWidth(1);
-        gc.strokeOval(getX(), getY(), getWidth(), getHeight());  // same as circle
+        gc.strokeOval(getX(), getY(), getWidth(), getHeight());
     }
 
     public void move() {
-        // ÁP DỤNG SPEED MULTIPLIER
         double currentSpeed = GameConfig.DEFAULT_SPEED * speedMultiplier;
 
         dx = currentSpeed * Math.cos(Math.toRadians(angle));
@@ -193,27 +197,25 @@ public class Ball extends MovableObject {
     public void setAngleSpecific(double newAngle) {
         angle = newAngle;
     }
+
     public void setAngleVertical(boolean isOppositeDir) {
-        if(isOppositeDir) {
+        if (isOppositeDir) {
             angle = -angle;
         }
     }
+
     public void setAngleHorizontal(boolean isOppositeDir) {
-        if(isOppositeDir) {
+        if (isOppositeDir) {
             angle = 180 - angle;
         }
     }
+
     public boolean isHitWindowHorizontal() {
-        if(ballGroup.getLayoutX() > 204 && ballGroup.getLayoutX() < GameConfig.DEFAULT_SCREEN_WIDTH - getWidth() - 204) {
-            return false;
-        }
-        return true;
+        return !(ballGroup.getLayoutX() > 204) || !(ballGroup.getLayoutX() < GameConfig.DEFAULT_SCREEN_WIDTH - getWidth() - 204);
     }
+
     public boolean isHitWindowVertical() {
-        if(ballGroup.getLayoutY() > 0 && (ballGroup.getLayoutY() < GameConfig.DEFAULT_SCREEN_HEIGHT - getHeight())) {
-            return false;
-        }
-        return true;
+        return !(ballGroup.getLayoutY() > 0) || (!(ballGroup.getLayoutY() < GameConfig.DEFAULT_SCREEN_HEIGHT - getHeight()));
     }
 
     public Group getBallGroup() {
@@ -229,13 +231,14 @@ public class Ball extends MovableObject {
     }
 
     public void setVelocityX(boolean check) {
-        if(check == true) {
-            if(dx > 0) dx = -dx;
+        if (check) {
+            if (dx > 0) dx = -dx;
         }
         else {
-            if(dx < 0) dx = -dx;
+            if (dx < 0) dx = -dx;
         }
     }
+
     public void setVelocityY() {
         dy = -dy;
     }
@@ -265,7 +268,6 @@ public class Ball extends MovableObject {
         angle = 45;
     }
 
-
     public void moveWithPad(GameState state) {
         ballGroup.setLayoutX(state.getPaddle().getPaddleGroup().getLayoutX()
                 + GameConfig.DEFAULT_PADDLE_WIDTH / 2.0 - GameConfig.DEFAULT_BALL_WIDTH / 2.0);
@@ -276,10 +278,10 @@ public class Ball extends MovableObject {
                 + GameConfig.DEFAULT_PADDLE_WIDTH / 2.0 - GameConfig.DEFAULT_BALL_WIDTH / 2.0);
     }
 
-
     public boolean isFireMode() {
         return isFireMode;
     }
+
     public void setFireMode(boolean fireMode) {
         isFireMode = fireMode;
     }
@@ -289,8 +291,8 @@ public class Ball extends MovableObject {
     }
 
     public void fireBall() {
-        if(isFireMode) {
-            if(frames > 0) {
+        if (isFireMode) {
+            if (frames > 0) {
                 frames -= 1;
             } else {
                 isFireMode = false;
@@ -305,7 +307,6 @@ public class Ball extends MovableObject {
             trailEffect.updateBallImage(newImage);
         }
     }
-
 
     // change speed
     public void setSlowerMode() {
@@ -327,4 +328,13 @@ public class Ball extends MovableObject {
         }
     }
 
+    public void cleanup() {
+        if (trailEffect != null) {
+            trailEffect.clearAll();
+        }
+    }
+
+    public BallTrailEffect getTrailEffect() {
+        return trailEffect;
+    }
 }

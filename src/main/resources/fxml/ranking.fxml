@@ -32,30 +32,35 @@
                </ImageView>
            </graphic>
        </Button>
-      <Text fx:id="top1" layoutX="530.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Top1">
+      <Text fx:id="top1" layoutX="240.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Top1">
          <font>
             <Font size="70.0" />
          </font>
       </Text>
-      <Text fx:id="top2" layoutX="530.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Top2">
+      <Text fx:id="top2" layoutX="240.0" layoutY="349.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Top2">
          <font>
             <Font size="70.0" />
          </font>
       </Text>
-      <Text fx:id="top3" layoutX="530.0" layoutY="483.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Top3">
+      <Text fx:id="top3" layoutX="240.0" layoutY="478.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Top3">
          <font>
             <Font size="70.0" />
          </font>
       </Text>
-      <Text fx:id="top4" layoutX="530.0" layoutY="626.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Top4">
+      <Text fx:id="top4" layoutX="240.0" layoutY="606.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Top4">
          <font>
             <Font size="70.0" />
          </font>
       </Text>
-      <Text fx:id="top5" layoutX="530.0" layoutY="762.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Top5">
+      <Text fx:id="top5" layoutX="240.0" layoutY="734.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Top5">
          <font>
             <Font size="70.0" />
          </font>
       </Text>
+      <Text fx:id="top1Score" layoutX="791.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Top1Score" />
+      <Text fx:id="top2Score" layoutX="791.0" layoutY="349.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Top2Score" />
+      <Text fx:id="top3Score" layoutX="791.0" layoutY="478.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Top3Score" />
+      <Text fx:id="top4Score" layoutX="791.0" layoutY="606.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Top4Score" />
+      <Text fx:id="top5Score" layoutX="791.0" layoutY="734.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Top5Score" />
    </children>
 </AnchorPane>

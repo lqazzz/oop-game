@@ -6,7 +6,6 @@ import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
@@ -19,11 +18,8 @@ public class ThemeController extends Scene {
     @FXML private ImageView bgr;
     @FXML private  AnchorPane rootPane;
     @FXML
-    public void switchToPreviousPage(ActionEvent event) throws IOException{
-        super.switchToMainPage(event);
-    }
-    @FXML
-    public void switchToHome(ActionEvent event) throws IOException{
+    public void switchToMainPage(ActionEvent event) throws IOException{
+        SoundController.getInstance().playBtnClick();
         super.switchToMainPage(event);
     }
     @FXML void initialize() {
@@ -51,12 +47,14 @@ public class ThemeController extends Scene {
     }
     @FXML
     public void switchToXmas(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         GlobalState.newTheme = "xmas";
         SoundController.getInstance().playMusic("xmas.mp3" , true);
         applyTheme(rootPane, event);
     }
 
     @FXML public void  switchToHalloween(ActionEvent event) throws IOException {
+        SoundController.getInstance().playBtnClick();
         GlobalState.newTheme = "halloween";
      //  SoundController.stopMusic();
         SoundController.getInstance().playMusic("halloween.mp3" , true);
@@ -65,6 +63,7 @@ public class ThemeController extends Scene {
     }
 
     @FXML public void switchToDefault(ActionEvent event) throws  IOException {
+        SoundController.getInstance().playBtnClick();
         GlobalState.newTheme = "default";
         SoundController.getInstance().playMusic("background.mp3" , true);
         applyTheme(rootPane, event);
