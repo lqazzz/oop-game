@@ -70,7 +70,7 @@ public class GameView {
                                 GlobalState.setPauseAdded(false);
                             }
                         }
-                        for(HitPoint hp : state.getHitPoints()) {
+                        for (HitPoint hp : state.getHitPoints()) {
                             if (state.getGameRoot().getChildren().contains(hp.getHitPointGroup()) == false) {
                                 state.getGameRoot().getChildren().add(hp.getHitPointGroup());
                             }
@@ -88,7 +88,7 @@ public class GameView {
                             }
                         }
                         GlobalState.setGameWon(true);
-                        for(Bricks brick : state.getBricks()) {
+                        for (Bricks brick : state.getBricks()) {
                             if (!brick.getType().equals("9")) {
                                 GlobalState.setGameWon(false);
                             }
@@ -129,7 +129,7 @@ public class GameView {
                             }
                             state.getPadControl().moveWithWASDSingle(state.getPaddle());
                             state.getPaddle().justMove(state);
-                            for(int i = 0 ; i < state.getBalls().size(); i++) {
+                            for (int i = 0 ; i < state.getBalls().size(); i++) {
                                 state.getPaddle().updatePaddle(state.getBalls().get(i), state);
                             }
                             Iterator<PowerUp> iterator = state.getPowerUpList().iterator();
@@ -165,14 +165,14 @@ public class GameView {
                             while(brickIterator.hasNext()) {
                                 int collides = 0;
                                 Bricks brick = brickIterator.next();
-                                for(int i = 0 ; i < state.getBalls().size(); i++) {
+                                for (int i = 0 ; i < state.getBalls().size(); i++) {
                                     if (brick.updateBrick(state.getBalls().get(i))) {
                                         if (brick.getType().equals("9")) {
                                             SoundController.getInstance().playSupermanBrickSound();
                                         } else {
                                             SoundController.getInstance().playNormalBrickSound();
                                         }
-                                        if (GlobalState.getRand().nextInt(100) < 10 && brick.getType().equals("9") == false) {
+                                        if (GlobalState.getRand().nextInt(100) < 10 && !brick.getType().equals("9")) {
                                             PowerUp newPow = new PowerUp(
                                                     brick.getBrickGroup().getLayoutX(),
                                                     brick.getBrickGroup().getLayoutY()
@@ -190,16 +190,16 @@ public class GameView {
                                         collides = 1;
                                         break;
                                     }
-                                    if(collides == 1) break;
+                                    if (collides == 1) break;
                                 }
-                                for(int i = 0 ; i < state.getBullets().size(); i++) {
+                                for (int i = 0 ; i < state.getBullets().size(); i++) {
                                     if (brick.updateBrick(state.getBullets().get(i))) {
                                         if (brick.getType().equals("9")) {
                                             SoundController.getInstance().playSupermanBrickSound();
                                         } else {
                                             SoundController.getInstance().playNormalBrickSound();
                                         }
-                                        if (GlobalState.getRand().nextInt(100) < 10 && brick.getType().equals("9") == false) {
+                                        if (GlobalState.getRand().nextInt(100) < 10 && !brick.getType().equals("9")) {
                                             PowerUp newPow = new PowerUp(
                                                     brick.getBrickGroup().getLayoutX(),
                                                     brick.getBrickGroup().getLayoutY()
@@ -218,7 +218,7 @@ public class GameView {
                                         collides = 1;
                                         break;
                                     }
-                                    if( collides == 1) break;
+                                    if ( collides == 1) break;
                                 }
                                 if (collides == 1) {
                                     System.out.println("Break");

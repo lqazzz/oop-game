@@ -183,7 +183,6 @@ public class PauseMenu {
                     timeline.stop();
                 }
                 if(GlobalState.getLevel() == 12) {
-                    System.out.println("Nig");
                     if (!nameInput.getText().isEmpty()) {
                         RankingController.updateRanking(nameInput.getText() + " " + GlobalState.getScore());
                     } else {

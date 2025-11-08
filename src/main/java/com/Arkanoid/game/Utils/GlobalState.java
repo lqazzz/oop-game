@@ -14,9 +14,9 @@ public class GlobalState {
     private static Stage stage;
     private static Parent root;
     private static Scene scene;
-    public static Group pauseMenu = new Group();
-    public static Group lostMenu = new Group();
-    public static Group wonMenu = new Group();
+    private static Group pauseMenu = new Group();
+    private static Group lostMenu = new Group();
+    private static Group wonMenu = new Group();
     private static int lostSignal = 0;
 
     private static boolean musicMuted = false;

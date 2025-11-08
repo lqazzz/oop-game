@@ -31,11 +31,21 @@ public class PongGameView {
         leftWall.setFill(defaultLineColor);
         state.getGameRoot().getChildren().add(leftWall);
         GlobalState.setLeftWallLine(leftWall);
-        Rectangle rightWall = new Rectangle(GameConfig.DEFAULT_SCREEN_WIDTH - lineWidth - 225, 0, lineWidth, GameConfig.DEFAULT_SCREEN_HEIGHT - 88);
+        Rectangle rightWall = new Rectangle(
+                GameConfig.DEFAULT_SCREEN_WIDTH - lineWidth - 225,
+                0,
+                lineWidth,
+                GameConfig.DEFAULT_SCREEN_HEIGHT - 88
+        );
         rightWall.setFill(defaultLineColor);
         state.getGameRoot().getChildren().add(rightWall);
         GlobalState.setRightWallLine(rightWall);
-        Rectangle topWall = new Rectangle(200, 0, GameConfig.DEFAULT_SCREEN_WIDTH - 400, lineWidth);
+        Rectangle topWall = new Rectangle(
+                200,
+                0,
+                GameConfig.DEFAULT_SCREEN_WIDTH - 400,
+                lineWidth
+        );
         topWall.setFill(defaultLineColor);
         state.getGameRoot().getChildren().add(topWall);
         GlobalState.setTopWallLine(topWall);
@@ -60,8 +70,8 @@ public class PongGameView {
                                 GlobalState.setPauseAdded(false);
                             }
                         }
-                        for(HitPoint hp : state.getHitPoints()) {
-                            if (state.getGameRoot().getChildren().contains(hp.getHitPointGroup()) == false) {
+                        for (HitPoint hp : state.getHitPoints()) {
+                            if (!state.getGameRoot().getChildren().contains(hp.getHitPointGroup())) {
                                 state.getGameRoot().getChildren().add(hp.getHitPointGroup());
                             }
                         }
@@ -78,12 +88,12 @@ public class PongGameView {
                             }
                         }
 
-                        if (!GlobalState.isGamePaused() && state.getHitPoints().size() > 0) {
+                        if (!GlobalState.isGamePaused() && !state.getHitPoints().isEmpty()) {
                             boolean isDied = false;
                             Iterator<Ball> iteratorBall = state.getBalls().iterator();
                             while(iteratorBall.hasNext()) {
                                 Ball ball = iteratorBall.next();
-                                if (state.getGameRoot().getChildren().contains(ball.getBallGroup()) == false) {
+                                if (!state.getGameRoot().getChildren().contains(ball.getBallGroup())) {
                                     state.getGameRoot().getChildren().add(ball.getBallGroup());
                                 }
                                 int signal = ball.update(state);
@@ -100,21 +110,30 @@ public class PongGameView {
                                     break;
                                 }
                             }
+
                             state.getPadControl().moveWithWASDMulti(state.getPaddle(), state.getPaddle2());
-                            for(int i = 0 ; i < state.getBalls().size(); i++) {
+                            for (int i = 0 ; i < state.getBalls().size(); i++) {
                                 state.getPaddle2().updatePaddle(state.getBalls().get(i), state);
                                 state.getPaddle().updatePaddle(state.getBalls().get(i), state);
 
                             }
+
                             if (isDied) {
                                 System.out.println("remove");
                                 System.out.println(state.getHitPoints().getLast());
-                                state.getGameRoot().getChildren().remove(state.getHitPoints().getLast().getHitPointGroup());
+
+                                state.getGameRoot().getChildren().remove(state.
+                                        getHitPoints().
+                                        getLast().
+                                        getHitPointGroup()
+                                );
+
                                 state.getHitPoints().removeLast();
                                 if (state.getHitPoints().isEmpty()) {
                                     GlobalState.setGameOver(true);
                                 }
                             }
+
                         } else {
                             PauseMenu.backPongGame(timeline);
                             PauseMenu.unPause(state);

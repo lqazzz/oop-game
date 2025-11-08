@@ -161,7 +161,7 @@ public class Paddle extends MovableObject{
             if (power.typePowerup == 6) {
                 List<Ball> balls = new ArrayList<>(state.getBalls());
                 if (balls.size() >= 6) return true;
-                for(Ball ball : balls) {
+                for (Ball ball : balls) {
                     if (state.getBalls().size() >= 6) break;
                     double x = ball.getLayoutX();
                     double y = ball.getLayoutY();
@@ -184,7 +184,7 @@ public class Paddle extends MovableObject{
                 isStretched = true;
             }
             if (power.typePowerup == 1) {
-                for(Ball ball : state.getBalls()) {
+                for (Ball ball : state.getBalls()) {
                     ball.setFireMode(true);
                     ball.setFrames(600);
                 }
@@ -201,12 +201,12 @@ public class Paddle extends MovableObject{
                 );
             }
             if (power.typePowerup == 4) {
-                for(Ball ball : state.getBalls()) {
+                for (Ball ball : state.getBalls()) {
                     ball.setSlowerMode();
                 }
             }
             if (power.typePowerup == 5) {
-                for(Ball ball : state.getBalls()) {
+                for (Ball ball : state.getBalls()) {
                     ball.setSpeedupMode();
                 }
             }
@@ -220,7 +220,7 @@ public class Paddle extends MovableObject{
             if (power.typePowerup == 8) {
                 List<Ball> balls = new ArrayList<>(state.getBalls());
                 if (balls.size() >= 30) return true;
-                for(Ball ball : balls) {
+                for (Ball ball : balls) {
                     if (state.getBalls().size() >= 30) break;
                     double x = ball.getLayoutX();
                     double y = ball.getLayoutY();
@@ -240,7 +240,7 @@ public class Paddle extends MovableObject{
                 isStretched = true;
             }
             if (power.typePowerup == 1) {
-                for(Ball ball : state.getBalls()) {
+                for (Ball ball : state.getBalls()) {
                     ball.setFireMode(true);
                     ball.setFrames(600);
                 }

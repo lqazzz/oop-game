@@ -166,6 +166,7 @@ public class ShopController extends Scene {
             try {
                 imageView.setImage(new Image(newUrl));
             } catch (Exception e) {
+                System.out.println("Error");
             }
         }
     }

@@ -40,7 +40,7 @@ public class SettingController extends Scene {
         if (parent == null) return;
         currentTheme = GlobalState.newTheme;
 
-        for(Node node : parent.getChildrenUnmodifiable()) {
+        for (Node node : parent.getChildrenUnmodifiable()) {
             if (node instanceof ImageView imageView && imageView.getImage() != null) {
                 updateImage(imageView);
             }

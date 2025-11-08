@@ -14,7 +14,11 @@ import java.util.Scanner;
 
 public class Ranking {
     protected static Group rankingGroup;
-    protected static Rectangle overlay = new Rectangle(GameConfig.DEFAULT_SCREEN_WIDTH, GameConfig.DEFAULT_SCREEN_HEIGHT, Color.BLACK);
+    protected static Rectangle overlay = new Rectangle(
+            GameConfig.DEFAULT_SCREEN_WIDTH,
+            GameConfig.DEFAULT_SCREEN_HEIGHT,
+            Color.BLACK
+    );
     protected static Text top1;
     protected static Text top2;
     protected static Text top3;
@@ -24,13 +28,15 @@ public class Ranking {
     protected static final int startX = 200;
     protected static final int startY = 200;
     public static void initRanking() {
-        GlobalState.getScene().getStylesheets().add(Ranking.class.getResource("/fxml/styles.css").toExternalForm());
+        GlobalState.getScene().getStylesheets().add(Ranking.class.getResource(
+                "/fxml/styles.css").toExternalForm()
+        );
         overlay.setOpacity(0.5);
         Scanner sc = new Scanner("/ranking/ranking.txt");
         List<String> ranking = new ArrayList<>();
         int space = 40;
         rankingGroup.getChildren().clear();
-        for(int i = 0; i < tops.size(); ++i) {
+        for (int i = 0; i < tops.size(); ++i) {
             tops.get(i).setText(sc.nextLine());
             tops.get(i).setLayoutX(startX + space * i);
             tops.get(i).setLayoutY(startY);

@@ -35,8 +35,6 @@ public class Ball extends MovableObject {
     private static final double SPEED_DURATION = 600;
 
 
-    private LinkedList<Circle> trail = new LinkedList<>();
-    private static final int MAX_TRAIL_SIZE = 15;
     Group ballGroup = new Group();
     public Ball(double x, double y, double radius) {
         super(x, y, GameConfig.DEFAULT_BALL_WIDTH, GameConfig.DEFAULT_BALL_HEIGHT);
@@ -50,9 +48,8 @@ public class Ball extends MovableObject {
         ballGroup.setLayoutX(x);
         ballGroup.setLayoutY(y);
 
-        dx = GameConfig.DEFAULT_SPEED;//left to right
-        dy = GameConfig.DEFAULT_SPEED;//left to right
-//        isMoved = false;
+        dx = GameConfig.DEFAULT_SPEED; //left to right
+        dy = GameConfig.DEFAULT_SPEED; //left to right
     }
 
     public void setTrailEffect(Group gameRoot) {
@@ -65,40 +62,43 @@ public class Ball extends MovableObject {
         return angle;
     }
     public boolean update(GameState state) {
-        if(ballGroup.getLayoutY() > 850) {
-            // resetBall(state);
+        if (ballGroup.getLayoutY() > 850) {
             return true;
         }
-        if(GlobalState.isBallMoved()) {
+        if (GlobalState.isBallMoved()) {
             updateSpeedEffect();
             fireBall();
             move();
-            if(isHitWindowVertical()) {
+            if (isHitWindowVertical()) {
                 setAngleVertical(true);
-                if(ballGroup.getLayoutY() < 0) {
+                if (ballGroup.getLayoutY() < 0) {
                     flashWall(GlobalState.getTopWallLine());
                     ballGroup.setLayoutY(1);
-                } else if (ballGroup.getLayoutY() + ballGroup.getBoundsInParent().getHeight() > GameConfig.DEFAULT_PADDLE_HEIGHT) { // chạm tường dưới
-                    ballGroup.setLayoutY(GameConfig.DEFAULT_PADDLE_HEIGHT - ballGroup.getBoundsInParent().getHeight() - 1);
+                } else if (ballGroup.getLayoutY() + ballGroup.getBoundsInParent().getHeight() 
+                        > GameConfig.DEFAULT_PADDLE_HEIGHT) { // chạm tường dưới
+                    ballGroup.setLayoutY(GameConfig.DEFAULT_PADDLE_HEIGHT 
+                            - ballGroup.getBoundsInParent().getHeight() - 1);
                 }
                 return false;
             }
-            if(isHitWindowHorizontal()){
+            if (isHitWindowHorizontal()) {
                 setAngleHorizontal(true);
                 System.out.println(getLayoutX());
                 if (ballGroup.getLayoutX() < 204) {
                     flashWall(GlobalState.getLeftWallLine());
                     ballGroup.setLayoutX(204);
-                } else if (ballGroup.getLayoutX() + ballGroup.getBoundsInParent().getWidth() > GameConfig.DEFAULT_SCREEN_WIDTH - 204) { // tường phải
+                } else if (ballGroup.getLayoutX() + ballGroup.getBoundsInParent().getWidth() 
+                        > GameConfig.DEFAULT_SCREEN_WIDTH - 204) { // tường phải
                     flashWall(GlobalState.getRightWallLine());
-                    ballGroup.setLayoutX(GameConfig.DEFAULT_SCREEN_WIDTH - ballGroup.getBoundsInParent().getWidth() - 1 - 204);
+                    ballGroup.setLayoutX(GameConfig.DEFAULT_SCREEN_WIDTH 
+                            - ballGroup.getBoundsInParent().getWidth() - 1 - 204);
                 }
                 return false;
             }
             return false;
         } else {
             GlobalState.getScene().setOnKeyTyped(e -> {
-                if(e.getCharacter().equals(" ")) {
+                if (e.getCharacter().equals(" ")) {
                     GlobalState.setBallMoved(true);
                 }
             });
@@ -106,9 +106,7 @@ public class Ball extends MovableObject {
             return false;
         }
     }
-    public void clearTrail(Pane root) {
 
-    }
     private void flashWall(Rectangle wall) {
         if (wall == null) return;
         Color defaultColor = Color.web("#00FFFF20");
@@ -125,33 +123,38 @@ public class Ball extends MovableObject {
     }
 
     public int update(PongGameState state) {
-        if(ballGroup.getLayoutY() > GameConfig.DEFAULT_SCREEN_HEIGHT - GameConfig.DEFAULT_BALL_HEIGHT) {
+        if (ballGroup.getLayoutY() > GameConfig.DEFAULT_SCREEN_HEIGHT - GameConfig.DEFAULT_BALL_HEIGHT) {
             return -1;
         }
         if (ballGroup.getLayoutY() < 0) {
             return 1;
         }
-        if(GlobalState.isBallMoved()) {
+        if (GlobalState.isBallMoved()) {
             fireBall();
             move();
-            if(isHitWindowVerticalPong()) {
+            if (isHitWindowVerticalPong()) {
                 setAngleVertical(true);
-                if(getLayoutY() < 0) {
-                    ballGroup.setLayoutY(GameConfig.DEFAULT_PADDLE_HEIGHT - ballGroup.getBoundsInParent().getHeight() - 1);
-                } else if (getLayoutY() + ballGroup.getBoundsInParent().getHeight() > GameConfig.DEFAULT_PADDLE_HEIGHT) { // chạm tường dưới
-                    ballGroup.setLayoutY(GameConfig.DEFAULT_PADDLE_HEIGHT - ballGroup.getBoundsInParent().getHeight() - 1);
+                if (getLayoutY() < 0) {
+                    ballGroup.setLayoutY(GameConfig.DEFAULT_PADDLE_HEIGHT 
+                            - ballGroup.getBoundsInParent().getHeight() - 1);
+                } else if (getLayoutY() + ballGroup.getBoundsInParent().getHeight() 
+                        > GameConfig.DEFAULT_PADDLE_HEIGHT) { // chạm tường dưới
+                    ballGroup.setLayoutY(GameConfig.DEFAULT_PADDLE_HEIGHT 
+                            - ballGroup.getBoundsInParent().getHeight() - 1);
                 }
                 return 0;
             }
-            if(isHitWindowHorizontalPong()){
+            if (isHitWindowHorizontalPong()) {
                 setAngleHorizontal(true);
                 System.out.println(getLayoutX());
                 if (ballGroup.getLayoutX() < 229) {
                     flashWall(GlobalState.getLeftWallLine());
                     ballGroup.setLayoutX(229);
-                } else if (ballGroup.getLayoutX() + ballGroup.getBoundsInParent().getWidth() > GameConfig.DEFAULT_SCREEN_WIDTH - 229) { // tường phải
+                } else if (ballGroup.getLayoutX() + ballGroup.getBoundsInParent().getWidth() 
+                        > GameConfig.DEFAULT_SCREEN_WIDTH - 229) { // tường phải
                     flashWall(GlobalState.getRightWallLine());
-                    ballGroup.setLayoutX(GameConfig.DEFAULT_SCREEN_WIDTH - ballGroup.getBoundsInParent().getWidth() - 1 - 229);
+                    ballGroup.setLayoutX(GameConfig.DEFAULT_SCREEN_WIDTH 
+                            - ballGroup.getBoundsInParent().getWidth() - 1 - 229);
                 }
                 return 0;
             }
@@ -176,7 +179,6 @@ public class Ball extends MovableObject {
     }
 
     public void move() {
-        // ÁP DỤNG SPEED MULTIPLIER
         double currentSpeed = GameConfig.DEFAULT_SPEED * speedMultiplier;
 
         dx = currentSpeed * Math.cos(Math.toRadians(angle));
@@ -199,35 +201,39 @@ public class Ball extends MovableObject {
         angle = newAngle;
     }
     public void setAngleVertical(boolean isOppositeDir) {
-        if(isOppositeDir) {
+        if (isOppositeDir) {
             angle = -angle;
         }
     }
     public void setAngleHorizontal(boolean isOppositeDir) {
-        if(isOppositeDir) {
+        if (isOppositeDir) {
             angle = 180 - angle;
         }
     }
     public boolean isHitWindowHorizontal() {
-        if(ballGroup.getLayoutX() > 204 && ballGroup.getLayoutX() < GameConfig.DEFAULT_SCREEN_WIDTH - getWidth() - 204) {
+        if (ballGroup.getLayoutX() > 204 && ballGroup.getLayoutX() 
+                < GameConfig.DEFAULT_SCREEN_WIDTH - getWidth() - 204) {
             return false;
         }
         return true;
     }
     public boolean isHitWindowVertical() {
-        if(ballGroup.getLayoutY() > 0 && (ballGroup.getLayoutY() < GameConfig.DEFAULT_SCREEN_HEIGHT - getHeight())) {
+        if (ballGroup.getLayoutY() > 0 && (ballGroup.getLayoutY() 
+                < GameConfig.DEFAULT_SCREEN_HEIGHT - getHeight())) {
             return false;
         }
         return true;
     }
     public boolean isHitWindowHorizontalPong() {
-        if(ballGroup.getLayoutX() > 229 && ballGroup.getLayoutX() < GameConfig.DEFAULT_SCREEN_WIDTH - getWidth() - 229) {
+        if (ballGroup.getLayoutX() > 229 && ballGroup.getLayoutX() 
+                < GameConfig.DEFAULT_SCREEN_WIDTH - getWidth() - 229) {
             return false;
         }
         return true;
     }
     public boolean isHitWindowVerticalPong() {
-        if(ballGroup.getLayoutY() > 0 && (ballGroup.getLayoutY() < GameConfig.DEFAULT_SCREEN_HEIGHT - getHeight())) {
+        if (ballGroup.getLayoutY() > 0 && (ballGroup.getLayoutY() 
+                < GameConfig.DEFAULT_SCREEN_HEIGHT - getHeight())) {
             return false;
         }
         return true;
@@ -245,11 +251,11 @@ public class Ball extends MovableObject {
     }
 
     public void setVelocityX(boolean check) {
-        if(check == true) {
-            if(dx > 0) dx = -dx;
+        if (check) {
+            if (dx > 0) dx = -dx;
         }
         else {
-            if(dx < 0) dx = -dx;
+            if (dx < 0) dx = -dx;
         }
     }
     public void setVelocityY() {
@@ -267,7 +273,10 @@ public class Ball extends MovableObject {
         fireFrames = 600;
         state.getPaddle().setShooting(false);
         state.getPaddle().setStretched(false);
-        ballGroup.setLayoutX(state.getPaddle().getPaddleGroup().getLayoutX() + GameConfig.DEFAULT_PADDLE_WIDTH / 2.0 - GameConfig.DEFAULT_BALL_WIDTH / 2.0);
+        ballGroup.setLayoutX(state.getPaddle().getPaddleGroup().getLayoutX() 
+                + GameConfig.DEFAULT_PADDLE_WIDTH / 2.0 
+                - GameConfig.DEFAULT_BALL_WIDTH / 2.0
+        );
         ballGroup.setLayoutY(GameConfig.DEFAULT_BALL_LAYOUT_Y);
         GlobalState.setBallMoved(false);
         angle = 60;
@@ -316,8 +325,8 @@ public class Ball extends MovableObject {
     }
 
     public void fireBall() {
-        if(isFireMode) {
-            if(fireFrames > 0) {
+        if (isFireMode) {
+            if (fireFrames > 0) {
                 fireFrames -= 1;
             } else {
                 isFireMode = false;

@@ -11,11 +11,16 @@ import java.net.URL;
 public class SoundController {
 
     private MediaPlayer currentPlayer;
-    private static AudioClip btnClick = new AudioClip(SoundController.class.getResource("/sfx/buttonClick.m4a").toExternalForm());
-    private static AudioClip bulletSound = new AudioClip(SoundController.class.getResource("/sfx/laserShoot.wav").toExternalForm());
-    private static AudioClip normalBrickSound = new AudioClip(SoundController.class.getResource("/sfx/bonk.m4a").toExternalForm());
-    private static AudioClip supermanBrickSound = new AudioClip(SoundController.class.getResource("/sfx/bonk.m4a").toExternalForm());
-    private static AudioClip powerUpSound = new AudioClip(SoundController.class.getResource("/sfx/getPower.m4a").toExternalForm());
+    private static AudioClip btnClick = new AudioClip(SoundController.class.
+            getResource("/sfx/buttonClick.m4a").toExternalForm());
+    private static AudioClip bulletSound = new AudioClip(SoundController.class.
+            getResource("/sfx/laserShoot.wav").toExternalForm());
+    private static AudioClip normalBrickSound = new AudioClip(SoundController.class.
+            getResource("/sfx/bonk.m4a").toExternalForm());
+    private static AudioClip supermanBrickSound = new AudioClip(SoundController.class.
+            getResource("/sfx/bonk.m4a").toExternalForm());
+    private static AudioClip powerUpSound = new AudioClip(SoundController.class.
+            getResource("/sfx/getPower.m4a").toExternalForm());
     private static SoundController instance = new SoundController();
 
     private SoundController() {
@@ -98,7 +103,8 @@ public class SoundController {
         if (currentPlayer != null) {
             currentPlayer.setVolume(musicSlider.getValue() / 100.0);
 
-            musicSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+            musicSlider.valueProperty().addListener(
+                    (obs, oldVal, newVal) -> {
                 currentPlayer.setVolume(newVal.doubleValue() / 100.0);
             });
 
@@ -121,7 +127,8 @@ public class SoundController {
         if (btnClick != null) {
             btnClick.setVolume(soundSlider.getValue() / 100.0);
 
-            soundSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+            soundSlider.valueProperty().addListener(
+                    (obs, oldVal, newVal) -> {
                 btnClick.setVolume(newVal.doubleValue() / 100.0);
             });
             GlobalState.setSoundMuted(btnClick.getVolume() == 0);
