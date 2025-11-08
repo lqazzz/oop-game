@@ -19,7 +19,7 @@ import java.util.LinkedList;
 
 public class Ball extends MovableObject {
     protected double angle = 60;
-    protected double frames = 600;
+    protected double fireFrames = 600;
     protected double dx;
     protected double dy;
     protected boolean isFireMode;
@@ -261,7 +261,10 @@ public class Ball extends MovableObject {
 
         speedMultiplier = 1.0;
         speedFrames = 0;
-
+        isFireMode = false;
+        fireFrames = 600;
+        state.getPaddle().setShooting(false);
+        state.getPaddle().setStretched(false);
         ballGroup.setLayoutX(state.getPaddle().getPaddleGroup().getLayoutX() + GameConfig.DEFAULT_PADDLE_WIDTH / 2.0 - GameConfig.DEFAULT_BALL_WIDTH / 2.0);
         ballGroup.setLayoutY(GameConfig.DEFAULT_BALL_LAYOUT_Y);
         GlobalState.setBallMoved(false);
@@ -272,7 +275,11 @@ public class Ball extends MovableObject {
         if (trailEffect != null) {
             trailEffect.clearAll();
         }
-
+        isFireMode = false;
+        state.getPaddle().setShooting(false);
+        state.getPaddle().setStretched(false);
+        state.getPaddle2().setShooting(false);
+        state.getPaddle2().setStretched(false);
         ballGroup.setLayoutX(GameConfig.DEFAULT_SCREEN_WIDTH / 2);
         ballGroup.setLayoutY(GameConfig.DEFAULT_SCREEN_HEIGHT / 2 - GameConfig.DEFAULT_BALL_WIDTH / 2);
         GlobalState.setBallMoved(false);
@@ -303,13 +310,13 @@ public class Ball extends MovableObject {
     }
 
     public void setFrames(double frames) {
-        this.frames = frames;
+        this.fireFrames = frames;
     }
 
     public void fireBall() {
         if(isFireMode) {
-            if(frames > 0) {
-                frames -= 1;
+            if(fireFrames > 0) {
+                fireFrames -= 1;
             } else {
                 isFireMode = false;
             }

@@ -39,6 +39,7 @@ public class GlobalState {
     private static Rectangle rightWallLine;
     private static Rectangle topWallLine;
     private static String rankingPath;
+    private static int score = 0;
 
     private static Random rand = new Random();
 
@@ -244,6 +245,14 @@ public class GlobalState {
 
     public static Random getRand() {
         return rand;
+    }
+
+    public static int getScore() {
+        return score;
+    }
+
+    public static void setScore(int score) {
+        GlobalState.score = score;
     }
 
 }

@@ -288,7 +288,7 @@ public class Paddle extends MovableObject{
                             y + 10
                     );
                     Bullet rightBullet = state.getFactory().createBullet(
-                            x + GameConfig.DEFAULT_PADDLE_WIDTH - 5,
+                            x + view.getFitWidth() - 5,
                             y + 10
                     );
                     state.getBullets().add(leftBullet);
@@ -311,7 +311,7 @@ public class Paddle extends MovableObject{
                     double y = paddleGroup.getLayoutY();
                     Bullet leftBullet = new Bullet(x, y + 10, 47, 27);
                     Bullet rightBullet = new Bullet(
-                            x + GameConfig.DEFAULT_PADDLE_WIDTH - 5,
+                            x + view.getFitWidth() - 5,
                             y + 10,
                             47,
                             27
@@ -407,5 +407,15 @@ public class Paddle extends MovableObject{
 
     public boolean updatePaddle(PowerUp power, PongGameState state) {
         return collision(power, state);
+    }
+
+    public void setStretched(boolean stretched) {
+        stretchFrames = 600;
+        isStretched = stretched;
+    }
+
+    public void setShooting(boolean shooting) {
+        shootFrames = 600;
+        isShooting = shooting;
     }
 }

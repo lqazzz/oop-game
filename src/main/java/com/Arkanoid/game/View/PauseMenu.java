@@ -189,11 +189,12 @@ public class PauseMenu {
                     timeline.stop();
                 }
                 if (!nameInput.getText().isEmpty()) {
-                    RankingController.updateRanking(nameInput.getText() + " 400");
+                    RankingController.updateRanking(nameInput.getText() + " " + GlobalState.getScore());
                 } else {
                     String dateFormat = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                     String timeFormat = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-                    RankingController.updateRanking(dateFormat + " " + timeFormat + " 400");
+                    RankingController.updateRanking(dateFormat + " " + timeFormat + " " + GlobalState.getScore());
+                    GlobalState.setScore(0);
                 }
                 GlobalState.setGamePaused(false);
                 GlobalState.setPauseAdded(false);

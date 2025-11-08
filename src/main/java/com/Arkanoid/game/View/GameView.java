@@ -100,6 +100,7 @@ public class GameView {
                                 GlobalState.initWonMenu();
                                 state.getGameRoot().getChildren().add(GlobalState.getWonMenu());
                                 GlobalState.setWonAdded(true);
+                                GlobalState.setScore(GlobalState.getScore() + scores);
                             }
                         } else {
                             if (GlobalState.isWonAdded()) {

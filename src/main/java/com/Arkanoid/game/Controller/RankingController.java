@@ -126,7 +126,7 @@ public class RankingController extends Scene {
             index += 1;
         }
         tops.add(index, insertScore);
-        File file = new File("/oop-game/src/main/resources/ranking/ranking.txt");
+        File file = new File(GlobalState.getRankingPath());
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, false))) {
             bw.write("");
         }

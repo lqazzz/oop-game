@@ -30,6 +30,7 @@ public class Main extends Application {
     //    SoundController.getInstance().playMusic("background.mp3", true);
         Font.loadFont(getClass().getResource("/font/PaytoneOne-Regular.ttf").toExternalForm(), 12);
         GlobalState.initRankingPath();
+        System.out.println(GlobalState.getRankingPath());
         GlobalState.setRoot(FXMLLoader.load(getClass().getResource("/fxml/main-page.fxml")));
         GlobalState.setScene(GlobalState.getRoot());
         GlobalState.getScene().getStylesheets().add(getClass().getResource("/fxml/styles.css").toExternalForm());
