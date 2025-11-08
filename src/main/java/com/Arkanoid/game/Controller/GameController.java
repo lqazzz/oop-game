@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
@@ -20,7 +21,7 @@ public class GameController {
     @FXML private AnchorPane rootPane;
     @FXML
     private Group gameGroup;
-    @FXML
+    @FXML private Text scores;
     public void pauseGame(ActionEvent event) throws IOException {
         SoundController.getInstance().playBtnClick();
         PauseMenu.addPauseMenu();
@@ -60,6 +61,6 @@ public class GameController {
         updateTheme(rootPane);
         GameState model = new GameState(gameGroup);
         GameView view = new GameView();
-        view.render(model);
+        view.render(model, scores);
     }
 }

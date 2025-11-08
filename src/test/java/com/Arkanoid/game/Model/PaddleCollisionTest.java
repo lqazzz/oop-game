@@ -20,8 +20,7 @@ class PaddleCollisionTest {
     static void initJavaFX() {
         try {
             javafx.application.Platform.startup(() -> {});
-        } catch (IllegalStateException e) {
-        }
+        } catch (IllegalStateException e) {}
     }
 
     @BeforeEach
@@ -79,7 +78,6 @@ class PaddleCollisionTest {
         ball.getBallGroup().setLayoutY(paddle.getPaddleGroup().getLayoutY() - GameConfig.DEFAULT_BALL_HEIGHT);
         ball.setAngleSpecific(270);
         boolean collision = paddle.collision(ball);
-
         assertTrue(collision, "Ball must be collided");
         assertTrue(ball.getAngle() > 0 && ball.getAngle() < 90.0, "Must be oriented to the right");
     }
@@ -89,11 +87,8 @@ class PaddleCollisionTest {
     void testCollisionTopLeftCorner() {
         ball.getBallGroup().setLayoutX(paddle.getPaddleGroup().getLayoutX() - 5);
         ball.getBallGroup().setLayoutY(paddle.getPaddleGroup().getLayoutY() - 5);
-
         ball.setAngleSpecific(270);
-
         boolean collision = paddle.collision(ball);
-
         assertTrue(collision, "Ball must be collided");
         assertEquals(165.0, ball.getAngle(), "Reset angle to 165 in this case");
     }
@@ -105,11 +100,8 @@ class PaddleCollisionTest {
                 paddle.getPaddleGroup().getLayoutX() + GameConfig.DEFAULT_PADDLE_WIDTH - 5
         );
         ball.getBallGroup().setLayoutY(paddle.getPaddleGroup().getLayoutY() - 5);
-
         ball.setAngleSpecific(270);
-
         boolean collision = paddle.collision(ball);
-
         assertTrue(collision, "Ball must be collided");
         assertEquals(15.0, ball.getAngle(), "Reset angle to 15 in this case");
     }
@@ -121,11 +113,8 @@ class PaddleCollisionTest {
         ball.getBallGroup().setLayoutY(
                 paddle.getPaddleGroup().getLayoutY() + GameConfig.DEFAULT_PADDLE_HEIGHT / 2
         );
-
         ball.setAngleSpecific(0);
-
         boolean collision = paddle.collision(ball);
-
         assertTrue(collision, "Ball must be collided");
         assertEquals(255.0, ball.getAngle(), "Angle of reflection must be 255");
     }
@@ -139,10 +128,8 @@ class PaddleCollisionTest {
         ball.getBallGroup().setLayoutY(
                 paddle.getPaddleGroup().getLayoutY() + GameConfig.DEFAULT_PADDLE_HEIGHT / 2
         );
-
         ball.setAngleSpecific(180);
         boolean collision = paddle.collision(ball);
-
         assertTrue(collision, "Ball must be collided");
         assertEquals(285.0, ball.getAngle(),"Angle of reflection must be 285");
     }
@@ -155,11 +142,8 @@ class PaddleCollisionTest {
         ball.getBallGroup().setLayoutY(
                 paddle.getPaddleGroup().getLayoutY() + GameConfig.DEFAULT_PADDLE_HEIGHT
         );
-
         ball.setAngleSpecific(90);
-
         boolean collision = paddle.collision(ball);
-
         assertTrue(collision, "Ball must be collided");
         assertTrue(ball.getAngle() > 180 && ball.getAngle() < 360, "Balls move down");
     }
@@ -169,11 +153,8 @@ class PaddleCollisionTest {
     void testNoCollisionFarAway() {
         ball.getBallGroup().setLayoutX(100);
         ball.getBallGroup().setLayoutY(100);
-
         double initialAngle = ball.getAngle();
-
         boolean collision = paddle.collision(ball);
-
         assertFalse(collision, "Not colliding");
         assertEquals(initialAngle, ball.getAngle(), "Angle must be the same as before");
     }
