@@ -45,7 +45,7 @@ public class ModeGamePlayController extends Scene {
     public void updateTheme(Parent parent) {
         if (parent == null) return;
         currentTheme = GlobalState.newTheme;
-        for(Node node : parent.getChildrenUnmodifiable()) {
+        for (Node node : parent.getChildrenUnmodifiable()) {
             if (node instanceof ImageView imageView && imageView.getImage() != null) {
                 updateImage(imageView);
             }

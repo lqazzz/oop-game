@@ -33,16 +33,13 @@ public class PauseMenu {
     protected static Group wonMenu = new Group();
     protected static Group popUpBackground = new Group();
     protected static Image popUpImg;
-    protected static Image replayImg;
     protected static Image continueImg;
     protected static Image homeImg;
     protected static ImageView popUpView;
     protected static Image backImg;
-    protected static ImageView replayView;
     protected static ImageView continueView;
     protected static ImageView backView;
     protected static ImageView homeView;
-    protected static Button replayBtn = new Button();
     protected static Button continueBtn = new Button();
     protected static Button backBtn = new Button();
     protected static Button homeBtn = new Button();
@@ -59,7 +56,6 @@ public class PauseMenu {
             overlay.setOpacity(0.5);
             pauseMenu.getChildren().add(overlay);
             pauseMenu.getChildren().add(getPopUpBackground());
-            pauseMenu.getChildren().add(getReplayBtn());
             pauseMenu.getChildren().add(getBackBtn());
             pauseMenu.getChildren().add(getContinueBtn());
             pauseMenu.getChildren().add(getTitleText());
@@ -71,7 +67,7 @@ public class PauseMenu {
         lostMenu.getChildren().clear();
         if (lostMenu.getChildren().isEmpty()) {
             if (GlobalState.getLostSignal() == 0) {
-                title = new Text("You lost");
+                title = new Text("You lost :((");
             } else if (GlobalState.getLostSignal() == -1) {
                 title = new Text("A won");
             } else if (GlobalState.getLostSignal() == 1) {
@@ -95,11 +91,13 @@ public class PauseMenu {
             overlay.setOpacity(0.5);
             wonMenu.getChildren().add(overlay);
             wonMenu.getChildren().add(getPopUpBackground());
-            wonMenu.getChildren().add(getBackBtn());
             wonMenu.getChildren().add(getTitleText());
+            wonMenu.getChildren().add(getHomeBtn());
             if (GlobalState.getLevel() == 12) {
+                homeBtn.setLayoutX(500);
                 wonMenu.getChildren().add(getNameInput());
-                wonMenu.getChildren().add(getHomeBtn());
+            } else {
+                wonMenu.getChildren().add(getBackBtn());
             }
         }
         return wonMenu;
@@ -179,21 +177,20 @@ public class PauseMenu {
 
     public static void saveAndBackHome(Timeline timeline) {
         homeBtn.setOnAction(e -> {
-        System.out.println("Gay");
             try {
                 SoundController.getInstance().playBtnClick();
-                if (!GlobalState.isGameWon()) {
-                    return;
-                }
                 if (timeline != null) {
                     timeline.stop();
                 }
-                if (!nameInput.getText().isEmpty()) {
-                    RankingController.updateRanking(nameInput.getText() + " 400");
-                } else {
-                    String dateFormat = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    String timeFormat = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-                    RankingController.updateRanking(dateFormat + " " + timeFormat + " 400");
+                if(GlobalState.getLevel() == 12) {
+                    if (!nameInput.getText().isEmpty()) {
+                        RankingController.updateRanking(nameInput.getText() + " " + GlobalState.getScore());
+                    } else {
+                        String dateFormat = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                        String timeFormat = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+                        RankingController.updateRanking(dateFormat + " " + timeFormat + " " + GlobalState.getScore());
+                        GlobalState.setScore(0);
+                    }
                 }
                 GlobalState.setGamePaused(false);
                 GlobalState.setPauseAdded(false);
@@ -209,25 +206,13 @@ public class PauseMenu {
         });
     }
 
-    public static Button getReplayBtn() {
-        replayImg = new Image(PauseMenu.class.getResourceAsStream("/images/Icon/replay.png"));
-        replayView = new ImageView(replayImg);
-        replayView.setFitWidth(150);
-        replayView.setFitHeight(150);
-        replayBtn.setGraphic(replayView);
-        replayBtn.setLayoutX(785);
-        replayBtn.setLayoutY(460);
-        replayBtn.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-        return replayBtn;
-    }
-
     public static Button getBackBtn() {
         backImg = new Image(PauseMenu.class.getResourceAsStream("/images/Icon/back.png"));
         backView = new ImageView(backImg);
         backView.setFitWidth(150);
         backView.setFitHeight(150);
         backBtn.setGraphic(backView);
-        backBtn.setLayoutX(266);
+        backBtn.setLayoutX(375);
         backBtn.setLayoutY(460);
         backBtn.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         return backBtn;
@@ -239,7 +224,7 @@ public class PauseMenu {
         continueView.setFitWidth(150);
         continueView.setFitHeight(150);
         continueBtn.setGraphic(continueView);
-        continueBtn.setLayoutX(525);
+        continueBtn.setLayoutX(650);
         continueBtn.setLayoutY(460);
         continueBtn.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         return continueBtn;
@@ -255,7 +240,7 @@ public class PauseMenu {
     }
 
     public static Text getTitleText() {
-        title.setLayoutX(435);
+        title.setLayoutX(445);
         title.setLayoutY(311);
         title.setScaleX(2);
         title.setScaleY(2);
@@ -277,7 +262,7 @@ public class PauseMenu {
         homeView.setFitWidth(150);
         homeView.setFitHeight(150);
         homeBtn.setGraphic(homeView);
-        homeBtn.setLayoutX(525);
+        homeBtn.setLayoutX(650);
         homeBtn.setLayoutY(460);
         homeBtn.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         return homeBtn;

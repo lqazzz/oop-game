@@ -19,7 +19,11 @@ public class Bricks extends GameObject {
         super(x , y , width , height);
         this.hitPoint = hitPoint;
         this.typeBrick = typeBrick;
-        img = new Image(getClass().getResourceAsStream("/images/" + GlobalState.newTheme + "/Brick/" + typeBrick + ".png"));
+        img = new Image(getClass().getResourceAsStream("/images/"
+                + GlobalState.newTheme
+                + "/Brick/" + typeBrick
+                + ".png"
+        ));
         view = new ImageView(img);
         this.width = width;
         this.height = height;
@@ -31,7 +35,12 @@ public class Bricks extends GameObject {
     }
 
     public void setNewBrick(int typeBrick) {
-        img = new Image(getClass().getResourceAsStream("/images/" + GlobalState.newTheme + "/Brick/" + typeBrick + ".png"));
+        img = new Image(getClass().getResourceAsStream("/images/"
+                + GlobalState.newTheme
+                + "/Brick/"
+                + typeBrick
+                + ".png"
+        ));
         view = new ImageView(img);
         view.setFitWidth(width);
         view.setFitHeight(height);
@@ -63,7 +72,7 @@ public class Bricks extends GameObject {
         super(x , y , width , height);
         this.typeBrick = "1";
     }
- //   public void collision(
+
     public boolean collision(Ball ball) {
         Bounds ballBounds = ball.getBallGroup().getBoundsInParent();
        // System.out.println(getBoundsTop());

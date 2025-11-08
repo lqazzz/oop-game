@@ -45,7 +45,7 @@ public class RankingController extends Scene {
             while((line = br.readLine()) != null) {
                 String[] parts = line.trim().split("\\s+");
                 StringBuilder name = new StringBuilder();
-                for(int i = 0; i < parts.length - 1; ++i) {
+                for (int i = 0; i < parts.length - 1; ++i) {
                     name.append(parts[i]).append(" ");
                 }
                 topArr.get(idx).setText(name.toString());
@@ -75,7 +75,7 @@ public class RankingController extends Scene {
         if (parent == null) return;
         currentTheme = GlobalState.newTheme;
 
-        for(Node node : parent.getChildrenUnmodifiable()) {
+        for (Node node : parent.getChildrenUnmodifiable()) {
             if (node instanceof ImageView imageView && imageView.getImage() != null) {
                 updateImage(imageView);
             }
@@ -106,7 +106,7 @@ public class RankingController extends Scene {
         List<Integer> score = new ArrayList<>();
         InputStream input = RankingController.class.getResourceAsStream("/ranking/ranking.txt");
         try (BufferedReader br = new BufferedReader(new InputStreamReader(input))) {
-            for(int i = 0; i < 5; ++i) {
+            for (int i = 0; i < 5; ++i) {
                 String line = br.readLine();
                 String[] parts = line.trim().split("\\s+");
                 tops.add(line);
@@ -119,19 +119,19 @@ public class RankingController extends Scene {
         String[] parts = insertScore.trim().split("\\s+");
         int tempScore = Integer.parseInt(parts[parts.length - 1]);
         int index = 0;
-        for(int i = 0; i < 5; ++i) {
+        for (int i = 0; i < 5; ++i) {
             if (tempScore >= score.get(i)) {
                 break;
             }
             index += 1;
         }
         tops.add(index, insertScore);
-        File file = new File("/oop-game/src/main/resources/ranking/ranking.txt");
+        File file = new File(GlobalState.getRankingPath());
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, false))) {
             bw.write("");
         }
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
-            for(int i = 0; i < 5; ++i) {
+            for (int i = 0; i < 5; ++i) {
                 bw.write(tops.get(i) + "\n");
             }
         }

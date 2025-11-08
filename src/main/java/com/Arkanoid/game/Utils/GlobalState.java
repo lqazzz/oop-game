@@ -14,9 +14,9 @@ public class GlobalState {
     private static Stage stage;
     private static Parent root;
     private static Scene scene;
-    public static Group pauseMenu = new Group();
-    public static Group lostMenu = new Group();
-    public static Group wonMenu = new Group();
+    private static Group pauseMenu = new Group();
+    private static Group lostMenu = new Group();
+    private static Group wonMenu = new Group();
     private static int lostSignal = 0;
 
     private static boolean musicMuted = false;
@@ -39,6 +39,7 @@ public class GlobalState {
     private static Rectangle rightWallLine;
     private static Rectangle topWallLine;
     private static String rankingPath;
+    private static int score = 0;
 
     private static Random rand = new Random();
 
@@ -244,6 +245,14 @@ public class GlobalState {
 
     public static Random getRand() {
         return rand;
+    }
+
+    public static int getScore() {
+        return score;
+    }
+
+    public static void setScore(int score) {
+        GlobalState.score = score;
     }
 
 }

@@ -62,9 +62,6 @@ public class GameState {
         createHitPoints();
     }
 
-    /**
-     * Load map and create bricks using BrickFactory
-     */
     private void loadMapAndCreateBricks() {
         InputStream input = getClass().getResourceAsStream("/maps/" + GlobalState.getLevel() + ".txt");
 

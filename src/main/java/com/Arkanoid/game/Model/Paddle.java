@@ -161,7 +161,7 @@ public class Paddle extends MovableObject{
             if (power.typePowerup == 6) {
                 List<Ball> balls = new ArrayList<>(state.getBalls());
                 if (balls.size() >= 6) return true;
-                for(Ball ball : balls) {
+                for (Ball ball : balls) {
                     if (state.getBalls().size() >= 6) break;
                     double x = ball.getLayoutX();
                     double y = ball.getLayoutY();
@@ -184,7 +184,7 @@ public class Paddle extends MovableObject{
                 isStretched = true;
             }
             if (power.typePowerup == 1) {
-                for(Ball ball : state.getBalls()) {
+                for (Ball ball : state.getBalls()) {
                     ball.setFireMode(true);
                     ball.setFrames(600);
                 }
@@ -201,12 +201,12 @@ public class Paddle extends MovableObject{
                 );
             }
             if (power.typePowerup == 4) {
-                for(Ball ball : state.getBalls()) {
+                for (Ball ball : state.getBalls()) {
                     ball.setSlowerMode();
                 }
             }
             if (power.typePowerup == 5) {
-                for(Ball ball : state.getBalls()) {
+                for (Ball ball : state.getBalls()) {
                     ball.setSpeedupMode();
                 }
             }
@@ -220,7 +220,7 @@ public class Paddle extends MovableObject{
             if (power.typePowerup == 8) {
                 List<Ball> balls = new ArrayList<>(state.getBalls());
                 if (balls.size() >= 30) return true;
-                for(Ball ball : balls) {
+                for (Ball ball : balls) {
                     if (state.getBalls().size() >= 30) break;
                     double x = ball.getLayoutX();
                     double y = ball.getLayoutY();
@@ -240,7 +240,7 @@ public class Paddle extends MovableObject{
                 isStretched = true;
             }
             if (power.typePowerup == 1) {
-                for(Ball ball : state.getBalls()) {
+                for (Ball ball : state.getBalls()) {
                     ball.setFireMode(true);
                     ball.setFrames(600);
                 }
@@ -288,7 +288,7 @@ public class Paddle extends MovableObject{
                             y + 10
                     );
                     Bullet rightBullet = state.getFactory().createBullet(
-                            x + GameConfig.DEFAULT_PADDLE_WIDTH - 5,
+                            x + view.getFitWidth() - 5,
                             y + 10
                     );
                     state.getBullets().add(leftBullet);
@@ -311,7 +311,7 @@ public class Paddle extends MovableObject{
                     double y = paddleGroup.getLayoutY();
                     Bullet leftBullet = new Bullet(x, y + 10, 47, 27);
                     Bullet rightBullet = new Bullet(
-                            x + GameConfig.DEFAULT_PADDLE_WIDTH - 5,
+                            x + view.getFitWidth() - 5,
                             y + 10,
                             47,
                             27
@@ -407,5 +407,15 @@ public class Paddle extends MovableObject{
 
     public boolean updatePaddle(PowerUp power, PongGameState state) {
         return collision(power, state);
+    }
+
+    public void setStretched(boolean stretched) {
+        stretchFrames = 600;
+        isStretched = stretched;
+    }
+
+    public void setShooting(boolean shooting) {
+        shootFrames = 600;
+        isShooting = shooting;
     }
 }
