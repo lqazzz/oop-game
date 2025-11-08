@@ -80,4 +80,12 @@ TextField {
     -fx-prompt-text-fill: rgba(0, 0, 0, 0.5); /* gray placeholder */
     -fx-padding: 6 0 4 0;
 }
+#scoreText {
+    -fx-font-size: 30px;
+    -fx-fill: #F0F0F0; /* vàng gold */
+}
+#scores {
+    -fx-font-size: 30px;
+    -fx-fill: #F0F0F0; /* vàng gold */
+}
 

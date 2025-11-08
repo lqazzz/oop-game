@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.util.Iterator;
@@ -25,9 +26,8 @@ public class GameView {
     }
 
 
-    public void render(GameState state) {
+    public void render(GameState state, Text text) {
         GlobalState.setLostSignal(0);
-
         // Add initial objects to the scene
         state.getGameRoot().getChildren().add(state.getPaddle().getPaddleGroup());
         GlobalState.setLostSignal(0);
@@ -50,9 +50,13 @@ public class GameView {
         state.getGameRoot().getChildren().add(topWall);
         GlobalState.setTopWallLine(topWall);
         timeline = new Timeline(
+
                 new KeyFrame(Duration.millis(10), new EventHandler<ActionEvent>() {
+                    int scores = 0;
                     @Override
+
                     public void handle(ActionEvent event) {
+
                         PauseMenu.pause();
                         PauseMenu.saveAndBackHome(timeline);
                         if (GlobalState.isGamePaused()) {
@@ -169,7 +173,7 @@ public class GameView {
                                         } else {
                                             SoundController.getInstance().playNormalBrickSound();
                                         }
-                                        if (GlobalState.getRand().nextInt(100) < 50 && brick.getType().equals("9") == false) {
+                                        if (GlobalState.getRand().nextInt(100) < 10 && brick.getType().equals("9") == false) {
                                             PowerUp newPow = new PowerUp(
                                                     brick.getBrickGroup().getLayoutX(),
                                                     brick.getBrickGroup().getLayoutY()
@@ -178,12 +182,16 @@ public class GameView {
                                             state.getPowerUpList().add(newPow);
                                         }
                                         if (brick.getHitPoint() <= 0) {
+                                            scores += (20 * (brick.getType().toCharArray()[0] - '0'));
+                                            System.out.println("Destroy");
+                                            text.setText(String.valueOf(scores));
                                             state.getGameRoot().getChildren().remove(brick.getBrickGroup());
                                             brickIterator.remove();
                                         }
                                         collides = 1;
                                         break;
                                     }
+                                    if(collides == 1) break;
                                 }
                                 for(int i = 0 ; i < state.getBullets().size(); i++) {
                                     if (brick.updateBrick(state.getBullets().get(i))) {
@@ -192,7 +200,7 @@ public class GameView {
                                         } else {
                                             SoundController.getInstance().playNormalBrickSound();
                                         }
-                                        if (GlobalState.getRand().nextInt(100) < 50 && brick.getType().equals("9") == false) {
+                                        if (GlobalState.getRand().nextInt(100) < 10 && brick.getType().equals("9") == false) {
                                             PowerUp newPow = new PowerUp(
                                                     brick.getBrickGroup().getLayoutX(),
                                                     brick.getBrickGroup().getLayoutY()
@@ -201,6 +209,9 @@ public class GameView {
                                             state.getPowerUpList().add(newPow);
                                         }
                                         if (brick.getHitPoint() <= 0) {
+                                            System.out.println("Destroy");
+                                            scores += (20 * (brick.getType().toCharArray()[0] - '0'));
+                                            text.setText(String.valueOf(scores));
                                             // set chance to 20% if colliding with bullets
                                             state.getGameRoot().getChildren().remove(brick.getBrickGroup());
                                             brickIterator.remove();
@@ -208,8 +219,12 @@ public class GameView {
                                         collides = 1;
                                         break;
                                     }
+                                    if( collides == 1) break;
                                 }
-                                if (collides == 1) break;
+                                if (collides == 1) {
+                                    System.out.println("Break");
+                                    break;
+                                }
                             }
                             if (isDied) {
                                 System.out.println("remove");
