@@ -18,7 +18,7 @@ import javafx.util.Duration;
 import java.util.LinkedList;
 
 public class Ball extends MovableObject {
-    protected double angle = 90;
+    protected double angle = 60;
     protected double frames = 600;
     protected double dx;
     protected double dy;
@@ -265,7 +265,7 @@ public class Ball extends MovableObject {
         ballGroup.setLayoutX(state.getPaddle().getPaddleGroup().getLayoutX() + GameConfig.DEFAULT_PADDLE_WIDTH / 2.0 - GameConfig.DEFAULT_BALL_WIDTH / 2.0);
         ballGroup.setLayoutY(GameConfig.DEFAULT_BALL_LAYOUT_Y);
         GlobalState.setBallMoved(false);
-        angle = 90;
+        angle = 60;
     }
 
     public void resetBall(PongGameState state) {
@@ -276,7 +276,7 @@ public class Ball extends MovableObject {
         ballGroup.setLayoutX(GameConfig.DEFAULT_SCREEN_WIDTH / 2);
         ballGroup.setLayoutY(GameConfig.DEFAULT_SCREEN_HEIGHT / 2 - GameConfig.DEFAULT_BALL_WIDTH / 2);
         GlobalState.setBallMoved(false);
-        angle = 90;
+        angle = 60;
     }
 
     public void cleanup() {
