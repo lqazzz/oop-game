@@ -19,6 +19,9 @@ public class GlobalState {
     private static Group wonMenu = new Group();
     private static int lostSignal = 0;
 
+    private static double musicVolume = 100.0;
+    private static double soundVolume = 100.0;
+
     private static boolean musicMuted = false;
     public static String newTheme = "default";
     private static boolean soundMuted = false;
@@ -255,4 +258,19 @@ public class GlobalState {
         GlobalState.score = score;
     }
 
+    public static double getMusicVolume() {
+        return musicVolume;
+    }
+
+    public static void setMusicVolume(double musicVolume) {
+        GlobalState.musicVolume = musicVolume;
+    }
+
+    public static double getSoundVolume() {
+        return soundVolume;
+    }
+
+    public static void setSoundVolume(double soundVolume) {
+        GlobalState.soundVolume = soundVolume;
+    }
 }

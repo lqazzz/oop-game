@@ -31,10 +31,13 @@ public class SettingController extends Scene {
         updateTheme(rootPane);
         updateSoundIcon();
         updateMusicIcon();
-        musicSlider.setValue((GlobalState.isMusicMuted() ? 0 : 1) * 100);
-        soundSlider.setValue((GlobalState.isSoundMuted() ? 0 : 1) * 100);
+//        musicSlider.setValue((GlobalState.isMusicMuted() ? 0 : 1) * 100);
+//        soundSlider.setValue((GlobalState.isSoundMuted() ? 0 : 1) * 100);
+        musicSlider.setValue(GlobalState.getMusicVolume());
+        soundSlider.setValue(GlobalState.getSoundVolume());
         musicBtn.setImage(GlobalState.isMusicMuted() ? soundOff : soundOn);
         soundBtn.setImage(GlobalState.isSoundMuted() ? soundOff : soundOn);
+
     }
     public void updateTheme(Parent parent) {
         if (parent == null) return;

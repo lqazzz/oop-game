@@ -32,6 +32,14 @@ public class SoundController {
                         .getResource("/sfx/bonk.m4a").toExternalForm());
                 powerUpSound = new AudioClip(getClass()
                         .getResource("/sfx/getPower.m4a").toExternalForm());
+
+                double soundVol = GlobalState.getSoundVolume() / 100.0;
+                btnClick.setVolume(soundVol);
+                bulletSound.setVolume(soundVol);
+                normalBrickSound.setVolume(soundVol);
+                supermanBrickSound.setVolume(soundVol);
+                powerUpSound.setVolume(soundVol);
+
                 System.out.println("All sounds loaded!");
             } catch (Exception e) {
                 System.err.println("Error loading sounds: " + e.getMessage());
@@ -88,6 +96,8 @@ public class SoundController {
         if (loop) {
             currentPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         }
+
+        currentPlayer.setVolume(GlobalState.getMusicVolume() / 100.0);
         currentPlayer.play();
     }
 
@@ -102,23 +112,32 @@ public class SoundController {
             if (!GlobalState.isMusicMuted()) {
                 currentPlayer.setVolume(0);
                 musicSlider.setValue(0);
+                GlobalState.setMusicMuted(true);
+                GlobalState.setMusicVolume(0);
             } else {
-                currentPlayer.setVolume(1.0);
-                musicSlider.setValue(100);
+                double restoredVolume = 100.0;
+                currentPlayer.setVolume(restoredVolume / 100.0);
+                musicSlider.setValue(restoredVolume);
+                GlobalState.setMusicMuted(false);
+                GlobalState.setMusicVolume(restoredVolume);
             }
-            GlobalState.setMusicMuted(!GlobalState.isMusicMuted());
         }
     }
 
     public void changeMusicVolume(Slider musicSlider) {
         if (currentPlayer != null) {
-            currentPlayer.setVolume(musicSlider.getValue() / 100.0);
+            double volume = musicSlider.getValue();
+            currentPlayer.setVolume(volume / 100.0);
 
             musicSlider.valueProperty().addListener(
                     (obs, oldVal, newVal) -> {
-                        currentPlayer.setVolume(newVal.doubleValue() / 100.0);
+                        double vol = newVal.doubleValue();
+                        currentPlayer.setVolume(vol / 100.0);
+                        GlobalState.setMusicVolume(vol);
+                        GlobalState.setMusicMuted(vol == 0);
                     });
 
+            GlobalState.setMusicVolume(volume);
             GlobalState.setMusicMuted(currentPlayer.getVolume() == 0);
         }
     }
@@ -127,10 +146,14 @@ public class SoundController {
         if (btnClick != null) {
             if (!GlobalState.isSoundMuted()) {
                 soundSlider.setValue(0);
+                GlobalState.setSoundMuted(true);
+                GlobalState.setSoundVolume(0);
             } else {
-                soundSlider.setValue(100);
+                double restoredVolume = 100.0;
+                soundSlider.setValue(restoredVolume);
+                GlobalState.setSoundMuted(false);
+                GlobalState.setSoundVolume(restoredVolume);
             }
-            GlobalState.setSoundMuted(!GlobalState.isSoundMuted());
         }
     }
 
@@ -151,8 +174,12 @@ public class SoundController {
                         normalBrickSound.setVolume(vol);
                         supermanBrickSound.setVolume(vol);
                         powerUpSound.setVolume(vol);
+
+                        GlobalState.setSoundVolume(newVal.doubleValue());
+                        GlobalState.setSoundMuted(vol == 0);
                     });
 
+            GlobalState.setSoundVolume(soundSlider.getValue());
             GlobalState.setSoundMuted(volume == 0);
         }
     }
