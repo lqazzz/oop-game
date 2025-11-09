@@ -11,19 +11,32 @@ import java.net.URL;
 public class SoundController {
 
     private MediaPlayer currentPlayer;
-    private static AudioClip btnClick = new AudioClip(SoundController.class.
-            getResource("/sfx/buttonClick.m4a").toExternalForm());
-    private static AudioClip bulletSound = new AudioClip(SoundController.class.
-            getResource("/sfx/laserShoot.wav").toExternalForm());
-    private static AudioClip normalBrickSound = new AudioClip(SoundController.class.
-            getResource("/sfx/bonk.m4a").toExternalForm());
-    private static AudioClip supermanBrickSound = new AudioClip(SoundController.class.
-            getResource("/sfx/bonk.m4a").toExternalForm());
-    private static AudioClip powerUpSound = new AudioClip(SoundController.class.
-            getResource("/sfx/getPower.m4a").toExternalForm());
     private static SoundController instance = new SoundController();
 
+    private static AudioClip btnClick;
+    private static AudioClip bulletSound;
+    private static AudioClip normalBrickSound;
+    private static AudioClip supermanBrickSound;
+    private static AudioClip powerUpSound;
+
     private SoundController() {
+        new Thread(() -> {
+            try {
+                btnClick = new AudioClip(getClass()
+                        .getResource("/sfx/buttonClick.m4a").toExternalForm());
+                bulletSound = new AudioClip(getClass()
+                        .getResource("/sfx/laserShoot.wav").toExternalForm());
+                normalBrickSound = new AudioClip(getClass()
+                        .getResource("/sfx/bonk.m4a").toExternalForm());
+                supermanBrickSound = new AudioClip(getClass()
+                        .getResource("/sfx/bonk.m4a").toExternalForm());
+                powerUpSound = new AudioClip(getClass()
+                        .getResource("/sfx/getPower.m4a").toExternalForm());
+                System.out.println("All sounds loaded!");
+            } catch (Exception e) {
+                System.err.println("Error loading sounds: " + e.getMessage());
+            }
+        }).start();
     }
 
     public static SoundController getInstance() {
@@ -31,37 +44,35 @@ public class SoundController {
     }
 
     public void playBtnClick() {
-        if (!GlobalState.isSoundMuted()) {
-            btnClick.stop();
-            btnClick.play();
+        if (!GlobalState.isSoundMuted() && btnClick != null) {
+            new Thread(() -> btnClick.play()).start();
         }
     }
 
     public void playBulletSound() {
-        if (!GlobalState.isSoundMuted()) {
-            bulletSound.stop();
-            bulletSound.play();
+        if (!GlobalState.isSoundMuted() && bulletSound != null) {
+            new Thread(() -> bulletSound.play()).start();
         }
     }
 
     public void playNormalBrickSound() {
-        if (!GlobalState.isSoundMuted()) {
-            normalBrickSound.stop();
-            normalBrickSound.play();
+        if (!GlobalState.isSoundMuted() && normalBrickSound != null) {
+            new Thread(() -> normalBrickSound.play()).start();
         }
     }
 
     public void playSupermanBrickSound() {
-        if (!GlobalState.isSoundMuted()) {
-            supermanBrickSound.stop();
-            supermanBrickSound.play();
+        if (!GlobalState.isSoundMuted() && supermanBrickSound != null) {
+            new Thread(() -> {
+                supermanBrickSound.setVolume(1.2);
+                supermanBrickSound.play();
+            }).start();
         }
     }
 
     public void playPowerUpSound() {
-        if (!GlobalState.isSoundMuted()) {
-            powerUpSound.stop();
-            powerUpSound.play();
+        if (!GlobalState.isSoundMuted() && powerUpSound != null) {
+            new Thread(() -> powerUpSound.play()).start();
         }
     }
 
@@ -105,8 +116,8 @@ public class SoundController {
 
             musicSlider.valueProperty().addListener(
                     (obs, oldVal, newVal) -> {
-                currentPlayer.setVolume(newVal.doubleValue() / 100.0);
-            });
+                        currentPlayer.setVolume(newVal.doubleValue() / 100.0);
+                    });
 
             GlobalState.setMusicMuted(currentPlayer.getVolume() == 0);
         }
@@ -125,13 +136,24 @@ public class SoundController {
 
     public void changeSoundVolume(Slider soundSlider) {
         if (btnClick != null) {
-            btnClick.setVolume(soundSlider.getValue() / 100.0);
+            double volume = soundSlider.getValue() / 100.0;
+            btnClick.setVolume(volume);
+            bulletSound.setVolume(volume);
+            normalBrickSound.setVolume(volume);
+            supermanBrickSound.setVolume(volume);
+            powerUpSound.setVolume(volume);
 
             soundSlider.valueProperty().addListener(
                     (obs, oldVal, newVal) -> {
-                btnClick.setVolume(newVal.doubleValue() / 100.0);
-            });
-            GlobalState.setSoundMuted(btnClick.getVolume() == 0);
+                        double vol = newVal.doubleValue() / 100.0;
+                        btnClick.setVolume(vol);
+                        bulletSound.setVolume(vol);
+                        normalBrickSound.setVolume(vol);
+                        supermanBrickSound.setVolume(vol);
+                        powerUpSound.setVolume(vol);
+                    });
+
+            GlobalState.setSoundMuted(volume == 0);
         }
     }
 
