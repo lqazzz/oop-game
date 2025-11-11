@@ -114,7 +114,7 @@
             <graphic>
                 <ImageView fitHeight="34.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/Paddle/red.png" />
+                        <Image url="@../images/Paddle/defaultPad/normal.png" />
                     </image>
                 </ImageView>
             </graphic>
