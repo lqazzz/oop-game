@@ -29,6 +29,6 @@ public class DefaultGameObjectFactory implements GameObjectFactory {
 
     @Override
     public Bullet createBullet(double x, double y) {
-        return new Bullet(x, y,47,27);
+        return new Bullet(x, y, 47, 27);
     }
 }

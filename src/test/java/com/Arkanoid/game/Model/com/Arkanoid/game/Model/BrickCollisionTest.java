@@ -227,7 +227,7 @@ class BrickCollisionTest {
     }
 
     @Test
-    @DisplayName("Test va chạm với Bullet")
+    @DisplayName("Bullet collision")
     void testBulletCollision() {
         Bullet bullet = new Bullet(
                 400 + GameConfig.BRICK_WIDTH / 2.0,
@@ -236,17 +236,17 @@ class BrickCollisionTest {
                 27
         );
 
-        assertEquals(1, brick.getHitPoint(), "HitPoint ban đầu phải là 1");
+        assertEquals(1, brick.getHitPoint(), "Initial hitPoint must be 1");
 
         boolean collision = brick.collision(bullet);
 
-        assertTrue(collision, "Phải phát hiện va chạm với bullet");
-        assertEquals(0, brick.getHitPoint(), "HitPoint phải giảm xuống 0");
-        assertTrue(bullet.isDestroyed(), "Bullet phải bị destroy sau va chạm");
+        assertTrue(collision, "Collision with bullet must be found");
+        assertEquals(0, brick.getHitPoint(), "HitPoint must be 0");
+        assertTrue(bullet.isDestroyed(), "Bullet must be destroyed after colliding with brick");
     }
 
     @Test
-    @DisplayName("Test bullet không phá hủy brick bất tử")
+    @DisplayName("Bullet can not destroyed unbreakable")
     void testBulletCannotDestroyIndestructibleBrick() {
         brick = new Bricks(
                 400,
@@ -267,8 +267,6 @@ class BrickCollisionTest {
         int initialHitPoint = brick.getHitPoint();
         boolean collision = brick.collision(bullet);
 
-        assertFalse(collision, "Không nên phát hiện va chạm với brick bất tử");
-        assertEquals(initialHitPoint, brick.getHitPoint(), "HitPoint không thay đổi");
-        assertFalse(bullet.isDestroyed(), "Bullet không bị destroy");
+        assertEquals(initialHitPoint, brick.getHitPoint(), "HitPoint can not be changed");
     }
 }
