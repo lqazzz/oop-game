@@ -183,8 +183,8 @@ public class Ball extends MovableObject {
 
         dx = currentSpeed * Math.cos(Math.toRadians(angle));
         dy = -currentSpeed * Math.sin(Math.toRadians(angle));
-        ballGroup.setLayoutX(ballGroup.getLayoutX() + currentSpeed * Math.cos(Math.toRadians(angle)));
-        ballGroup.setLayoutY(ballGroup.getLayoutY() - currentSpeed * Math.sin(Math.toRadians(angle)));
+        ballGroup.setLayoutX(ballGroup.getLayoutX() + currentSpeed * Math.cos(Math.toRadians(angle + Math.random() * 2)));
+        ballGroup.setLayoutY(ballGroup.getLayoutY() - currentSpeed * Math.sin(Math.toRadians(angle + Math.random() * 2)));
 
         if (trailEffect != null) {
             trailEffect.addTrail(

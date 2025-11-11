@@ -30,7 +30,7 @@ public class PowerUp extends MovableObject {
 
     public void getRandomPowerUp(GameState state) {
         int randomPowerUp = GlobalState.getRand().nextInt(7);
-//        int randomPowerUp = 6;
+//        int randomPowerUp = 1;
 //        int randomPowerUp = GlobalState.getRand().nextInt(2) == 0 ? 1 : 6;
         if (powerUpGroup.getChildren().isEmpty()) {
             img = new Image(getClass().getResourceAsStream("/images/default/Power/" + powerType[randomPowerUp]));

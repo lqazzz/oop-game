@@ -127,6 +127,44 @@ public class Bricks extends GameObject {
                 if (!typeBrick.equals("9")) {
                     hitPoint = 0;
                     return true;
+                } else {
+                    if ((ballBounds.intersects(getBoundsLeft()) && ballBounds.intersects(getBoundsBottom()))) {
+                        ball.setAngleVertical(isOppositeDirY);
+                        ball.setAngleHorizontal(!isOppositeDirX);
+                        return true;
+                    }
+                    if (ballBounds.intersects(getBoundsRight()) && ballBounds.intersects(getBoundsBottom())) {
+                        ball.setAngleVertical(isOppositeDirY);
+                        ball.setAngleHorizontal(isOppositeDirX);
+                        return true;
+                    }
+                    if (ballBounds.intersects(getBoundsRight()) && ballBounds.intersects(getBoundsTop())) {
+                        ball.setAngleVertical(!isOppositeDirY);
+                        ball.setAngleHorizontal(isOppositeDirX);
+                        return true;
+                    }
+                    if (ballBounds.intersects(getBoundsLeft()) && ballBounds.intersects(getBoundsTop())) {
+                        ball.setAngleVertical(!isOppositeDirY);
+                        ball.setAngleHorizontal(!isOppositeDirX);
+                        return true;
+                    }
+                    if (ballBounds.intersects(getBoundsLeft())) {
+                        ball.setAngleHorizontal(true);
+                        return true;
+                    }
+                    if (ballBounds.intersects(getBoundsRight())) {
+                        ball.setAngleHorizontal(true);
+                        return true;
+                    }
+                    if (ballBounds.intersects(getBoundsTop())) {
+                        ball.setAngleVertical(true);
+                        return true;
+                    }
+                    if (ballBounds.intersects(getBoundsBottom())) {
+                        ball.setAngleVertical(true);
+                        return true;
+                    }
+
                 }
             }
         }
