@@ -48,7 +48,7 @@ public class ShopController extends Scene {
     @FXML Button sea;
     @FXML Button halloween;
     @FXML Button watermelon;
-    private final Map<String, Integer> padMap = Map.of("defaultpad",0,
+    private final Map<String, Integer> padMap = Map.of("defaultPad",0,
             "aero", 1,
             "futuristic", 2,
             "sea", 3,
@@ -115,7 +115,7 @@ public class ShopController extends Scene {
     public void getCurrentPad(ActionEvent event) throws IOException {
         SoundController.getInstance().playBtnClick();
         Button clicked = (Button) event.getSource();
-        String padName = clicked.getId().toLowerCase();
+        String padName = clicked.getId();
         GlobalState.setCurrentPadPath("/images/Paddle/" + padName + "/normal.png");
         GlobalState.setCurrentPad(padMap.get(padName));
         setCurrentPad();
