@@ -21,19 +21,24 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
     public void start(Stage primaryStage) throws Exception {
         MainPageController.currentTheme = "default";
         SelectLevelController.currentTheme = "default";
         ThemeController.currentTheme = "default";
         SettingController.currentTheme = "default";
         GameController.currentTheme = "default";
+
         SoundController.getInstance().playMusic("background.mp3", true);
+
         Font.loadFont(getClass().getResource("/font/PaytoneOne-Regular.ttf").toExternalForm(), 12);
+
         GlobalState.initRankingPath();
         System.out.println(GlobalState.getRankingPath());
         GlobalState.setRoot(FXMLLoader.load(getClass().getResource("/fxml/main-page.fxml")));
         GlobalState.setScene(GlobalState.getRoot());
         GlobalState.getScene().getStylesheets().add(getClass().getResource("/fxml/styles.css").toExternalForm());
+
         primaryStage.setTitle("Arkanoid");
         primaryStage.setScene(GlobalState.getScene());
         primaryStage.setFullScreen(false);
