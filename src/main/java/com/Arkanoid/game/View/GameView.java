@@ -79,6 +79,7 @@ public class GameView {
                             if (!GlobalState.isOverAdded()) {
                                 GlobalState.initLostMenu();
                                 state.getGameRoot().getChildren().add(GlobalState.getLostMenu());
+                                GlobalState.setScore(GlobalState.getScore() + scores);
                                 GlobalState.setOverAdded(true);
                             }
                         } else {

@@ -76,8 +76,9 @@ public class PauseMenu {
             overlay.setOpacity(0.5);
             lostMenu.getChildren().add(overlay);
             lostMenu.getChildren().add(getPopUpBackground());
-            lostMenu.getChildren().add(getBackBtn());
+            lostMenu.getChildren().add(getNameInput());
             lostMenu.getChildren().add(getHomeBtn());
+            homeBtn.setLayoutX(500);
             lostMenu.getChildren().add(getTitleText());
         }
         return lostMenu;
@@ -182,7 +183,7 @@ public class PauseMenu {
                 if (timeline != null) {
                     timeline.stop();
                 }
-                if(GlobalState.getLevel() == 12) {
+                if (GlobalState.getLevel() == 12 || GlobalState.isGameOver()) {
                     if (!nameInput.getText().isEmpty()) {
                         RankingController.updateRanking(nameInput.getText() + " " + GlobalState.getScore());
                     } else {
@@ -199,6 +200,7 @@ public class PauseMenu {
                 GlobalState.setBallMoved(false);
                 GlobalState.setWonAdded(false);
                 GlobalState.setGameWon(false);
+                nameInput = new TextField();
                 pauseMenuController.switchToMainPage(e);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

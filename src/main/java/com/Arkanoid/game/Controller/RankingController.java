@@ -39,8 +39,8 @@ public class RankingController extends Scene {
         updateTheme(rootPane);
         System.out.println(GlobalState.getRankingPath());
         File file = new File(GlobalState.getRankingPath());
-        int idx = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            int idx = 0;
             String line;
             while((line = br.readLine()) != null) {
                 String[] parts = line.trim().split("\\s+");
@@ -85,7 +85,7 @@ public class RankingController extends Scene {
                 }
             }
             if (node instanceof Parent childParent) {
-                updateTheme(childParent);
+               updateTheme(childParent);
             }
         }
     }
@@ -104,13 +104,17 @@ public class RankingController extends Scene {
     public static void updateRanking(String top) throws IOException {
         List<String> tops = new ArrayList<>();
         List<Integer> score = new ArrayList<>();
-        InputStream input = RankingController.class.getResourceAsStream("/ranking/ranking.txt");
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(input))) {
+        File file = new File(GlobalState.getRankingPath());
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             for (int i = 0; i < 5; ++i) {
                 String line = br.readLine();
-                String[] parts = line.trim().split("\\s+");
-                tops.add(line);
-                score.add(Integer.parseInt(parts[parts.length - 1]));
+                if (line != null && !line.isEmpty()) {
+                    String[] parts = line.trim().split("\\s+");
+                    tops.add(line);
+                    score.add(Integer.parseInt(parts[parts.length - 1]));
+                } else {
+                    break;
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -119,19 +123,20 @@ public class RankingController extends Scene {
         String[] parts = insertScore.trim().split("\\s+");
         int tempScore = Integer.parseInt(parts[parts.length - 1]);
         int index = 0;
-        for (int i = 0; i < 5; ++i) {
+        for (int i = 0; i < Math.min(score.size(), 5); ++i) {
             if (tempScore >= score.get(i)) {
                 break;
             }
             index += 1;
         }
-        tops.add(index, insertScore);
-        File file = new File(GlobalState.getRankingPath());
+        if (index <= 4) {
+            tops.add(index, insertScore);
+        }
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, false))) {
             bw.write("");
         }
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
-            for (int i = 0; i < 5; ++i) {
+            for (int i = 0; i < Math.min(tops.size(), 5); ++i) {
                 bw.write(tops.get(i) + "\n");
             }
         }
