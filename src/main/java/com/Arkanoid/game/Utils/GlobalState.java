@@ -27,7 +27,7 @@ public class GlobalState {
     private static boolean soundMuted = false;
     private static double lastMusicTime = 0;
     private static int currentBall = 0;
-    private static String currentBallPath = "/images/Ball/default.png";
+    private static String currentBallPath = "/images/Ball/defaultBall.png";
     private static String currentPadPath = "/images/Paddle/default/normal.png";
     private static int currentPad = 0;
     private static boolean ballMoved = false;

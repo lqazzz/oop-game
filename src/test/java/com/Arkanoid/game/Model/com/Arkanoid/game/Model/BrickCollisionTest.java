@@ -28,7 +28,7 @@ class BrickCollisionTest {
     void setUp() {
         gameRoot = new Group();
 
-        GlobalState.setCurrentBallPath("/images/Ball/default.png");
+        GlobalState.setCurrentBallPath("/images/Ball/defaultBall.png");
         GlobalState.newTheme = "default";
 
         brick = new Bricks(

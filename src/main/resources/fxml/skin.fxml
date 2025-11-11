@@ -29,7 +29,14 @@
                 <Font size="40.0" />
             </font>
         </Text>
-        <Button fx:id="defaultBall" contentDisplay="GRAPHIC_ONLY" layoutX="255.0" layoutY="338.0" mnemonicParsing="false" onAction="#getCurrentBall" text="BallDefault" />
+        <Button fx:id="defaultBall" contentDisplay="GRAPHIC_ONLY" layoutX="240.0" layoutY="338.0" mnemonicParsing="false" onAction="#getCurrentBall" text="BallDefault">
+         <graphic>
+                <ImageView fitHeight="83.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Ball/defaultBall.png" />
+                    </image>
+                </ImageView>
+         </graphic></Button>
         <Button fx:id="circuit" contentDisplay="GRAPHIC_ONLY" layoutX="394.0" layoutY="341.0" mnemonicParsing="false" onAction="#getCurrentBall" text="Circuit">
             <graphic>
                 <ImageView fitHeight="83.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
@@ -167,10 +174,5 @@
         <ImageView fx:id="seaSelect" fitHeight="62.0" fitWidth="63.0" layoutX="724.0" layoutY="502.0" pickOnBounds="true" preserveRatio="true" />
         <ImageView fx:id="halloweenSelect" fitHeight="62.0" fitWidth="63.0" layoutX="864.0" layoutY="502.0" pickOnBounds="true" preserveRatio="true" />
         <ImageView fx:id="watermelonSelect" fitHeight="62.0" fitWidth="63.0" layoutX="1022.0" layoutY="502.0" pickOnBounds="true" preserveRatio="true" />
-          <ImageView fitHeight="83.0" fitWidth="144.0" layoutX="249.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true">
-              <image>
-                  <Image url="@../images/Ball/default.png" />
-              </image>
-          </ImageView>
     </children>
 </AnchorPane>

@@ -26,7 +26,7 @@ class PaddleCollisionTest {
     @BeforeEach
     void setUp() {
         gameRoot = new Group();
-        GlobalState.setCurrentBallPath("/images/Ball/default.png");
+        GlobalState.setCurrentBallPath("/images/Ball/defaultBall.png");
         GlobalState.setCurrentPadPath("/images/Paddle/default/normal.png");
         
         paddle = new Paddle(
