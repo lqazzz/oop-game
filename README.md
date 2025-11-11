@@ -49,10 +49,12 @@ This is a classic Arkanoid game developed in Java as a final project for Object-
 **Purpose:** Ensure only one instance exists throughout the application.
 
 ### 3. Factory method
-**Used in:** `BrickFactory, GameObjectFactory`
-
+**Used in:** `BrickFactory, GameObjectFactory
 **Purpose:** Create objects easier and more structurally.
+### 4. Object Pool
+**Used in:** `BallTrailEffect`
 
+**Purpose:** Optimize memory for ball trail overlays.
 
 ---
 
@@ -192,4 +194,4 @@ This project is developed for educational purposes only.
 
 ---
 
-*Last updated: [09/11/2025]*
+*Last updated: [11/11/2025]*
