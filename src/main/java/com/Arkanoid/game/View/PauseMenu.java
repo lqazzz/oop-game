@@ -67,7 +67,7 @@ public class PauseMenu {
         lostMenu.getChildren().clear();
         if (lostMenu.getChildren().isEmpty()) {
             if (GlobalState.getLostSignal() == 0) {
-                title = new Text("You lost :((");
+                title = new Text("You lost");
             } else if (GlobalState.getLostSignal() == -1) {
                 title = new Text("A won");
             } else if (GlobalState.getLostSignal() == 1) {
@@ -76,7 +76,9 @@ public class PauseMenu {
             overlay.setOpacity(0.5);
             lostMenu.getChildren().add(overlay);
             lostMenu.getChildren().add(getPopUpBackground());
-            lostMenu.getChildren().add(getNameInput());
+            if (GlobalState.getLostSignal() == 0) {
+                lostMenu.getChildren().add(getNameInput());
+            }
             lostMenu.getChildren().add(getHomeBtn());
             homeBtn.setLayoutX(500);
             lostMenu.getChildren().add(getTitleText());
@@ -88,7 +90,7 @@ public class PauseMenu {
         GlobalState.getScene().getStylesheets().add(PauseMenu.class.getResource("/fxml/styles.css").toExternalForm());
         wonMenu.getChildren().clear();
         if (wonMenu.getChildren().isEmpty()) {
-            title = new Text("You won!!!");
+            title = new Text("You won");
             overlay.setOpacity(0.5);
             wonMenu.getChildren().add(overlay);
             wonMenu.getChildren().add(getPopUpBackground());
@@ -183,7 +185,7 @@ public class PauseMenu {
                 if (timeline != null) {
                     timeline.stop();
                 }
-                if (GlobalState.getLevel() == 12 || GlobalState.isGameOver()) {
+                if (GlobalState.getLevel() == 12 || (GlobalState.isGameOver() && GlobalState.getLostSignal() == 0)) {
                     if (!nameInput.getText().isEmpty()) {
                         RankingController.updateRanking(nameInput.getText() + " " + GlobalState.getScore());
                     } else {
@@ -242,7 +244,7 @@ public class PauseMenu {
     }
 
     public static Text getTitleText() {
-        title.setLayoutX(445);
+        title.setLayoutX(500);
         title.setLayoutY(311);
         title.setScaleX(2);
         title.setScaleY(2);
